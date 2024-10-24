@@ -49,5 +49,22 @@ El usuario puede cancelar el proceso en cualquier momento pulsando el botón **C
 
 <img src="https://github.com/user-attachments/assets/95adbb12-200c-46c1-b0cf-e0f41a16bf42" alt="Paso 3" width="400"/>
 
-2. Aparece una ventana emergente donde se le muestra al usuario 
+2. Aparece una ventana emergente donde se le muestra al usuario los puntos de interés. Una vez seleccionado pulsa el boton "ORDENAR".
+   
+<img src="https://github.com/user-attachments/assets/357e0296-fb1e-432b-8a8d-5d6ff09ac78e" alt="Paso 3" width="400"/>
+
+3. Se le muestra al usuario la lista de gasolineras ordenada por cercanía al punto de interes solicitado.
+   
+<img src="https://github.com/user-attachments/assets/d18d3eb4-8efc-432d-a360-5a72ac7e1e7d" alt="Paso 3" width="400"/>
+
+### 2. Cancelar la Operación
+
+El usuario puede cancelar el proceso en cualquier momento pulsando el botón **Cancelar**, lo cual cerrará la vista sin guardar ningún dato.
+
+## Posibles Errores y Mensajes
+
+1. **Error: No hay ningun punto de interes añadido** En este caso el usuario tendra que pulsar el botón "CANCELAR" y añadir un punto de interés.
+   
+<img src="https://github.com/user-attachments/assets/0f670d9e-18f0-4559-8d5a-87739fbf74a5" alt="Paso 3" width="400"/>
+
 
