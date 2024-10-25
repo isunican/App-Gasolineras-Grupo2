@@ -7,8 +7,13 @@ skinparam arrowLollipopColor #ADD1B2
 MainView -right(0- MainPresenter : IMainContract.Presenter
 MainView -right0)- MainPresenter : IMainContract.View
 MainView -up..-> InfoView : <<use>>
-MainView -down..> DetailsView : <<use>>
+MainView -left..> DetailsView : <<use>>
+MainView -down..> AnhadirPuntoInteresView : <<use>>
 MainPresenter -right(0- GasolinerasRepository : IGasolinerasRepository
+
+AnhadirPuntoInteresView -right(0- AnhadirPuntoInteresPresenter : IAnhadirPuntoInteresContract.Presenter
+AnhadirPuntoInteresView -right0)- AnhadirPuntoInteresPresenter : IAnhadirPuntoInteresContract.View
+AnhadirPuntoInteresPresenter -right(0- PuntoInteresDAO : IPuntosInteresDAO
 
 class MainPresenter {
     -load()
@@ -39,13 +44,11 @@ interface ICallBack {
     + onFailure(Throwable e)
 }
 
-class AnhadirPuntoInteresPresenter {
-    - onGuardarPuntoInteresClicked(String nombre, String latitudStr, String longitudStr)
+interface IAnhadirPuntoInteresContract#Presenter {
+    + onGuardarPuntoInteresClicked(String nombre, String latitudStr, String longitudStr)
 }
 
-AnhadirPuntoInteresPresenter --> IAnhadirPuntoInteresView : controla
-
-interface IAnhadirPuntoInteresView {
+interface IAnhadirPuntoInteresContract#View {
     + mostrarMensaje(String mensaje)
     + obtenerNombre() : String
     + obtenerLatitud() : String
@@ -53,17 +56,6 @@ interface IAnhadirPuntoInteresView {
     + cerrarVista()
     + getPuntosInteresDAO() : IPuntosInteresDao
 }
-
-class MenuAnhadirPuntoInteresView {
-    - etNombre : EditText
-    - etLatitud : EditText
-    - etLongitud : EditText
-    - btnGuardar : Button
-    - btnCancelar : Button
-}
-
-MenuAnhadirPuntoInteresView --> AnhadirPuntoInteresPresenter : usa
-MenuAnhadirPuntoInteresView --> IPuntosInteresDao : accede
 
 interface IPuntosInteresDao {
     + getAll() : List<PuntoInteres>
