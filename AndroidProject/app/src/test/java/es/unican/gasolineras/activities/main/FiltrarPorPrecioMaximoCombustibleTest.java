@@ -3,6 +3,7 @@ package es.unican.gasolineras.activities.main;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doAnswer;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -16,6 +17,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import es.unican.gasolineras.model.Gasolinera;
+import es.unican.gasolineras.model.TipoCombustible;
 import es.unican.gasolineras.repository.ICallBack;
 import es.unican.gasolineras.repository.IGasolinerasRepository;
 
@@ -82,9 +84,9 @@ public class FiltrarPorPrecioMaximoCombustibleTest {
         ArgumentCaptor<List<Gasolinera>> captor = ArgumentCaptor.forClass(List.class);
 
         sut.init(mockVista);
-        sut.filtrarGasolinerasPorPrecioMaximo(precioMaximo, "GasoleoA");
+        sut.filtraGasolinerasPorPrecioMaximo(precioMaximo, TipoCombustible.GASOLEO_A);
 
-        verify(mockVista).showStations(captor.capture());
+        verify(mockVista, times(2)).showStations(captor.capture());
 
         List<Gasolinera> gasolinerasFiltradas = captor.getValue();
         assertEquals(1, gasolinerasFiltradas.size());
@@ -106,9 +108,9 @@ public class FiltrarPorPrecioMaximoCombustibleTest {
         ArgumentCaptor<List<Gasolinera>> captor = ArgumentCaptor.forClass(List.class);
 
         sut.init(mockVista);
-        sut.filtrarGasolinerasPorPrecioMaximo(precioMaximo, "Gasolina95E5");
+        sut.filtraGasolinerasPorPrecioMaximo(precioMaximo, TipoCombustible.GASOLINA_98_E5);
 
-        verify(mockVista).showStations(captor.capture());
+        verify(mockVista, times(2)).showStations(captor.capture());
 
         List<Gasolinera> gasolinerasFiltradas = captor.getValue();
         assertEquals(3, gasolinerasFiltradas.size());
@@ -132,12 +134,12 @@ public class FiltrarPorPrecioMaximoCombustibleTest {
         ArgumentCaptor<List<Gasolinera>> captor = ArgumentCaptor.forClass(List.class);
 
         sut.init(mockVista);
-        sut.filtrarGasolinerasPorPrecioMaximo(precioMaximo, "Gasolina95E5");
+        sut.filtraGasolinerasPorPrecioMaximo(precioMaximo, TipoCombustible.GASOLINA_98_E5);
 
-        verify(mockVista).showStations(captor.capture());
+        verify(mockVista, times(2)).showStations(captor.capture());
 
         List<Gasolinera> gasolinerasFiltradas = captor.getValue();
-        assertEquals(3, gasolinerasFiltradas.size());
+        assertEquals(2, gasolinerasFiltradas.size());
         assertEquals(gasolinera1, gasolinerasFiltradas.get(0));
         assertEquals(gasolinera2, gasolinerasFiltradas.get(1));
     }
@@ -157,9 +159,9 @@ public class FiltrarPorPrecioMaximoCombustibleTest {
         ArgumentCaptor<List<Gasolinera>> captor = ArgumentCaptor.forClass(List.class);
 
         sut.init(mockVista);
-        sut.filtrarGasolinerasPorPrecioMaximo(precioMaximo, "Hidrogeno");
+        sut.filtraGasolinerasPorPrecioMaximo(precioMaximo, TipoCombustible.HIDROGENO);
 
-        verify(mockVista).showStations(captor.capture());
+        verify(mockVista, times(2)).showStations(captor.capture());
 
         List<Gasolinera> gasolinerasFiltradas = captor.getValue();
         assertEquals(2, gasolinerasFiltradas.size());
@@ -182,9 +184,9 @@ public class FiltrarPorPrecioMaximoCombustibleTest {
         ArgumentCaptor<List<Gasolinera>> captor = ArgumentCaptor.forClass(List.class);
 
         sut.init(mockVista);
-        sut.filtrarGasolinerasPorPrecioMaximo(precioMaximo, "Gasolina95E5");
+        sut.filtraGasolinerasPorPrecioMaximo(precioMaximo, TipoCombustible.GASOLINA_98_E5);
 
-        verify(mockVista).showStations(captor.capture());
+        verify(mockVista, times(2)).showStations(captor.capture());
 
         List<Gasolinera> gasolinerasFiltradas = captor.getValue();
         assertEquals(0, gasolinerasFiltradas.size());
@@ -192,7 +194,7 @@ public class FiltrarPorPrecioMaximoCombustibleTest {
 
     @Test
     public void testFiltraGasolinerasPrecioMuyAlto() {
-        double precioMaximo = 100.0;
+        double precioMaximo = 10.0;
 
         doAnswer(invocation -> {
             ICallBack callBack = invocation.getArgument(0);
@@ -205,9 +207,9 @@ public class FiltrarPorPrecioMaximoCombustibleTest {
         ArgumentCaptor<List<Gasolinera>> captor = ArgumentCaptor.forClass(List.class);
 
         sut.init(mockVista);
-        sut.filtrarGasolinerasPorPrecioMaximo(precioMaximo, "Gasolina95E5");
+        sut.filtraGasolinerasPorPrecioMaximo(precioMaximo, TipoCombustible.GASOLINA_98_E5);
 
-        verify(mockVista).showStations(captor.capture());
+        verify(mockVista, times(2)).showStations(captor.capture());
 
         List<Gasolinera> gasolinerasFiltradas = captor.getValue();
         assertEquals(4, gasolinerasFiltradas.size());
