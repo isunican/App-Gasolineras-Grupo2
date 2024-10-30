@@ -112,7 +112,26 @@ public class MainPresenter implements IMainContract.Presenter {
     }
 
     public void filtraGasolinerasPorPrecioMaximo(double precioMax, TipoCombustible combustible) {
+        // Crear una lista temporal para almacenar las gasolineras que cumplen con los criterios
+        List<Gasolinera> gasolinerasFiltradas = new ArrayList<>();
 
+        // Iterar sobre cada gasolinera en la lista original
+        for (Gasolinera gasolinera : gasolinerasMod) {
+            double precioCombustible = combustible.getPrecio(gasolinera);
+            // Verificar si la gasolinera tiene el tipo de combustible deseado
+            if (precioCombustible > 0.0) {
+                // Comprobar si el precio del combustible es menor o igual al precio máximo
+                if (precioCombustible <= precioMax) {
+                    gasolinerasFiltradas.add(gasolinera);
+                }
+            }
+        }
+
+        // Actualizar la lista original con las gasolineras filtradas
+        gasolinerasMod.clear(); // Limpiar la lista original
+        gasolinerasMod.addAll(gasolinerasFiltradas); // Añadir las gasolineras que cumplen
+
+        // Mostrar las gasolineras filtradas
         view.showStations(gasolinerasMod);
     }
 }

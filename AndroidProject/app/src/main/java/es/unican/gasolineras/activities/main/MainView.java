@@ -283,8 +283,8 @@ public class MainView extends AppCompatActivity implements IMainContract.View {
         View dialogView = inflater.inflate(R.layout.filtrar_precio_max_dialog_layout, null);
 
         // Referencio el spinner
-        Spinner spinner = dialogView.findViewById(R.id.spinnerFuelType);
-        EditText etMaxPrice = dialogView.findViewById(R.id.etMaxPrice);
+        Spinner spinner = dialogView.findViewById(R.id.spinnerCombustible);
+        EditText etMaxPrice = dialogView.findViewById(R.id.etPrecioMax);
         View btnFiltrar = dialogView.findViewById(R.id.btnFiltrar);  // Referencia al botón "Filtrar"
         View btnCancelar = dialogView.findViewById(R.id.btnCancelar);  // Referencia al botón "Cancelar"
 
@@ -300,7 +300,9 @@ public class MainView extends AppCompatActivity implements IMainContract.View {
         // Recuperar SharedPreferences para obtener el último combustible y precio
         SharedPreferences sharedPreferences = getSharedPreferences("AppPreferences", MODE_PRIVATE);
         String lastSelectedFuelType = sharedPreferences.getString("lastFuelType", null);
-        double lastMaxPrice = sharedPreferences.getFloat("lastMaxPrice", -1);
+        String lastMaxPriceTxt = sharedPreferences.getString("lastMaxPrice", "-1");
+        double lastMaxPrice = Double.parseDouble(lastMaxPriceTxt);
+
 
         // Establecer el valor del EditText y el Spinner si hay preferencias guardadas
         if (lastSelectedFuelType != null) {
@@ -325,13 +327,6 @@ public class MainView extends AppCompatActivity implements IMainContract.View {
             if (maxPriceText.isEmpty()) {
                 Toast.makeText(MainView.this, "Por favor, introduce un precio máximo.", Toast.LENGTH_SHORT).show();
             } else {
-                double precioMax;
-                try {
-                    precioMax = Double.parseDouble(maxPriceText);
-                } catch (NumberFormatException e) {
-                    Toast.makeText(MainView.this, "Introduce un número válido para el precio máximo.", Toast.LENGTH_SHORT).show();
-                    return;
-                }
 
                 // Obtener el tipo de combustible seleccionado del spinner
                 TipoCombustible combustible = (TipoCombustible) spinner.getSelectedItem();
@@ -339,10 +334,11 @@ public class MainView extends AppCompatActivity implements IMainContract.View {
                 // Guardar el último combustible seleccionado y el precio máximo en SharedPreferences
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putString("lastFuelType", combustible.name());
-                editor.putFloat("lastMaxPrice", (float) precioMax);
+                editor.putString("lastMaxPrice", maxPriceText);
                 editor.apply();
 
                 // Llamar al método onFiltrarClicked pasando el tipo de combustible y el precio máximo
+                double precioMax = Float.parseFloat(maxPriceText);
                 onFiltrarClicked(precioMax, combustible);
 
                 // Cerrar el popup

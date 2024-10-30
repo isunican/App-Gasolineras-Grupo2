@@ -19,26 +19,26 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tvFuelType"
+        android:id="@+id/tvCombustible"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="48dp"
-        android:text="TIPO COMBUSTIBLE"
+        android:text="COMBUSTIBLE"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvFiltarGasolineras" />
 
     <Spinner
-        android:id="@+id/spinnerFuelType"
+        android:id="@+id/spinnerCombustible"
         android:layout_width="175dp"
         android:layout_height="30dp"
         android:layout_marginEnd="8dp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/tvFuelType"
+        app:layout_constraintBaseline_toBaselineOf="@+id/tvCombustible"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
-        android:id="@+id/tvMaxPrice"
+        android:id="@+id/tvPrecioMax"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -46,17 +46,17 @@
         android:text="PRECIO MAXIMO"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvFuelType" />
+        app:layout_constraintTop_toBottomOf="@+id/tvCombustible" />
 
     <EditText
-        android:id="@+id/etMaxPrice"
+        android:id="@+id/etPrecioMax"
         android:layout_width="175dp"
         android:layout_height="0dp"
         android:layout_marginEnd="8dp"
         android:autofillHints="username"
         android:ems="10"
         android:inputType="numberDecimal"
-        app:layout_constraintBaseline_toBaselineOf="@+id/tvMaxPrice"
+        app:layout_constraintBaseline_toBaselineOf="@+id/tvPrecioMax"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
@@ -67,7 +67,7 @@
         android:layout_marginTop="64dp"
         android:text="FILTAR"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvMaxPrice" />
+        app:layout_constraintTop_toBottomOf="@+id/tvPrecioMax" />
 
     <Button
         android:id="@+id/btnCancelar"
@@ -77,6 +77,6 @@
         android:layout_marginEnd="18dp"
         android:text="CANCELAR"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvMaxPrice" />
+        app:layout_constraintTop_toBottomOf="@+id/tvPrecioMax" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
