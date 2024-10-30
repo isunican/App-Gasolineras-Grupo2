@@ -1,6 +1,7 @@
 package es.unican.gasolineras.activities.main;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -284,7 +285,7 @@ public class MainView extends AppCompatActivity implements IMainContract.View {
         // Referencio el spinner
         Spinner spinner = dialogView.findViewById(R.id.spinnerFuelType);
         EditText etMaxPrice = dialogView.findViewById(R.id.etMaxPrice);
-        View btnOrdenar = dialogView.findViewById(R.id.btnFiltrar);  // Referencia al botón "Filtrar"
+        View btnFiltrar = dialogView.findViewById(R.id.btnFiltrar);  // Referencia al botón "Filtrar"
         View btnCancelar = dialogView.findViewById(R.id.btnCancelar);  // Referencia al botón "Cancelar"
 
         // Llenar el spinner con los valores del enum TipoCombustible
@@ -296,6 +297,20 @@ public class MainView extends AppCompatActivity implements IMainContract.View {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 
+        // Recuperar SharedPreferences para obtener el último combustible y precio
+        SharedPreferences sharedPreferences = getSharedPreferences("AppPreferences", MODE_PRIVATE);
+        String lastSelectedFuelType = sharedPreferences.getString("lastFuelType", null);
+        double lastMaxPrice = sharedPreferences.getFloat("lastMaxPrice", -1);
+
+        // Establecer el valor del EditText y el Spinner si hay preferencias guardadas
+        if (lastSelectedFuelType != null) {
+            int spinnerPosition = adapter.getPosition(TipoCombustible.valueOf(lastSelectedFuelType));
+            spinner.setSelection(spinnerPosition);
+        }
+        if (lastMaxPrice != -1) {
+            etMaxPrice.setText(String.valueOf(lastMaxPrice));
+        }
+
         // Creo el alert y muestro el dialog
         builder.setView(dialogView);
         AlertDialog dialog = builder.create();
@@ -305,7 +320,7 @@ public class MainView extends AppCompatActivity implements IMainContract.View {
         btnCancelar.setOnClickListener(v -> dialog.dismiss());
 
         // Listener para el botón "Filtrar"
-        btnOrdenar.setOnClickListener(v -> {
+        btnFiltrar.setOnClickListener(v -> {
             String maxPriceText = etMaxPrice.getText().toString();
             if (maxPriceText.isEmpty()) {
                 Toast.makeText(MainView.this, "Por favor, introduce un precio máximo.", Toast.LENGTH_SHORT).show();
@@ -320,6 +335,12 @@ public class MainView extends AppCompatActivity implements IMainContract.View {
 
                 // Obtener el tipo de combustible seleccionado del spinner
                 TipoCombustible combustible = (TipoCombustible) spinner.getSelectedItem();
+
+                // Guardar el último combustible seleccionado y el precio máximo en SharedPreferences
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("lastFuelType", combustible.name());
+                editor.putFloat("lastMaxPrice", (float) precioMax);
+                editor.apply();
 
                 // Llamar al método onFiltrarClicked pasando el tipo de combustible y el precio máximo
                 onFiltrarClicked(precioMax, combustible);
