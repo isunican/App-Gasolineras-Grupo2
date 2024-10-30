@@ -40,7 +40,7 @@ public interface IMainContract {
         public void onMenuInfoClicked();
 
         /**
-         *
+         * The presenter is informed that the Filtrar item in the menu has been clicked
          */
         public void onMenuAnhadirPuntoInteresClicked();
     }
@@ -120,6 +120,10 @@ public interface IMainContract {
          * Informa al presenter que el boton de ordenar ha sido clickado.
          */
         public void onOrdenarClicked(PuntoInteres p);
+
+        /**
+         * Informa al presenter que el boton de filtrar ha sido clickado.
+         */
         public void showAnhadirPuntoInteresActivity();
     }
 }
