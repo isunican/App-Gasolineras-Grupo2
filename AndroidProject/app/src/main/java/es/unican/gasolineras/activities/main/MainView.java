@@ -17,7 +17,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.room.Room;
 
 import org.parceler.Parcels;
 
@@ -99,13 +98,16 @@ public class MainView extends AppCompatActivity implements IMainContract.View {
             presenter.onMenuInfoClicked();
             return true;
         }
-        if (itemId == R.id.menuFiltrar) {
+        if (itemId == R.id.menuOrdenar) {
             presenter.onMenuFiltrarClicked();
             return true;
         }
-
         if (itemId == R.id.menuItemAnhadirPuntoInteres) {
             presenter.onMenuAnhadirPuntoInteresClicked();
+            return true;
+        }
+        if (itemId == R.id.menuFiltrar) {
+            presenter.();
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -193,7 +195,7 @@ public class MainView extends AppCompatActivity implements IMainContract.View {
     }
 
     @Override
-    public void showPopUpFiltrar() {
+    public void showPopUpOrdenar() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(MainView.this);
         LayoutInflater inflater = MainView.this.getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.puntos_interes_dialog_layout, null);
@@ -264,5 +266,10 @@ public class MainView extends AppCompatActivity implements IMainContract.View {
     public void showAnhadirPuntoInteresActivity() {
         Intent intent = new Intent(this, AnhadirPuntoInteresView.class);
         startActivity(intent);
+    }
+
+    @Override
+    public void showPopUpFiltar() {
+
     }
 }

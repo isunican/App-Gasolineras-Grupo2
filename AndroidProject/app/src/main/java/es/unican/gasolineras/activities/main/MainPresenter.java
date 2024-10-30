@@ -54,6 +54,17 @@ public class MainPresenter implements IMainContract.Presenter {
     public void onMenuAnhadirPuntoInteresClicked() {
         view.showAnhadirPuntoInteresActivity();
     }
+    /**
+     * Muestra el popup de ordenar
+     */
+    public void onMenuOrdenarClicked() {
+        view.showPopUpOrdenar();
+    }
+
+    /**
+     * Muestra el popup de filtrar
+     */
+    public void onMenuFiltrarClicked() { view.showPopUpFiltar(); }
 
 
 
@@ -82,12 +93,7 @@ public class MainPresenter implements IMainContract.Presenter {
         repository.requestGasolineras(callBack, IDCCAAs.CANTABRIA.id);
     }
 
-    /**
-     * Muestra el popup de filtrar
-     */
-    public void onMenuFiltrarClicked() {
-        view.showPopUpFiltrar();
-    }
+
 
     /**
      * Muestra la lista de gasolineras ordenadas por el punto de interes
