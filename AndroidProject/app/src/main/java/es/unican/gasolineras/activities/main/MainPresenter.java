@@ -6,6 +6,7 @@ import java.util.List;
 import es.unican.gasolineras.model.Gasolinera;
 import es.unican.gasolineras.model.IDCCAAs;
 import es.unican.gasolineras.model.PuntoInteres;
+import es.unican.gasolineras.model.TipoCombustible;
 import es.unican.gasolineras.repository.ICallBack;
 import es.unican.gasolineras.repository.IGasolinerasRepository;
 
@@ -19,6 +20,7 @@ public class MainPresenter implements IMainContract.Presenter {
 
     /** Atributo lista gasolineras */
     List<Gasolinera> gasolineras;
+    List<Gasolinera> gasolinerasMod;
 
     /**
      * @see IMainContract.Presenter#init(IMainContract.View)
@@ -54,6 +56,19 @@ public class MainPresenter implements IMainContract.Presenter {
     public void onMenuAnhadirPuntoInteresClicked() {
         view.showAnhadirPuntoInteresActivity();
     }
+    /**
+     * Muestra el popup de ordenar
+     */
+    public void onMenuOrdenarClicked() {
+        view.showPopUpOrdenar();
+    }
+
+    /**
+     * Muestra el popup de filtrar
+     */
+    public void onMenuFiltrarClicked() {
+        view.showPopUpFiltar();
+    }
 
 
 
@@ -70,6 +85,8 @@ public class MainPresenter implements IMainContract.Presenter {
                 gasolineras = stations;
                 view.showStations(stations);
                 view.showLoadCorrect(stations.size());
+                //Inicializo la lista que se modifica
+                gasolinerasMod = new ArrayList<>(gasolineras);
             }
 
             @Override
@@ -82,12 +99,7 @@ public class MainPresenter implements IMainContract.Presenter {
         repository.requestGasolineras(callBack, IDCCAAs.CANTABRIA.id);
     }
 
-    /**
-     * Muestra el popup de filtrar
-     */
-    public void onMenuFiltrarClicked() {
-        view.showPopUpFiltrar();
-    }
+
 
     /**
      * Muestra la lista de gasolineras ordenadas por el punto de interes
@@ -95,8 +107,31 @@ public class MainPresenter implements IMainContract.Presenter {
      */
     public void ordenarGasolinerasCercanasPtoInteres(PuntoInteres p) {
         GasolineraDistanciaComparator comparator = new GasolineraDistanciaComparator(p);
-        List<Gasolinera> gasolinerasCopia = new ArrayList<>(gasolineras);
-        gasolinerasCopia.sort(comparator);
-        view.showStations(gasolinerasCopia);
+        gasolinerasMod.sort(comparator);
+        view.showStations(gasolinerasMod);
+    }
+
+    public void filtraGasolinerasPorPrecioMaximo(double precioMax, TipoCombustible combustible) {
+        // Crear una lista temporal para almacenar las gasolineras que cumplen con los criterios
+        List<Gasolinera> gasolinerasFiltradas = new ArrayList<>();
+
+        // Iterar sobre cada gasolinera en la lista original
+        for (Gasolinera gasolinera : gasolinerasMod) {
+            double precioCombustible = combustible.getPrecio(gasolinera);
+            // Verificar si la gasolinera tiene el tipo de combustible deseado
+            if (precioCombustible > 0.0) {
+                // Comprobar si el precio del combustible es menor o igual al precio máximo
+                if (precioCombustible <= precioMax) {
+                    gasolinerasFiltradas.add(gasolinera);
+                }
+            }
+        }
+
+        // Actualizar la lista original con las gasolineras filtradas
+        gasolinerasMod.clear(); // Limpiar la lista original
+        gasolinerasMod.addAll(gasolinerasFiltradas); // Añadir las gasolineras que cumplen
+
+        // Mostrar las gasolineras filtradas
+        view.showStations(gasolinerasMod);
     }
 }

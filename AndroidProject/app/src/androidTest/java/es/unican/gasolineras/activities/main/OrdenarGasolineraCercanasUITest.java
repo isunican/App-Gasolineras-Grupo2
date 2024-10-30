@@ -87,7 +87,7 @@ public class OrdenarGasolineraCercanasUITest {
         onView(withId(R.id.buttonGuardar)).perform(click());
 
         //clicka en filtrar
-        onView(withId(R.id.menuFiltrar)).perform(click());
+        onView(withId(R.id.menuOrdenar)).perform(click());
 
         //clicka en el selector de Pto Interes
         onView(withId(R.id.spinnerPtosInteres)).perform(click());
@@ -112,7 +112,7 @@ public class OrdenarGasolineraCercanasUITest {
     public void OrdenarGasolinerasCercanasNoPtoInteres(){
 
         //clicka en filtrar
-        onView(withId(R.id.menuFiltrar)).perform(click());
+        onView(withId(R.id.menuOrdenar)).perform(click());
 
         //comprueba mensaje de error
         onView(withId(R.id.tvListaVacia)).
