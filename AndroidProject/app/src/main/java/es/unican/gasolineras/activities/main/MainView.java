@@ -8,6 +8,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -31,6 +32,7 @@ import es.unican.gasolineras.activities.details.DetailsView;
 import es.unican.gasolineras.activities.puntoInteres.AnhadirPuntoInteresView;
 import es.unican.gasolineras.model.Gasolinera;
 import es.unican.gasolineras.model.PuntoInteres;
+import es.unican.gasolineras.model.TipoCombustible;
 import es.unican.gasolineras.repository.AppDatabase;
 import es.unican.gasolineras.repository.DbFunctions;
 import es.unican.gasolineras.repository.IGasolinerasRepository;
@@ -99,7 +101,7 @@ public class MainView extends AppCompatActivity implements IMainContract.View {
             return true;
         }
         if (itemId == R.id.menuOrdenar) {
-            presenter.onMenuFiltrarClicked();
+            presenter.onMenuOrdenarClicked();
             return true;
         }
         if (itemId == R.id.menuItemAnhadirPuntoInteres) {
@@ -107,7 +109,7 @@ public class MainView extends AppCompatActivity implements IMainContract.View {
             return true;
         }
         if (itemId == R.id.menuFiltrar) {
-            presenter.();
+            presenter.onMenuFiltrarClicked();
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -269,7 +271,63 @@ public class MainView extends AppCompatActivity implements IMainContract.View {
     }
 
     @Override
-    public void showPopUpFiltar() {
-
+    public void onFiltrarClicked(double precioMax, TipoCombustible combustible) {
+        presenter.filtraGasolinerasPorPrecioMaximo(precioMax, combustible);
     }
+
+    @Override
+    public void showPopUpFiltar() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(MainView.this);
+        LayoutInflater inflater = MainView.this.getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.filtrar_precio_max_dialog_layout, null);
+
+        // Referencio el spinner
+        Spinner spinner = dialogView.findViewById(R.id.spinnerFuelType);
+        EditText etMaxPrice = dialogView.findViewById(R.id.etMaxPrice);
+        View btnOrdenar = dialogView.findViewById(R.id.btnFiltrar);  // Referencia al botón "Filtrar"
+        View btnCancelar = dialogView.findViewById(R.id.btnCancelar);  // Referencia al botón "Cancelar"
+
+        // Llenar el spinner con los valores del enum TipoCombustible
+        ArrayAdapter<TipoCombustible> adapter = new ArrayAdapter<>(
+                MainView.this,
+                android.R.layout.simple_spinner_item,
+                TipoCombustible.values()
+        );
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+
+        // Creo el alert y muestro el dialog
+        builder.setView(dialogView);
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
+        // Listener para el botón "Cancelar"
+        btnCancelar.setOnClickListener(v -> dialog.dismiss());
+
+        // Listener para el botón "Filtrar"
+        btnOrdenar.setOnClickListener(v -> {
+            String maxPriceText = etMaxPrice.getText().toString();
+            if (maxPriceText.isEmpty()) {
+                Toast.makeText(MainView.this, "Por favor, introduce un precio máximo.", Toast.LENGTH_SHORT).show();
+            } else {
+                double precioMax;
+                try {
+                    precioMax = Double.parseDouble(maxPriceText);
+                } catch (NumberFormatException e) {
+                    Toast.makeText(MainView.this, "Introduce un número válido para el precio máximo.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                // Obtener el tipo de combustible seleccionado del spinner
+                TipoCombustible combustible = (TipoCombustible) spinner.getSelectedItem();
+
+                // Llamar al método onFiltrarClicked pasando el tipo de combustible y el precio máximo
+                onFiltrarClicked(precioMax, combustible);
+
+                // Cerrar el popup
+                dialog.dismiss();
+            }
+        });
+    }
+
 }

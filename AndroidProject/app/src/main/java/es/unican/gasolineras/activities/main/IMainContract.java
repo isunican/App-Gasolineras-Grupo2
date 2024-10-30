@@ -4,6 +4,7 @@ import java.util.List;
 
 import es.unican.gasolineras.model.Gasolinera;
 import es.unican.gasolineras.model.PuntoInteres;
+import es.unican.gasolineras.model.TipoCombustible;
 import es.unican.gasolineras.repository.IGasolinerasRepository;
 
 /**
@@ -122,6 +123,8 @@ public interface IMainContract {
 
 
         public void showAnhadirPuntoInteresActivity();
+
+        void onFiltrarClicked(double precioMax, TipoCombustible combustible);
 
         /**
          *  La vista manda una peticion al presenter para que muestre el

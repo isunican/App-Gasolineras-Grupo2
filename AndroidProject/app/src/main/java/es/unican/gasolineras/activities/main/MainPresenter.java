@@ -6,6 +6,7 @@ import java.util.List;
 import es.unican.gasolineras.model.Gasolinera;
 import es.unican.gasolineras.model.IDCCAAs;
 import es.unican.gasolineras.model.PuntoInteres;
+import es.unican.gasolineras.model.TipoCombustible;
 import es.unican.gasolineras.repository.ICallBack;
 import es.unican.gasolineras.repository.IGasolinerasRepository;
 
@@ -19,6 +20,7 @@ public class MainPresenter implements IMainContract.Presenter {
 
     /** Atributo lista gasolineras */
     List<Gasolinera> gasolineras;
+    List<Gasolinera> gasolinerasMod;
 
     /**
      * @see IMainContract.Presenter#init(IMainContract.View)
@@ -64,7 +66,9 @@ public class MainPresenter implements IMainContract.Presenter {
     /**
      * Muestra el popup de filtrar
      */
-    public void onMenuFiltrarClicked() { view.showPopUpFiltar(); }
+    public void onMenuFiltrarClicked() {
+        view.showPopUpFiltar();
+    }
 
 
 
@@ -81,6 +85,8 @@ public class MainPresenter implements IMainContract.Presenter {
                 gasolineras = stations;
                 view.showStations(stations);
                 view.showLoadCorrect(stations.size());
+                //Inicializo la lista que se modifica
+                gasolinerasMod = new ArrayList<>(gasolineras);
             }
 
             @Override
@@ -101,8 +107,12 @@ public class MainPresenter implements IMainContract.Presenter {
      */
     public void ordenarGasolinerasCercanasPtoInteres(PuntoInteres p) {
         GasolineraDistanciaComparator comparator = new GasolineraDistanciaComparator(p);
-        List<Gasolinera> gasolinerasCopia = new ArrayList<>(gasolineras);
-        gasolinerasCopia.sort(comparator);
-        view.showStations(gasolinerasCopia);
+        gasolinerasMod.sort(comparator);
+        view.showStations(gasolinerasMod);
+    }
+
+    public void filtraGasolinerasPorPrecioMaximo(double precioMax, TipoCombustible combustible) {
+
+        view.showStations(gasolinerasMod);
     }
 }

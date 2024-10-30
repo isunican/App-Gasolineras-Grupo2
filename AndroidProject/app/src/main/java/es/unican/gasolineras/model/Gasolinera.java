@@ -29,8 +29,20 @@ public class Gasolinera {
     @SerializedName("Dirección")                    protected String direccion;
     @SerializedName("Municipio")                    protected String municipio;
 
+    @SerializedName("Precio Biodiesel")             protected double biodiesel;
+    @SerializedName("Precio Bioetanol")             protected double bioetanol;
+    @SerializedName("Precio Gas Natural Comprimido") protected double gnc;
+    @SerializedName("Precio Gas Natural Licuado")    protected double gnl;
+    @SerializedName("Precio Gases licuados del petróleo") protected double glp;
     @SerializedName("Precio Gasoleo A")             protected double gasoleoA;
+    @SerializedName("Precio Gasoleo B")             protected double gasoleoB;
+    @SerializedName("Precio Gasoleo Premium")       protected double gasoleoPremium;
+    @SerializedName("Precio Gasolina 95 E10")       protected double gasolina95E10;
     @SerializedName("Precio Gasolina 95 E5")        protected double gasolina95E5;
+    @SerializedName("Precio Gasolina 95 E5 Premium") protected double gasolina95E5Premium;
+    @SerializedName("Precio Gasolina 98 E10")       protected double gasolina98E10;
+    @SerializedName("Precio Gasolina 98 E5")        protected double gasolina98E5;
+    @SerializedName("Precio Hidrogeno")             protected double hidrogeno;
 
     @SerializedName("Horario")                      protected String horario;
 
