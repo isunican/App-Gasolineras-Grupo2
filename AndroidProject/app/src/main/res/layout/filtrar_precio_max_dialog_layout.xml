@@ -25,13 +25,13 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="48dp"
         android:text="COMBUSTIBLE"
-        android:textSize="12sp"
+        android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvFiltarGasolineras" />
 
     <Spinner
         android:id="@+id/spinnerCombustible"
-        android:layout_width="175dp"
+        android:layout_width="174dp"
         android:layout_height="30dp"
         android:layout_marginEnd="8dp"
         app:layout_constraintBaseline_toBaselineOf="@+id/tvCombustible"
@@ -44,20 +44,21 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="64dp"
         android:text="PRECIO MAXIMO"
-        android:textSize="12sp"
+        android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvCombustible" />
 
     <EditText
         android:id="@+id/etPrecioMax"
-        android:layout_width="175dp"
-        android:layout_height="0dp"
-        android:layout_marginEnd="8dp"
+        android:layout_width="79dp"
+        android:layout_height="45dp"
         android:autofillHints="username"
         android:ems="10"
         android:inputType="numberDecimal"
+        android:textSize="16sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/tvPrecioMax"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="@+id/spinnerCombustible"
+        app:layout_constraintStart_toStartOf="@+id/spinnerCombustible" />
 
     <Button
         android:id="@+id/btnFiltrar"
