@@ -128,7 +128,7 @@ public interface IMainContract {
          */
         public void showAnhadirPuntoInteresActivity();
 
-        void onFiltrarClicked(double precioMax, TipoCombustible combustible);
+        public void onFiltrarClicked(double precioMax, TipoCombustible combustible);
 
         /**
          *  La vista manda una peticion al presenter para que muestre el

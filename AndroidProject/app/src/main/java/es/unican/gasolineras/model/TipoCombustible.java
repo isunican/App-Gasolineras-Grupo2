@@ -39,6 +39,20 @@ public enum TipoCombustible {
         }
         return 0;
     }
+
+    @Override
+    public String toString() {
+        // Reemplaza "_" con espacios y convierte cada palabra a mayúscula inicial
+        String name = name().toLowerCase().replace('_', ' ');
+        String[] words = name.split(" ");
+        StringBuilder formattedName = new StringBuilder();
+        for (String word : words) {
+            formattedName.append(Character.toUpperCase(word.charAt(0)))
+                    .append(word.substring(1))
+                    .append(" ");
+        }
+        return formattedName.toString().trim();
+    }
 }
 
 
