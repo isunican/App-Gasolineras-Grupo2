@@ -6,6 +6,7 @@ import java.util.List;
 import es.unican.gasolineras.model.Gasolinera;
 import es.unican.gasolineras.model.IDCCAAs;
 import es.unican.gasolineras.model.PuntoInteres;
+import es.unican.gasolineras.model.TipoCombustible;
 import es.unican.gasolineras.repository.ICallBack;
 import es.unican.gasolineras.repository.IGasolinerasRepository;
 
@@ -19,6 +20,14 @@ public class MainPresenter implements IMainContract.Presenter {
 
     /** Atributo lista gasolineras */
     List<Gasolinera> gasolineras;
+    List<Gasolinera> gasolinerasMod;
+
+    // Banderas para controlar el estado de ordenación y filtrado
+    private boolean estaOrdenada = false;
+    private boolean estaFiltrada = false;
+
+    // Variables de estado para el último punto de interés de ordenación
+    private PuntoInteres puntoInteresOrdenActual = null;
 
     /**
      * @see IMainContract.Presenter#init(IMainContract.View)
@@ -54,27 +63,37 @@ public class MainPresenter implements IMainContract.Presenter {
     public void onMenuAnhadirPuntoInteresClicked() {
         view.showAnhadirPuntoInteresActivity();
     }
-
-
+    /**
+     * Muestra el popup de ordenar
+     */
+    public void onMenuOrdenarClicked() {
+        view.showPopUpOrdenar();
+    }
 
     /**
-     * Loads the gas stations from the repository, and sends them to the view
+     * Muestra el popup de filtrar
      */
+    public void onMenuFiltrarClicked() {
+        view.showPopUpFiltar();
+    }
+
+
+
     private void load() {
         IGasolinerasRepository repository = view.getGasolinerasRepository();
-
         ICallBack callBack = new ICallBack() {
-
             @Override
             public void onSuccess(List<Gasolinera> stations) {
                 gasolineras = stations;
                 view.showStations(stations);
                 view.showLoadCorrect(stations.size());
+                gasolinerasMod = new ArrayList<>(gasolineras);
+                estaOrdenada = false;
+                estaFiltrada = false;
             }
 
             @Override
             public void onFailure(Throwable e) {
-                view.showLoadError();
                 view.showLoadError();
             }
         };
@@ -83,20 +102,40 @@ public class MainPresenter implements IMainContract.Presenter {
     }
 
     /**
-     * Muestra el popup de filtrar
-     */
-    public void onMenuFiltrarClicked() {
-        view.showPopUpFiltrar();
-    }
-
-    /**
      * Muestra la lista de gasolineras ordenadas por el punto de interes
      * @param p el punto de interes
      */
     public void ordenarGasolinerasCercanasPtoInteres(PuntoInteres p) {
-        GasolineraDistanciaComparator comparator = new GasolineraDistanciaComparator(p);
-        List<Gasolinera> gasolinerasCopia = new ArrayList<>(gasolineras);
-        gasolinerasCopia.sort(comparator);
-        view.showStations(gasolinerasCopia);
+        puntoInteresOrdenActual = p;
+        estaOrdenada = true;
+        gasolinerasMod.sort(new GasolineraDistanciaComparator(p));
+        view.showStations(gasolinerasMod);
+    }
+
+    /**
+     * Filtra la lista de gasolineras por precio máximo y tipo de combustible.
+     * Aplica el filtro sobre la lista original y luego la ordena si estaba previamente ordenada.
+     * @param precioMax el precio máximo del combustible
+     * @param combustible el tipo de combustible
+     */
+    public void filtraGasolinerasPorPrecioMaximo(double precioMax, TipoCombustible combustible) {
+        estaFiltrada = true;
+
+        List<Gasolinera> gasolinerasFiltradas = new ArrayList<>();
+        for (Gasolinera gasolinera : gasolineras) {
+            double precioCombustible = combustible.getPrecio(gasolinera);
+            if (precioCombustible > 0.0 && precioCombustible <= precioMax) {
+                gasolinerasFiltradas.add(gasolinera);
+            }
+        }
+
+        // Si estaba ordenada, aplicar el orden sobre la lista filtrada
+        if (estaOrdenada) {
+            gasolinerasFiltradas.sort(new GasolineraDistanciaComparator(puntoInteresOrdenActual));
+        }
+
+        // Actualizar la lista modificada y mostrar
+        gasolinerasMod = gasolinerasFiltradas;
+        view.showStations(gasolinerasMod);
     }
 }

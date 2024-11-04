@@ -1,17 +1,13 @@
 package es.unican.gasolineras.activities.main;
 
-import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.Espresso.onView;
-import static androidx.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.RootMatchers.isPlatformPopup;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
-
-
 import static org.hamcrest.CoreMatchers.allOf;
 import static org.hamcrest.CoreMatchers.anything;
 import static org.hamcrest.CoreMatchers.instanceOf;
@@ -21,7 +17,6 @@ import static es.unican.gasolineras.utils.MockRepositories.getTestRepository;
 import android.content.Context;
 
 import androidx.test.espresso.DataInteraction;
-import androidx.test.espresso.Espresso;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.platform.app.InstrumentationRegistry;
 
@@ -35,15 +30,11 @@ import dagger.hilt.android.testing.HiltAndroidTest;
 import dagger.hilt.android.testing.UninstallModules;
 import es.unican.gasolineras.R;
 import es.unican.gasolineras.injection.RepositoriesModule;
-import es.unican.gasolineras.repository.AppDatabase;
-import es.unican.gasolineras.repository.DbFunctions;
 import es.unican.gasolineras.repository.IGasolinerasRepository;
-import es.unican.gasolineras.repository.IPuntosInteresDAO;
 
 @UninstallModules(RepositoriesModule.class)
 @HiltAndroidTest
-public class OrdenarGasolineraCercanasUITest {
-
+public class FiltrarPorPrecioMaximoUITest {
     @Rule(order = 0)  // the Hilt rule must execute first
     public HiltAndroidRule hiltRule = new HiltAndroidRule(this);
 
@@ -60,64 +51,47 @@ public class OrdenarGasolineraCercanasUITest {
 
     @Before
     public void inicializa(){
-        //estado inicial base de datos Ptos Interes vacia
-        AppDatabase db = DbFunctions.generaBaseDatosPuntosInteres(getApplicationContext());
-        IPuntosInteresDAO ptDAO = db.puntosInteresDao();
-        //ptDAO.deleteAll();
     }
 
     @Test
-    public void testOrdenaGasolinerasCercanasCasoExito() {
-        //creo un punto de interes
-
-        openActionBarOverflowOrOptionsMenu(context);
-        onView((withText("Añadir Punto interés"))).perform(click());
-        onView(withId(R.id.etNombre)).perform(click());
-        onView(withId(R.id.etNombre)).perform(typeText("casa"));
-        Espresso.closeSoftKeyboard();
-
-        onView(withId(R.id.etLatitud)).perform(click());
-        onView(withId(R.id.etLatitud)).perform(typeText("43.3089400"));
-        Espresso.closeSoftKeyboard();
-
-        onView(withId(R.id.etLongitud)).perform(click());
-        onView(withId(R.id.etLongitud)).perform(typeText("-4.2301600"));
-        Espresso.closeSoftKeyboard();
-
-        onView(withId(R.id.buttonGuardar)).perform(click());
+    public void testFiltarGasolinerasPorPrecioMaximoCasoExito() {
 
         //clicka en filtrar
-        onView(withId(R.id.menuOrdenar)).perform(click());
+        onView(withId(R.id.menuFiltrar)).perform(click());
 
-        //clicka en el selector de Pto Interes
-        onView(withId(R.id.spinnerPtosInteres)).perform(click());
+        //clicka en el selector de combustible
+        onView(withId(R.id.spinnerCombustible)).perform(click());
 
-        //elige la opcion casa
+        //elige la opcion gasolina 95 E5
         onData(allOf(is(instanceOf(String.class)),
-                is("casa"))).inRoot(isPlatformPopup()).perform(click());
+                is("Gasoleo_A"))).inRoot(isPlatformPopup()).perform(click());
 
-        //clicka el boton ordenar
-        onView(withId(R.id.btnOrdenar)).perform(click());
+        //clicka en el campo de precio máximo
+        onView(withId(R.id.etPrecioMax)).perform(click());
+
+        //escribe 1.512 en el campo de precio máximo
+        onView(withId(R.id.etPrecioMax)).perform(typeText("1.4"));
+
+        //clicka el boton filtrar
+        onView(withId(R.id.btnFiltrar)).perform(click());
 
         //comprueba la direccion de la primera gasolinera
         DataInteraction g1 = onData(anything()).inAdapterView(withId(R.id.lvStations)).atPosition(0);
-        g1.onChildView(withId(R.id.tvAddress)).check(matches(withText("CALLE CORREOS, SN")));
+        g1.onChildView(withId(R.id.tvAddress)).check(matches(withText("CALLE GUTIERREZ SOLANA 24, 24")));
 
         //comprueba la direccion de la segunda gasolinera
         DataInteraction g2 = onData(anything()).inAdapterView(withId(R.id.lvStations)).atPosition(1);
-        g2.onChildView(withId(R.id.tvAddress)).check(matches(withText("CARRETERA 634 KM. 244")));
+        g2.onChildView(withId(R.id.tvAddress)).check(matches(withText("P.I. CROS km CENTRO COMERCIAL M")));
     }
 
     @Test
-    public void OrdenarGasolinerasCercanasNoPtoInteres(){
+    public void testFiltrarGasolinerasPorPrecioMaximoError(){
 
         //clicka en filtrar
-        onView(withId(R.id.menuOrdenar)).perform(click());
+        onView(withId(R.id.menuFiltrar)).perform(click());
 
         //comprueba mensaje de error
         onView(withId(R.id.tvListaVacia)).
                 check(matches(withText("Error: No hay ningun punto de interes añadido")));
     }
 }
-
-

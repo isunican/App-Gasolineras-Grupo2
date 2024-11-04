@@ -4,8 +4,8 @@ import java.util.List;
 
 import es.unican.gasolineras.model.Gasolinera;
 import es.unican.gasolineras.model.PuntoInteres;
+import es.unican.gasolineras.model.TipoCombustible;
 import es.unican.gasolineras.repository.IGasolinerasRepository;
-import es.unican.gasolineras.repository.IPuntosInteresDAO;
 
 /**
  * The Presenter-View contract for the Main activity.
@@ -40,7 +40,7 @@ public interface IMainContract {
         public void onMenuInfoClicked();
 
         /**
-         *
+         * The presenter is informed that the Filtrar item in the menu has been clicked
          */
         public void onMenuAnhadirPuntoInteresClicked();
     }
@@ -112,14 +112,28 @@ public interface IMainContract {
 
         /**
          *  La vista manda una peticion al presenter para que muestre el
-         *  popup de filtrar.
+         *  popup de ordenar.
          */
-        public void showPopUpFiltrar();
+        public void showPopUpOrdenar();
 
         /**
          * Informa al presenter que el boton de ordenar ha sido clickado.
          */
         public void onOrdenarClicked(PuntoInteres p);
+
+
+
+        /**
+         * Informa al presenter que el boton de filtrar ha sido clickado.
+         */
         public void showAnhadirPuntoInteresActivity();
+
+        public void onFiltrarClicked(double precioMax, TipoCombustible combustible);
+
+        /**
+         *  La vista manda una peticion al presenter para que muestre el
+         *  popup de filtrar.
+         */
+        public void showPopUpFiltar();
     }
 }
