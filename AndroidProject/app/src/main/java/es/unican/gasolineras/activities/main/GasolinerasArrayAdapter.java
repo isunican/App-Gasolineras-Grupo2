@@ -35,8 +35,10 @@ public class GasolinerasArrayAdapter extends BaseAdapter {
     /** Context of the application */
     private final Context context;
 
+    /** Constante para el color verde en el caso en el que la gasolinera este abierta. */
     private static final int VERDE = 0xFF4CAF50;
 
+    /** Constante para el color rojo en el caso en el que la gasolinera este cerrada. */
     private static final int ROJO = 0xFFF44336;
 
     /**
@@ -129,7 +131,11 @@ public class GasolinerasArrayAdapter extends BaseAdapter {
             tv.setText(String.valueOf(gasolinera.getGasoleoA()));
         }
 
-        // Estado
+        /**
+         * Texto donde se muestra el estado de la gasolinera.
+         * En verde si esta abierto.
+         * en rojo si esta cerrado.
+         */
         {
             TextView tv = convertView.findViewById(R.id.tvAbiertoCerrado);
             String estado;
@@ -144,7 +150,9 @@ public class GasolinerasArrayAdapter extends BaseAdapter {
             tv.setText(estado);
         }
 
-        // Horario
+        /**
+         * Texto donde se muestra el horario del dia acutal de la gasolinera.
+         */
         {
             TextView tv = convertView.findViewById(R.id.tvHorarioGasolinera);
             String textoHorario;
@@ -158,34 +166,48 @@ public class GasolinerasArrayAdapter extends BaseAdapter {
 
         return convertView;
     }
-        public String procesaHorario(String horario) {
-            // Obtén el día actual (L, M, X, J, V, S, D)
-            String diaActual = obtenerDiaActual();
 
-            // Divide el horario en secciones
-            String[] secciones = horario.split(";");
+    /**
+     * Metodo que retorna el horario del dia de hoy de la gasolinera.
+     *
+     * @param horario horario de la gasolinera.
+     *
+     * @return el horario del dia de hoy que tiene la gasolinera o
+     *         "Horario no disponible" si en la base de datos no aparece el horario.
+     */
+    public String procesaHorario(String horario) {
+        // Obtén el día actual (L, M, X, J, V, S, D)
+        String diaActual = obtenerDiaActual();
 
-            for (String seccion : secciones) {
-                // Divide cada sección en días y rango horario
-                String[] partes = seccion.trim().split(": ");
-                String dias = partes[0];
-                String rango = partes[1];
+        // Divide el horario en secciones
+        String[] secciones = horario.split(";");
 
-                // Divide los días para manejar rangos como "L-X" y días individuales como "D"
-                String[] diasSeparados = dias.split("-");
+        for (String seccion : secciones) {
+            // Divide cada sección en días y rango horario
+            String[] partes = seccion.trim().split(": ");
+            String dias = partes[0];
+            String rango = partes[1];
 
-                // Verifica si el día actual está en el rango
-                if (diasSeparados.length == 1) { // Ej. "D: 08:00-21:00"
-                    if (diasSeparados[0].equals(diaActual)) return rango;
-                } else { // Ej. "L-X: 08:00-21:00"
-                    String inicio = diasSeparados[0];
-                    String fin = diasSeparados[1];
-                    if (diaEstaEnRango(diaActual, inicio, fin)) return rango;
-                }
+            // Divide los días para manejar rangos como "L-X" y días individuales como "D"
+            String[] diasSeparados = dias.split("-");
+
+            // Verifica si el día actual está en el rango
+            if (diasSeparados.length == 1) { // Ej. "D: 08:00-21:00"
+                if (diasSeparados[0].equals(diaActual)) return rango;
+            } else { // Ej. "L-X: 08:00-21:00"
+                String inicio = diasSeparados[0];
+                String fin = diasSeparados[1];
+                if (diaEstaEnRango(diaActual, inicio, fin)) return rango;
             }
-            return "Horario no disponible";
         }
+        return "Horario no disponible";
+    }
 
+    /**
+     * Metodo que retorna el dia en el que estamos.
+     *
+     * @return el dia en el que estamos.
+     */
     private String obtenerDiaActual() {
         Calendar calendario = Calendar.getInstance();
         int diaSemana = calendario.get(Calendar.DAY_OF_WEEK);
@@ -210,6 +232,17 @@ public class GasolinerasArrayAdapter extends BaseAdapter {
     }
 
     // Verifica si un día está dentro del rango de días (Ej. "L-X")
+
+    /**
+     * Metodo que devuelve si nuestro dia actual esta o no dentro del rango de la gasolinera.
+     *
+     * @param dia dia de la semana en el que estamos.
+     * @param inicio inicio del horario de la gosalinera.
+     * @param fin fin del horario de la gasolinera.
+     *
+     * @return true si el dia de hoy esta dentro del rango de la gasolinera.
+     *         false si el dia de hoy no esta dentro del rango de la gasolinera.
+     */
     private boolean diaEstaEnRango(String dia, String inicio, String fin) {
         String[] diasSemana = {"L", "M", "X", "J", "V", "S", "D"};
         int indiceInicio = java.util.Arrays.asList(diasSemana).indexOf(inicio);
@@ -223,6 +256,14 @@ public class GasolinerasArrayAdapter extends BaseAdapter {
         }
     }
 
+    /**
+     * Metodo que nos indica si la gasolinera esta habierta o no.
+     *
+     * @param horarios horarios que tiene la gasolinera a lo largo de la semana.
+     *
+     * @return true si la gasolinera esta abierta o
+     *         false si la gasolinera esta cerrada
+     */
     public boolean gasolineraAbierta(String horarios) {
         if ("24H".equals(horarios)) {
             return true; // Siempre abierta
@@ -232,8 +273,7 @@ public class GasolinerasArrayAdapter extends BaseAdapter {
         Boolean aux = false;
 
         for (String dia : diasSeparados) {
-            if (!aux)
-            {
+            if (!aux) {
                 aux = horaEnRango(dia);
             } else {
                 break;
@@ -242,6 +282,14 @@ public class GasolinerasArrayAdapter extends BaseAdapter {
         return aux;
     }
 
+    /**
+     * Metodo que indica si una hora esta dentro de un rango o no.
+     *
+     * @param rango rango de horas a comprobar.
+     *
+     * @return true si el rango esta dentro o
+     *         false si no esta dentro del rango.
+     */
     private static boolean horaEnRango(String rango) {
         // Obtener la hora actual
         LocalTime horaActual = LocalTime.now();
