@@ -1,0 +1,41 @@
+{
+    "Fecha": "04\/11\/2024 18:00:00",
+    "ListaEESSPrecio": [
+        {
+            "C.P.": "39613",
+            "Dirección": "CALLE BOO, 52",
+            "Horario": "L-D: 24H",
+            "Latitud": "43,412222",
+            "Localidad": "BOO",
+            "Longitud (WGS84)": "-3,843500",
+            "Margen": "D",
+            "Municipio": "Astillero (El)",
+            "Precio Biodiesel": "1,629",
+            "Precio Bioetanol": "",
+            "Precio Gas Natural Comprimido": "",
+            "Precio Gas Natural Licuado": "",
+            "Precio Gases licuados del petróleo": "",
+            "Precio Gasoleo A": "1,539",
+            "Precio Gasoleo B": "",
+            "Precio Gasoleo Premium": "",
+            "Precio Gasolina 95 E10": "",
+            "Precio Gasolina 95 E5": "1,679",
+            "Precio Gasolina 95 E5 Premium": "",
+            "Precio Gasolina 98 E10": "",
+            "Precio Gasolina 98 E5": "1,829",
+            "Precio Hidrogeno": "",
+            "Provincia": "CANTABRIA",
+            "Remisión": "dm",
+            "Rótulo": "REPSOL",
+            "Tipo Venta": "P",
+            "% BioEtanol": "0,0",
+            "% Éster metílico": "30,0",
+            "IDEESS": "11565",
+            "IDMunicipio": "5751",
+            "IDProvincia": "39",
+            "IDCCAA": "06"
+        }
+    ],
+    "Nota": "Archivo de las gasolineras para el test MostrarHorarioGasolineraUITest",
+    "ResultadoConsulta": "OK"
+}

@@ -11,6 +11,8 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.reflect.Type;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 import es.unican.gasolineras.model.Gasolinera;
@@ -20,6 +22,9 @@ import es.unican.gasolineras.model.GasolinerasResponse;
  * Utility methods that may be used by several classes
  */
 public class Utils {
+    private static boolean pruebas = false;
+
+    private static LocalDateTime fechaPruebas = LocalDateTime.of(2024, 11, 4, 18, 0, 0);;
 
     /**
      * Parses a list of gas stations from a json resource file.
@@ -39,5 +44,34 @@ public class Utils {
                 .fromJson(reader, typeToken);
         List<Gasolinera> gasolineras = response.getGasolineras();
         return gasolineras;
+    }
+
+    /**
+     * Obtiene la fecha actual
+     * @return fecha actual
+     */
+    public static LocalDateTime obtenerFechaActual()
+    {
+        if (pruebas)
+            return fechaPruebas;
+        return LocalDateTime.now();
+    }
+
+    /**
+     * Obtiene la hora actual
+     * @param pruebas indica si se está en modo pruebas
+     */
+    public static void setPruebas(boolean pruebas)
+    {
+        Utils.pruebas = pruebas;
+    }
+
+    /**
+     * Obtiene la hora actual
+     * @return hora actual
+     */
+    public static void setHoraActual(LocalDateTime fecha)
+    {
+        fechaPruebas = fecha;
     }
 }

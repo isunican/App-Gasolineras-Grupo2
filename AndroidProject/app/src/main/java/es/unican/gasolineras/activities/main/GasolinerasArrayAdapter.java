@@ -2,6 +2,8 @@ package es.unican.gasolineras.activities.main;
 
 import static java.util.Collections.emptyList;
 
+import static es.unican.gasolineras.common.Utils.obtenerFechaActual;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.text.TextUtils;
@@ -139,7 +141,7 @@ public class GasolinerasArrayAdapter extends BaseAdapter {
         {
             TextView tv = convertView.findViewById(R.id.tvAbiertoCerrado);
             String estado;
-            boolean compruebaEstado = gasolineraAbierta(procesaHorario(gasolinera.getHorario()));
+            boolean compruebaEstado = gasolineraAbierta(procesaHorario(gasolinera.getHorario(), obtenerDiaActual()), obtenerFechaActual().toLocalTime());
             if (compruebaEstado) {
                 estado = "Abierto";
                 tv.setTextColor(VERDE);
@@ -159,7 +161,7 @@ public class GasolinerasArrayAdapter extends BaseAdapter {
             if (gasolinera.getHorario() == null || gasolinera.getHorario().isEmpty()) {
                 textoHorario = "Sin detalles de horario";
             } else {
-                textoHorario = "(" + procesaHorario(gasolinera.getHorario()) + ")";
+                textoHorario = "(" + procesaHorario(gasolinera.getHorario(), obtenerDiaActual()) + ")";
             }
             tv.setText(textoHorario);
         }
@@ -175,9 +177,10 @@ public class GasolinerasArrayAdapter extends BaseAdapter {
      * @return el horario del dia de hoy que tiene la gasolinera o
      *         "Horario no disponible" si en la base de datos no aparece el horario.
      */
-    public String procesaHorario(String horario) {
-        // Obtén el día actual (L, M, X, J, V, S, D)
-        String diaActual = obtenerDiaActual();
+    public String procesaHorario(String horario, String dia) {
+        if (horario.equals("")) {
+            return "Sin detalles de horario";
+        }
 
         // Divide el horario en secciones
         String[] secciones = horario.split(";");
@@ -187,20 +190,24 @@ public class GasolinerasArrayAdapter extends BaseAdapter {
             String[] partes = seccion.trim().split(": ");
             String dias = partes[0];
             String rango = partes[1];
+            if (rango.equals("24H")) {
+                return "24H";
+            }
 
             // Divide los días para manejar rangos como "L-X" y días individuales como "D"
             String[] diasSeparados = dias.split("-");
 
             // Verifica si el día actual está en el rango
             if (diasSeparados.length == 1) { // Ej. "D: 08:00-21:00"
-                if (diasSeparados[0].equals(diaActual)) return rango;
+                if (diasSeparados[0].equals(dia)) return rango.replace(" y", ",");
             } else { // Ej. "L-X: 08:00-21:00"
                 String inicio = diasSeparados[0];
                 String fin = diasSeparados[1];
-                if (diaEstaEnRango(diaActual, inicio, fin)) return rango;
+                if (diaEstaEnRango(dia, inicio, fin)) return rango.replace(" y", ",");
+                else return "Todo el día";
             }
         }
-        return "Horario no disponible";
+        return "Sin detalles de horario";
     }
 
     /**
@@ -264,9 +271,15 @@ public class GasolinerasArrayAdapter extends BaseAdapter {
      * @return true si la gasolinera esta abierta o
      *         false si la gasolinera esta cerrada
      */
-    public boolean gasolineraAbierta(String horarios) {
+    public boolean gasolineraAbierta(String horarios, LocalTime horaActual) {
         if ("24H".equals(horarios)) {
             return true; // Siempre abierta
+        }
+        if ("Todo el día".equals(horarios)) {
+            return false;
+        }
+        if ("Sin detalles de horario".equals(horarios)) {
+            return false;
         }
         // Divide los días para manejar rangos como "L-X" y días individuales como "D"
         String[] diasSeparados = horarios.split("y");
@@ -274,7 +287,7 @@ public class GasolinerasArrayAdapter extends BaseAdapter {
 
         for (String dia : diasSeparados) {
             if (!aux) {
-                aux = horaEnRango(dia);
+                aux = horaEnRango(dia, horaActual);
             } else {
                 break;
             }
@@ -290,10 +303,7 @@ public class GasolinerasArrayAdapter extends BaseAdapter {
      * @return true si el rango esta dentro o
      *         false si no esta dentro del rango.
      */
-    private static boolean horaEnRango(String rango) {
-        // Obtener la hora actual
-        LocalTime horaActual = LocalTime.now();
-
+    private static boolean horaEnRango(String rango, LocalTime horaActual) {
         // Formateador para interpretar el formato HH:mm
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
 
