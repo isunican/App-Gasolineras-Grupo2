@@ -22,12 +22,21 @@ interface IMainContract#View {
     + showLoadError()
     + showStationDetails(Gasolinera station)
     + showInfoActivity()
+    + getPuntosInteresDAO()
+    + showPopUpOrdenar()
+    + onOrdenarClicked(PuntoInteres p)
+    + showAnhadirPuntoInteresActivity()
+    + onFiltrarClicked(double precioMax, TipoCombustible combustible)
+    + showPopUpFiltar()
 }
 
 interface IMainContract#Presenter {
     + init(View view)
     + onStationClicked(Gasolinera station)
     + onMenuInfoClicked()
+    + onMenuAnhadirPuntoInteresClicked()
+    + ordenarGasolinerasCercanasPtoInteres(PuntoInteres p)
+    + filtraGasolinerasPorPrecioMaximo(double precioMax, TipoCombustible combustible)
 }
 
 interface IGasolinerasRepository {
@@ -72,6 +81,7 @@ interface IPuntosInteresDao {
     + loadByLatLon(double lat, double lon) : PuntoInteres
     + insertAll(PuntoInteres... puntoInteres)
     + delete(PuntoInteres puntoInteres)
+    + deleteAll()
 }
 
 @enduml
