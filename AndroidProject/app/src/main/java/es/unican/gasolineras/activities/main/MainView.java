@@ -201,6 +201,9 @@ public class MainView extends AppCompatActivity implements IMainContract.View {
         puntosInteresDAO = db.puntosInteresDao();
     }
 
+    /**
+     * @see IMainContract.View#showPopUpOrdenar()
+     */
     @Override
     public void showPopUpOrdenar() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(MainView.this);
@@ -263,23 +266,37 @@ public class MainView extends AppCompatActivity implements IMainContract.View {
         });
     }
 
-
+    /**
+     * @see IMainContract.View#onOrdenarClicked(PuntoInteres)
+     * @param p punto de interes como referencia
+     */
     @Override
     public void onOrdenarClicked(PuntoInteres p) {
         presenter.ordenarGasolinerasCercanasPtoInteres(p);
     }
 
+    /**
+     * @see IMainContract.View#showAnhadirPuntoInteresActivity()
+     */
     @Override
     public void showAnhadirPuntoInteresActivity() {
         Intent intent = new Intent(this, AnhadirPuntoInteresView.class);
         startActivity(intent);
     }
 
+    /**
+     * @see IMainContract.View#onFiltrarClicked(double, TipoCombustible)
+     * @param precioMax precio maximo puesto por el usuario
+     * @param combustible combustible seleccionado por el usuario
+     */
     @Override
     public void onFiltrarClicked(double precioMax, TipoCombustible combustible) {
         presenter.filtraGasolinerasPorPrecioMaximo(precioMax, combustible);
     }
 
+    /**
+     * @see IMainContract.View#showPopUpFiltar()
+     */
     @Override
     public void showPopUpFiltar() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(MainView.this);
