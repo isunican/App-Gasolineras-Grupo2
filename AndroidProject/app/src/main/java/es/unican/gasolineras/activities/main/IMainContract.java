@@ -44,8 +44,17 @@ public interface IMainContract {
          */
         public void onMenuAnhadirPuntoInteresClicked();
 
+        /**
+         * Ordena las gasolineras en proximidad con el punto de interes seleccionado.
+         * @param p punto de interes deseado
+         */
         public void ordenarGasolinerasCercanasPtoInteres(PuntoInteres p);
 
+        /**
+         * Filtra las gasolineras por el precio maximo y por el tipo de combustible deseados.
+         * @param precioMax precio maximo para filtrar
+         * @param combustible tipo de combustible por el que filtrar
+         */
         public void filtraGasolinerasPorPrecioMaximo(double precioMax, TipoCombustible combustible);
     }
 
@@ -121,17 +130,22 @@ public interface IMainContract {
         public void showPopUpOrdenar();
 
         /**
-         * Informa al presenter que el boton de ordenar ha sido clickado.
+         * Informa al presenter que el boton de filtrar ha sido clickado.
+         * @param p punto de interes como referencia
          */
         public void onOrdenarClicked(PuntoInteres p);
 
-
-
         /**
-         * Informa al presenter que el boton de filtrar ha sido clickado.
+         * Le manda una peticion al presenter para que muestre el popup
+         * de anhadir un punto de interes.
          */
         public void showAnhadirPuntoInteresActivity();
 
+        /**
+         * Informa al presenter que el boton de filtrar ha sido pulsado.
+         * @param precioMax precio maximo puesto por el usuario
+         * @param combustible combustible seleccionado por el usuario
+         */
         public void onFiltrarClicked(double precioMax, TipoCombustible combustible);
 
         /**
