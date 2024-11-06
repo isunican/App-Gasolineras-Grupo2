@@ -43,6 +43,10 @@ public interface IMainContract {
          * The presenter is informed that the Filtrar item in the menu has been clicked
          */
         public void onMenuAnhadirPuntoInteresClicked();
+
+        public void ordenarGasolinerasCercanasPtoInteres(PuntoInteres p);
+
+        public void filtraGasolinerasPorPrecioMaximo(double precioMax, TipoCombustible combustible);
     }
 
     /**

@@ -3,19 +3,35 @@
 hide empty members
 
 class Gasolinera {
-    - String id
-    - String rotulo
-    - String cp
-    - String direccion
-    - String municipio
-    - double gasoleoA
-    - double gasolina95E5
+    # String id;
+    # String rotulo;
+    # String cp;
+    # String direccion;
+    # String municipio;
+    # double biodiesel;
+    # double bioetanol;
+    # double gnc;
+    # double gnl;
+    # double glp;
+    # double gasoleoA;
+    # double gasoleoB;
+    # double gasoleoPremium;
+    # double gasolina95E10;
+    # double gasolina95E5;
+    # double gasolina95E5Premium;
+    # double gasolina98E10;
+    # double gasolina98E5;
+    # double hidrogeno;
+    # String horario;
+    # double latitud;
+    # double longitud;
 }
 
 class GasolinerasResponse {
     - String fecha
     - String nota
     - String consulta
+    + int getGasolinerasCount()
 }
 
 GasolinerasResponse *-- "*" Gasolinera : gasolineras
@@ -25,6 +41,14 @@ class PuntoInteres {
     - String nombre
     - double latitud
     - double longitud
+}
+
+class IDCCAAs {
+    + String id {static}
+}
+
+class TipoCombustible {
+    + double getPrecio(Gasolinera gasolinera)
 }
 
 @enduml
