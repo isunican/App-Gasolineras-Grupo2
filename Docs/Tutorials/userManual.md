@@ -46,7 +46,7 @@ El usuario puede cancelar el proceso en cualquier momento pulsando el botón **C
 
 ### 1. Ordenar gasolineras mas cercanas a un punto de interes.
 
-1. El usuario pulsa el icono de ordenar gasolineras que aparece en la barra de opciones de la parte superior de la aplicacion.
+1. El usuario pulsa el icono de ordenar gasolineras que aparece en la barra de opciones de la parte superior de la aplicación.
 
 <img src="IMG/imagenIconoOrdenarPunto.png" alt="Paso 3" width="300">
 
@@ -64,15 +64,39 @@ El usuario puede cancelar el proceso en cualquier momento pulsando el botón **C
 
 ## Posibles Errores y Mensajes
 
-1. **Error: No hay ningun punto de interes añadido** En este caso el usuario tendra que pulsar el botón "CANCELAR" y añadir un punto de interés.
+1. **Error: No hay ningun punto de interes añadido** En este caso el usuario tendrá que pulsar el botón "CANCELAR" y añadir un punto de interés.
    
 <img src="IMG/imagenErrorSinPuntos.png" alt="Paso 3" width="300">
+
+## Filtrar por precio de combustible 
+
+### 1. Filtrar por precio máximo de un combustible concreto
+
+1. El usuario pulsa el icono de filtrar que aparece en la barra de opciones de la parte superior de la aplicación.
+
+<img src="IMG/img-precio-max-1-1.png" alt="Paso 3" width="300">
+
+2. Aparece una ventana emergente donde puedes seleccionar el combustible y escribir el precio máximo pulsando en su campo respectivamente. Una vez que has puesto tus preferencias pulsa el botón **FILTRAR** para filtrar las gasolineras.
+
+<img src="IMG/img-precio-max-2.png" alt="Paso 3" width="300">
+
+3. Si el campo de **PRECIO MAXIMO** está vacio al pulsar **FILTRAR** aparecerá el siguiente mensaje por pantalla:
+
+   - Por favor, introduce un precio máximo.
+
+### 2. Cancelar la Operación
+
+El usuario puede cancelar el proceso en cualquier momento pulsando el botón **CANCELAR**, lo cual cerrará la vista sin guardar ningún dato.
+
+## Posibles Errores y Mensajes
+
+1. **Por favor, introduce un precio máximo**: Aparece cuando el campo **PRECIO MAXIMO** está vacío.
 
 ## Novedades de Interfaz
 
 ### 1. Horario gasolineras
 
-1. Hemos añadido a la interfaz donde aparecen las listas de las gasolineras el horario que tiene cada una en el dia actual y ademas mostramos si la gasolinera esta abierta o cerrada.
+1. Hemos añadido a la interfaz donde aparecen las listas de las gasolineras el horario que tiene cada una en el dia actual y además mostramos si la gasolinera está abierta o cerrada.
 
 <img src="IMG/imagenHorarioGasolinera.png" alt="Paso 3" width="300">
 
