@@ -55,6 +55,11 @@ public class MostrarHorarioGasolineraUITest {
     @BindValue
     public final IGasolinerasRepository repository = getTestRepository(context, R.raw.gasolineras_prueba_horarios);
 
+    @Before
+    public void setUp() throws Exception {
+
+    }
+
     @Test
     public void test24H() {
         //comprueba la direccion de la primera gasolinera
