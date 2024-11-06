@@ -1,5 +1,7 @@
 package es.unican.gasolineras.common;
 
+import java.time.DayOfWeek;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
@@ -26,24 +28,20 @@ public class UtilsHorario {
             String[] partes = seccion.trim().split(": ");
             String dias = partes[0];
             String rango = partes[1];
-            if (rango.equals("24H")) {
-                return "24H";
-            }
 
             // Divide los días para manejar rangos como "L-X" y días individuales como "D"
             String[] diasSeparados = dias.split("-");
 
             // Verifica si el día actual está en el rango
-            if (diasSeparados.length == 1) { // Ej. "D: 08:00-21:00"
-                if (diasSeparados[0].equals(dia)) return rango.replace(" y", ",");
+            if (diasSeparados.length == 1) { // Ej. "D: 08:00-21:00" , 24H
+                if (diasSeparados[0].equals(dia)) return rango;
             } else { // Ej. "L-X: 08:00-21:00"
                 String inicio = diasSeparados[0];
                 String fin = diasSeparados[1];
-                if (diaEstaEnRango(dia, inicio, fin)) return rango.replace(" y", ",");
-                else return "Todo el día";
+                if (diaEstaEnRango(dia, inicio, fin)) return rango;
             }
         }
-        return "Sin detalles de horario";
+        return "Todo el día";
     }
 
     /**
@@ -52,22 +50,21 @@ public class UtilsHorario {
      * @return el dia en el que estamos.
      */
     public static String obtenerDiaActual() {
-        Calendar calendario = Calendar.getInstance();
-        int diaSemana = calendario.get(Calendar.DAY_OF_WEEK);
+        DayOfWeek diaSemana = LocalDateTime.now().getDayOfWeek();
         switch (diaSemana) {
-            case Calendar.MONDAY:
+            case MONDAY:
                 return "L";
-            case Calendar.TUESDAY:
+            case TUESDAY:
                 return "M";
-            case Calendar.WEDNESDAY:
+            case WEDNESDAY:
                 return "X";
-            case Calendar.THURSDAY:
+            case THURSDAY:
                 return "J";
-            case Calendar.FRIDAY:
+            case FRIDAY:
                 return "V";
-            case Calendar.SATURDAY:
+            case SATURDAY:
                 return "S";
-            case Calendar.SUNDAY:
+            case SUNDAY:
                 return "D";
             default:
                 return "";
@@ -140,6 +137,10 @@ public class UtilsHorario {
      *         false si no esta dentro del rango.
      */
     public static boolean horaEnRango(String rango, LocalTime horaActual) {
+        if ((rango.equals("Sin detalles de horario"))&&(rango.equals("Todo el día")))
+        {
+            return false;
+        }
         // Formateador para interpretar el formato HH:mm
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
 
