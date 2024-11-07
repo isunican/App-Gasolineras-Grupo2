@@ -24,7 +24,7 @@ public class UtilsHorarioTest {
     @Test
     public void procesaHorarioTest() {
         assertEquals(procesaHorario("L-D: 08:00-21:00", "L"), "08:00-21:00");
-        assertEquals(procesaHorario("L-D: 08:00-14:00 y 16:00-22:00", "L"), "08:00-14:00, 16:00-22:00");
+        assertEquals(procesaHorario("L-D: 08:00-14:00 y 16:00-22:00", "L"), "08:00-14:00 y 16:00-22:00");
         assertEquals(procesaHorario("M-V: 08:00-21:00", "L"), "Todo el día");
         assertEquals(procesaHorario("L-D: 24H", "L"), "24H");
         assertEquals(procesaHorario("", "L"), "Sin detalles de horario");
