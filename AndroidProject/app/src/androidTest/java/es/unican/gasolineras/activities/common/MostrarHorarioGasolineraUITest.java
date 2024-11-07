@@ -1,18 +1,13 @@
 package es.unican.gasolineras.activities.common;
 
 import static androidx.test.espresso.Espresso.onData;
-import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
 
-import static org.hamcrest.CoreMatchers.allOf;
 import static org.hamcrest.CoreMatchers.anything;
-import static org.hamcrest.CoreMatchers.is;
-import static org.mockito.Mockito.when;
-import static es.unican.gasolineras.utils.Matchers.withTextColor;
-import static es.unican.gasolineras.utils.MockRepositories.getTestRepository;
+import static es.unican.gasolineras.utils.MockRepositories.getTestRepositoryList;
 
 import android.content.Context;
 
@@ -23,10 +18,8 @@ import androidx.test.platform.app.InstrumentationRegistry;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-
-import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import dagger.hilt.android.testing.BindValue;
 import dagger.hilt.android.testing.HiltAndroidRule;
@@ -34,8 +27,8 @@ import dagger.hilt.android.testing.HiltAndroidTest;
 import dagger.hilt.android.testing.UninstallModules;
 import es.unican.gasolineras.R;
 import es.unican.gasolineras.activities.main.MainView;
-import es.unican.gasolineras.common.TimeProvider;
 import es.unican.gasolineras.injection.RepositoriesModule;
+import es.unican.gasolineras.model.Gasolinera;
 import es.unican.gasolineras.repository.IGasolinerasRepository;
 
 @UninstallModules(RepositoriesModule.class)
@@ -49,19 +42,73 @@ public class MostrarHorarioGasolineraUITest {
     // I need the context to access resources, such as the json with test gas stations
     final Context context = InstrumentationRegistry.getInstrumentation().getTargetContext();
 
+    private final List<Gasolinera> listaGasolineras = new ArrayList<>();
+
     // Mock repository that provides data from a JSON file instead of downloading it from the internet.
     @BindValue
-    public final IGasolinerasRepository repository = getTestRepository(context, R.raw.gasolineras_prueba_horarios);
-
-    @Mock
-    private static TimeProvider mockObtenerDiaHora;
+    public final IGasolinerasRepository repository = getTestRepositoryList(context, listaGasolineras);
 
     @Before
-    public void inicializa() {
-        //inicializo los mocks
-        MockitoAnnotations.openMocks(this);
+    public void setUp() {
+        //creo las gasolineras
+        Gasolinera gasolinera1 = new Gasolinera();
+        gasolinera1.setId("Gasolinera1");
+        gasolinera1.setRotulo("REPSOL");
+        gasolinera1.setDireccion("Sardinero");
+        gasolinera1.setGasoleoA(1.5);
+        gasolinera1.setGasolina95E5(1.48);
+        gasolinera1.setHorario("L-D: 24H");
+        listaGasolineras.add(gasolinera1);
 
-        when(mockObtenerDiaHora.obtenerDiaHora()).thenReturn(LocalDateTime.of(2024, 10, 30, 18, 0, 0));
+        //creo las gasolineras
+        Gasolinera gasolinera2 = new Gasolinera();
+        gasolinera2.setId("Gasolinera2");
+        gasolinera2.setRotulo("REPSOL");
+        gasolinera2.setDireccion("Sardinero");
+        gasolinera2.setGasoleoA(1.5);
+        gasolinera2.setGasolina95E5(1.48);
+        gasolinera2.setHorario("L-D: 08:00-21:00");
+        listaGasolineras.add(gasolinera2);
+
+        //creo las gasolineras
+        Gasolinera gasolinera3 = new Gasolinera();
+        gasolinera3.setId("Gasolinera3");
+        gasolinera3.setRotulo("REPSOL");
+        gasolinera3.setDireccion("Sardinero");
+        gasolinera3.setGasoleoA(1.5);
+        gasolinera3.setGasolina95E5(1.48);
+        gasolinera3.setHorario("L-D: 08:00-21:00");
+        listaGasolineras.add(gasolinera3);
+
+        //creo las gasolineras
+        Gasolinera gasolinera4 = new Gasolinera();
+        gasolinera4.setId("Gasolinera4");
+        gasolinera4.setRotulo("REPSOL");
+        gasolinera4.setDireccion("Sardinero");
+        gasolinera4.setGasoleoA(1.5);
+        gasolinera4.setGasolina95E5(1.48);
+        gasolinera4.setHorario("L-D: 08:00-21:00");
+        listaGasolineras.add(gasolinera4);
+
+        //creo las gasolineras
+        Gasolinera gasolinera5 = new Gasolinera();
+        gasolinera5.setId("Gasolinera5");
+        gasolinera5.setRotulo("REPSOL");
+        gasolinera5.setDireccion("Sardinero");
+        gasolinera5.setGasoleoA(1.5);
+        gasolinera5.setGasolina95E5(1.48);
+        gasolinera5.setHorario("L-D: 08:00-21:00");
+        listaGasolineras.add(gasolinera5);
+
+        //creo las gasolineras
+        Gasolinera gasolinera6 = new Gasolinera();
+        gasolinera6.setId("Gasolinera6");
+        gasolinera6.setRotulo("REPSOL");
+        gasolinera6.setDireccion("Sardinero");
+        gasolinera6.setGasoleoA(1.5);
+        gasolinera6.setGasolina95E5(1.48);
+        gasolinera6.setHorario("");
+        listaGasolineras.add(gasolinera6);
     }
 
     @Test

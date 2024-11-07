@@ -49,8 +49,7 @@ public class UtilsHorario {
      *
      * @return el dia en el que estamos.
      */
-    public static String obtenerDiaActual() {
-        DayOfWeek diaSemana = LocalDateTime.now().getDayOfWeek();
+    public static String obtenerDiaActual(DayOfWeek diaSemana) {
         switch (diaSemana) {
             case MONDAY:
                 return "L";
