@@ -4,7 +4,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
+import java.time.temporal.ChronoUnit;
 
 public class UtilsHorario {
     /**
@@ -49,8 +49,7 @@ public class UtilsHorario {
      *
      * @return el dia en el que estamos.
      */
-    public static String obtenerDiaActual() {
-        DayOfWeek diaSemana = LocalDateTime.now().getDayOfWeek();
+    public static String obtenerDiaActual(DayOfWeek diaSemana) {
         switch (diaSemana) {
             case MONDAY:
                 return "L";
@@ -155,6 +154,116 @@ public class UtilsHorario {
         } else {
             // Si el rango cruza la medianoche
             return !horaActual.isBefore(inicio) || !horaActual.isAfter(fin);
+        }
+    }
+
+    /**
+     * Metodo que nos retorna un horario con inicio 5 horas antes de la hora actual y final 5 horas despues de la hora actual de lunes a domingo.
+     * @return horario con inicio 5 horas antes de la hora actual y final 5 horas despues de la hora actual de lunes a domingo.
+     */
+    public static String obtenerHorarioAbiertoSimple() {
+        // Obtener la fecha y hora actual
+        LocalDateTime ahora = LocalDateTime.now();
+
+        // Calcular 5 horas antes y 5 horas después
+        LocalDateTime cincoHorasAntes = ahora.minus(5, ChronoUnit.HOURS);
+        LocalDateTime cincoHorasDespues = ahora.plus(5, ChronoUnit.HOURS);
+
+        // Formatear las horas en el formato HH:mm
+        DateTimeFormatter formatoHora = DateTimeFormatter.ofPattern("HH:mm");
+        String horaInicio = cincoHorasAntes.format(formatoHora);
+        String horaFin = cincoHorasDespues.format(formatoHora);
+
+        // Construir el resultado final
+        return String.format("L-D: %s-%s",horaInicio, horaFin);
+    }
+
+    /**
+     * Metodo que nos retorna un horario abierto con intervalos, el cual nos garantiza que siempre va a estar abierto a nuestra hora actual
+     * @return horario abierto con intervalos, el cual nos garantiza que siempre va a estar abierto a nuestra hora actual
+     */
+    public static String obtenerHorarioAbiertoIntervalo() {
+        // Obtener la fecha y hora actual
+        LocalDateTime ahora = LocalDateTime.now();
+
+        // Calcular intervalos
+        LocalDateTime inicioIntervalo1 = ahora.minus(7, ChronoUnit.HOURS);
+        LocalDateTime finIntervalo1 = ahora.plus(1, ChronoUnit.HOURS);
+
+        LocalDateTime inicioIntervalo2 = ahora.plus(3, ChronoUnit.HOURS);
+        LocalDateTime finIntervalo2 = ahora.plus(10, ChronoUnit.HOURS);
+
+        // Formatear las horas en el formato HH:mm
+        DateTimeFormatter formatoHora = DateTimeFormatter.ofPattern("HH:mm");
+        String horaInicio1 = inicioIntervalo1.format(formatoHora);
+        String horaFin1 = finIntervalo1.format(formatoHora);
+
+        String horaInicio2 = inicioIntervalo2.format(formatoHora);
+        String horaFin2 = finIntervalo2.format(formatoHora);
+
+        // Construir el resultado final
+        return String.format("L-D: %s-%s y %s-%s",horaInicio1, horaFin1, horaInicio2, horaFin2);
+    }
+
+    /**
+     * Metodo que nos retorna un horario cerrado todo el dia.
+     * @return horario cerrado todo el dia.
+     */
+    public static String obtenerHorarioCerradoTodoElDia() {
+        // Obtener la fecha actual y el día de la semana actual
+        LocalDateTime ahora = LocalDateTime.now();
+        int diaActual = ahora.getDayOfWeek().getValue();
+
+        // Obtener una inicial que no sea la del día actual
+        String dia = obtenerInicialDia(diaActual + 1); // Siguiente día en la semana (con wrap-around)
+
+
+        // Construir el resultado final
+        return String.format("%s: 09:00-21:00", dia);
+    }
+
+    /**
+     * Metodo que nos retorna un horario cerrado con intervalos, el cual nos garantiza que siempre va a estar cerrado a nuestra hora actual
+     * @return horario cerrado con intervalos, el cual nos garantiza que siempre va a estar cerrado a nuestra hora actual
+     */
+    public static String obtenerHorarioCerradoIntervalo() {
+        // Obtener la fecha y hora actual
+        LocalDateTime ahora = LocalDateTime.now();
+
+        // Calcular intervalos
+        LocalDateTime inicioIntervalo1 = ahora.minus(9, ChronoUnit.HOURS);
+        LocalDateTime finIntervalo1 = ahora.minus(1, ChronoUnit.HOURS);
+
+        LocalDateTime inicioIntervalo2 = ahora.plus(1, ChronoUnit.HOURS);
+        LocalDateTime finIntervalo2 = ahora.plus(9, ChronoUnit.HOURS);
+
+        // Formatear las horas en el formato HH:mm
+        DateTimeFormatter formatoHora = DateTimeFormatter.ofPattern("HH:mm");
+        String horaInicio1 = inicioIntervalo1.format(formatoHora);
+        String horaFin1 = finIntervalo1.format(formatoHora);
+
+        String horaInicio2 = inicioIntervalo2.format(formatoHora);
+        String horaFin2 = finIntervalo2.format(formatoHora);
+
+        // Construir el resultado final
+        return String.format("L-D: %s-%s y %s-%s",horaInicio1, horaFin1, horaInicio2, horaFin2);
+    }
+
+    /**
+     * Metodo que nos retorna la inicial del dia de la semana.
+     * @param diaSemana dia de la semana.
+     * @return la inicial del dia de la semana.
+     */
+    private static String obtenerInicialDia(int diaSemana) {
+        switch (diaSemana) {
+            case 1: return "L"; // Lunes
+            case 2: return "M"; // Martes
+            case 3: return "X"; // Miércoles
+            case 4: return "J"; // Jueves
+            case 5: return "V"; // Viernes
+            case 6: return "S"; // Sábado
+            case 7: return "D"; // Domingo
+            default: return ""; // Caso no válido
         }
     }
 }

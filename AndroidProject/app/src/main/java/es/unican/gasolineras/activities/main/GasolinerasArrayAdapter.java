@@ -1,19 +1,15 @@
 package es.unican.gasolineras.activities.main;
 
-import static java.util.Collections.emptyList;
-
 import static es.unican.gasolineras.common.UtilsHorario.gasolineraAbierta;
 import static es.unican.gasolineras.common.UtilsHorario.obtenerDiaActual;
 import static es.unican.gasolineras.common.UtilsHorario.procesaHorario;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.Color;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -22,10 +18,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import es.unican.gasolineras.R;
-import es.unican.gasolineras.common.TimeProvider;
 import es.unican.gasolineras.model.Gasolinera;
 
 /**
@@ -49,6 +45,7 @@ public class GasolinerasArrayAdapter extends BaseAdapter {
         this.gasolineras = objects;
         this.context = context;
     }
+
 
     @Override
     public int getCount() {
@@ -137,8 +134,8 @@ public class GasolinerasArrayAdapter extends BaseAdapter {
         {
             TextView tv = convertView.findViewById(R.id.tvAbiertoCerrado);
             String estado;
-            String textoHorario = procesaHorario(gasolinera.getHorario(), obtenerDiaActual());
-            boolean compruebaEstado = gasolineraAbierta(textoHorario, new TimeProvider().obtenerDiaHora().toLocalTime());
+            String textoHorario = procesaHorario(gasolinera.getHorario(), obtenerDiaActual(LocalDateTime.now().getDayOfWeek()));
+            boolean compruebaEstado = gasolineraAbierta(textoHorario, LocalDateTime.now().toLocalTime());
             if (compruebaEstado) {
                 estado = "Abierto";
                 tv.setTextColor(ContextCompat.getColor(context, R.color.verde));
@@ -162,7 +159,7 @@ public class GasolinerasArrayAdapter extends BaseAdapter {
             if (gasolinera.getHorario() == null || gasolinera.getHorario().isEmpty()) {
                 textoHorario = "(Sin detalles de horario)";
             } else {
-                textoHorario = "(" + procesaHorario(gasolinera.getHorario(), obtenerDiaActual()) + ")";
+                textoHorario = "(" + procesaHorario(gasolinera.getHorario(), obtenerDiaActual(LocalDateTime.now().getDayOfWeek())) + ")";
             }
             tv.setText(textoHorario);
         }
