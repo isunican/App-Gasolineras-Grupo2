@@ -41,9 +41,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        tools:text="Label 95"
         app:layout_constraintBottom_toBottomOf="@+id/ivLogo"
-        app:layout_constraintStart_toEndOf="@+id/ivLogo"
-        tools:text="Label 95" />
+        app:layout_constraintStart_toEndOf="@+id/ivLogo" />
 
     <TextView
         android:id="@+id/tv95"
@@ -71,29 +71,6 @@
         app:layout_constraintBottom_toBottomOf="@+id/tvDieselALabel"
         app:layout_constraintStart_toEndOf="@+id/tvDieselALabel"
         tools:text="Precio Diesel" />
-
-    <TextView
-        android:id="@+id/tvAbiertoCerrado"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ivLogo"
-        tools:text="Estado" />
-
-    <TextView
-        android:id="@+id/tvHorarioGasolinera"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="2dp"
-        tools:text="Horario"
-        app:layout_constraintBottom_toBottomOf="@+id/tvAbiertoCerrado"
-        app:layout_constraintStart_toEndOf="@+id/ivLogo"
-        app:layout_constraintTop_toBottomOf="@+id/tv95Label" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
