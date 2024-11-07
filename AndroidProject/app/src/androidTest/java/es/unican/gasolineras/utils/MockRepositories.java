@@ -6,7 +6,10 @@ import static org.mockito.Mockito.mock;
 
 import android.content.Context;
 
+import java.util.List;
+
 import es.unican.gasolineras.common.Utils;
+import es.unican.gasolineras.model.Gasolinera;
 import es.unican.gasolineras.repository.ICallBack;
 import es.unican.gasolineras.repository.IGasolinerasRepository;
 
@@ -32,4 +35,19 @@ public class MockRepositories {
         return mock;
     }
 
+    /**
+     * Create a mock repository that uses the data in the given List<Gasolineras> resource
+     *
+     * @param stations lista con las gasolineras
+     * @return mock repository
+     */
+    public static IGasolinerasRepository getTestRepositoryList(List<Gasolinera> stations) {
+        IGasolinerasRepository mock = mock(IGasolinerasRepository.class);
+        doAnswer(invocation -> {
+            ICallBack callBack = invocation.getArgument(0);
+            callBack.onSuccess(stations);
+            return null;
+        }).when(mock).requestGasolineras(any(ICallBack.class), any(String.class));
+        return mock;
+    }
 }
