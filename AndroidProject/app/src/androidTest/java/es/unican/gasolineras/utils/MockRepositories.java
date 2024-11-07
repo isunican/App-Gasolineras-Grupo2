@@ -38,11 +38,10 @@ public class MockRepositories {
     /**
      * Create a mock repository that uses the data in the given List<Gasolineras> resource
      *
-     * @param context application context
      * @param stations lista con las gasolineras
      * @return mock repository
      */
-    public static IGasolinerasRepository getTestRepositoryList(Context context, List<Gasolinera> stations) {
+    public static IGasolinerasRepository getTestRepositoryList(List<Gasolinera> stations) {
         IGasolinerasRepository mock = mock(IGasolinerasRepository.class);
         doAnswer(invocation -> {
             ICallBack callBack = invocation.getArgument(0);

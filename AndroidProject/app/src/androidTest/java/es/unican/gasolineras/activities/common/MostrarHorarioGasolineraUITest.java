@@ -1,12 +1,16 @@
 package es.unican.gasolineras.activities.common;
 
 import static androidx.test.espresso.Espresso.onData;
+import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.action.ViewActions.swipeUp;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
 
 import static org.hamcrest.CoreMatchers.anything;
+import static es.unican.gasolineras.common.UtilsHorario.obtenerDiaActual;
+import static es.unican.gasolineras.common.UtilsHorario.procesaHorario;
 import static es.unican.gasolineras.utils.MockRepositories.getTestRepositoryList;
 
 import android.content.Context;
@@ -18,6 +22,8 @@ import androidx.test.platform.app.InstrumentationRegistry;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
+
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,6 +33,7 @@ import dagger.hilt.android.testing.HiltAndroidTest;
 import dagger.hilt.android.testing.UninstallModules;
 import es.unican.gasolineras.R;
 import es.unican.gasolineras.activities.main.MainView;
+import es.unican.gasolineras.common.UtilsHorario;
 import es.unican.gasolineras.injection.RepositoriesModule;
 import es.unican.gasolineras.model.Gasolinera;
 import es.unican.gasolineras.repository.IGasolinerasRepository;
@@ -42,14 +49,15 @@ public class MostrarHorarioGasolineraUITest {
     // I need the context to access resources, such as the json with test gas stations
     final Context context = InstrumentationRegistry.getInstrumentation().getTargetContext();
 
-    private final List<Gasolinera> listaGasolineras = new ArrayList<>();
+    private final List<Gasolinera> listaGasolineras = getListaGasolineras();
 
     // Mock repository that provides data from a JSON file instead of downloading it from the internet.
     @BindValue
-    public final IGasolinerasRepository repository = getTestRepositoryList(context, listaGasolineras);
+    public final IGasolinerasRepository repository = getTestRepositoryList(listaGasolineras);
 
-    @Before
-    public void setUp() {
+    public static List<Gasolinera> getListaGasolineras() {
+        List<Gasolinera> aux = new ArrayList<>();
+
         //creo las gasolineras
         Gasolinera gasolinera1 = new Gasolinera();
         gasolinera1.setId("Gasolinera1");
@@ -58,7 +66,7 @@ public class MostrarHorarioGasolineraUITest {
         gasolinera1.setGasoleoA(1.5);
         gasolinera1.setGasolina95E5(1.48);
         gasolinera1.setHorario("L-D: 24H");
-        listaGasolineras.add(gasolinera1);
+        aux.add(gasolinera1);
 
         //creo las gasolineras
         Gasolinera gasolinera2 = new Gasolinera();
@@ -67,8 +75,8 @@ public class MostrarHorarioGasolineraUITest {
         gasolinera2.setDireccion("Sardinero");
         gasolinera2.setGasoleoA(1.5);
         gasolinera2.setGasolina95E5(1.48);
-        gasolinera2.setHorario("L-D: 08:00-21:00");
-        listaGasolineras.add(gasolinera2);
+        gasolinera2.setHorario(UtilsHorario.obtenerHorarioAbiertoSimple());
+        aux.add(gasolinera2);
 
         //creo las gasolineras
         Gasolinera gasolinera3 = new Gasolinera();
@@ -77,8 +85,8 @@ public class MostrarHorarioGasolineraUITest {
         gasolinera3.setDireccion("Sardinero");
         gasolinera3.setGasoleoA(1.5);
         gasolinera3.setGasolina95E5(1.48);
-        gasolinera3.setHorario("L-D: 08:00-21:00");
-        listaGasolineras.add(gasolinera3);
+        gasolinera3.setHorario(UtilsHorario.obtenerHorarioAbiertoIntervalo());
+        aux.add(gasolinera3);
 
         //creo las gasolineras
         Gasolinera gasolinera4 = new Gasolinera();
@@ -87,8 +95,8 @@ public class MostrarHorarioGasolineraUITest {
         gasolinera4.setDireccion("Sardinero");
         gasolinera4.setGasoleoA(1.5);
         gasolinera4.setGasolina95E5(1.48);
-        gasolinera4.setHorario("L-D: 08:00-21:00");
-        listaGasolineras.add(gasolinera4);
+        gasolinera4.setHorario(UtilsHorario.obtenerHorarioCerradoTodoElDia());
+        aux.add(gasolinera4);
 
         //creo las gasolineras
         Gasolinera gasolinera5 = new Gasolinera();
@@ -97,8 +105,8 @@ public class MostrarHorarioGasolineraUITest {
         gasolinera5.setDireccion("Sardinero");
         gasolinera5.setGasoleoA(1.5);
         gasolinera5.setGasolina95E5(1.48);
-        gasolinera5.setHorario("L-D: 08:00-21:00");
-        listaGasolineras.add(gasolinera5);
+        gasolinera5.setHorario(UtilsHorario.obtenerHorarioCerradoIntervalo());
+        aux.add(gasolinera5);
 
         //creo las gasolineras
         Gasolinera gasolinera6 = new Gasolinera();
@@ -108,7 +116,14 @@ public class MostrarHorarioGasolineraUITest {
         gasolinera6.setGasoleoA(1.5);
         gasolinera6.setGasolina95E5(1.48);
         gasolinera6.setHorario("");
-        listaGasolineras.add(gasolinera6);
+        aux.add(gasolinera6);
+
+        return aux;
+    }
+
+    @Before
+    public void setUp() {
+         hiltRule.inject();
     }
 
     @Test
@@ -117,7 +132,7 @@ public class MostrarHorarioGasolineraUITest {
         DataInteraction g1 = onData(anything()).inAdapterView(withId(R.id.lvStations)).atPosition(0);
         g1.onChildView(withId(R.id.tvAbiertoCerrado)).check(matches(withText("Abierto")));
         g1.onChildView(withId(R.id.tvHorarioGasolinera)).check(matches(withText("(24H)")));
-//        g1.onChildView(withId(R.id.tvHorarioGasolinera)).check(matches(withTextColor(R.color.verde)));
+//        g1.onChildView(withId(R.id.tvHorarioGasolinera)).check(matches(withTextColor(ContextCompat.getColor(context, R.color.verde))));
     }
 
     @Test
@@ -125,8 +140,8 @@ public class MostrarHorarioGasolineraUITest {
         //comprueba la direccion de la primera gasolinera
         DataInteraction g1 = onData(anything()).inAdapterView(withId(R.id.lvStations)).atPosition(1);
         g1.onChildView(withId(R.id.tvAbiertoCerrado)).check(matches(withText("Abierto")));
-        g1.onChildView(withId(R.id.tvHorarioGasolinera)).check(matches(withText("(08:00-21:00)")));
-//        g1.onChildView(withId(R.id.tvHorarioGasolinera)).check(matches(withTextColor(R.color.verde)));
+        g1.onChildView(withId(R.id.tvHorarioGasolinera)).check(matches(withText("(" + procesaHorario(UtilsHorario.obtenerHorarioAbiertoSimple(), obtenerDiaActual(LocalDateTime.now().getDayOfWeek())) + ")")));
+//        g1.onChildView(withId(R.id.tvHorarioGasolinera)).check(matches(withTextColor(ContextCompat.getColor(context, R.color.verde))));
     }
 
     @Test
@@ -134,8 +149,8 @@ public class MostrarHorarioGasolineraUITest {
         //comprueba la direccion de la primera gasolinera
         DataInteraction g1 = onData(anything()).inAdapterView(withId(R.id.lvStations)).atPosition(2);
         g1.onChildView(withId(R.id.tvAbiertoCerrado)).check(matches(withText("Abierto")));
-        g1.onChildView(withId(R.id.tvHorarioGasolinera)).check(matches(withText("(09:00-14:00 y 16:00-21:00)")));
-//        g1.onChildView(withId(R.id.tvHorarioGasolinera)).check(matches(withTextColor(R.color.verde)));
+        g1.onChildView(withId(R.id.tvHorarioGasolinera)).check(matches(withText("(" + procesaHorario(UtilsHorario.obtenerHorarioAbiertoIntervalo(), obtenerDiaActual(LocalDateTime.now().getDayOfWeek())) + ")")));
+//        g1.onChildView(withId(R.id.tvHorarioGasolinera)).check(matches(withTextColor(ContextCompat.getColor(context, R.color.verde))));
     }
 
     @Test
@@ -144,7 +159,7 @@ public class MostrarHorarioGasolineraUITest {
         DataInteraction g1 = onData(anything()).inAdapterView(withId(R.id.lvStations)).atPosition(3);
         g1.onChildView(withId(R.id.tvAbiertoCerrado)).check(matches(withText("Cerrado")));
         g1.onChildView(withId(R.id.tvHorarioGasolinera)).check(matches(withText("(Todo el día)")));
-//        g1.onChildView(withId(R.id.tvHorarioGasolinera)).check(matches(withTextColor(R.color.rojo)));
+//        g1.onChildView(withId(R.id.tvHorarioGasolinera)).check(matches(withTextColor(ContextCompat.getColor(context, R.color.rojo))));
     }
 
     @Test
@@ -152,13 +167,15 @@ public class MostrarHorarioGasolineraUITest {
         //comprueba la direccion de la primera gasolinera
         DataInteraction g1 = onData(anything()).inAdapterView(withId(R.id.lvStations)).atPosition(4);
         g1.onChildView(withId(R.id.tvAbiertoCerrado)).check(matches(withText("Cerrado")));
-        g1.onChildView(withId(R.id.tvHorarioGasolinera)).check(matches(withText("(08:00-14:00 y 19:00-21:00)")));
-//        g1.onChildView(withId(R.id.tvHorarioGasolinera)).check(matches(withTextColor(R.color.rojo)));
+        g1.onChildView(withId(R.id.tvHorarioGasolinera)).check(matches(withText("(" + procesaHorario(UtilsHorario.obtenerHorarioCerradoIntervalo(), obtenerDiaActual(LocalDateTime.now().getDayOfWeek())) + ")")));
+//        g1.onChildView(withId(R.id.tvHorarioGasolinera)).check(matches(withTextColor(ContextCompat.getColor(context, R.color.rojo))));
     }
 
     @Test
     public void testSinDetallesDeHorario() throws InterruptedException {
         //comprueba la direccion de la primera gasolinera
+        // Scroll puesto que se sale de la pantalla y no se alcanza a ver
+        onView(withId(R.id.lvStations)).perform(swipeUp());
         DataInteraction g1 = onData(anything()).inAdapterView(withId(R.id.lvStations)).atPosition(5);
         g1.onChildView(withId(R.id.tvAbiertoCerrado)).check(matches(withText("")));
         g1.onChildView(withId(R.id.tvHorarioGasolinera)).check(matches(withText("(Sin detalles de horario)")));
