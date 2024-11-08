@@ -41,7 +41,7 @@ import es.unican.gasolineras.repository.IGasolinerasRepository;
 @UninstallModules(RepositoriesModule.class)
 @HiltAndroidTest
 public class MostrarHorarioGasolineraUITest {
-    @Rule(order = 0)  // the Hilt rule must execute first
+    @Rule(order = 0)  // The Hilt rule must execute first
     public HiltAndroidRule hiltRule = new HiltAndroidRule(this);
     @Rule(order = 1)
     public ActivityScenarioRule<MainView> activityRule = new ActivityScenarioRule<>(MainView.class);
