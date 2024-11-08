@@ -4,8 +4,13 @@
 
     <item
         android:id="@+id/menuFiltrar"
-        android:icon="@drawable/filtro"
+        android:icon="@drawable/filter"
         android:title="filtrar"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/menuOrdenar"
+        android:icon="@drawable/ordenar"
+        android:title="ordenar"
         app:showAsAction="always" />
     <item
         android:id="@+id/menuItemInfo"
