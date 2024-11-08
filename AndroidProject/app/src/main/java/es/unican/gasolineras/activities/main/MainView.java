@@ -324,10 +324,10 @@ public class MainView extends AppCompatActivity implements IMainContract.View {
                     return source;
                 }
 
-                // Verificar cuántos decimales habría después del punto
+                // Verificar cuantos decimales habría después del punto
                 String decimals = resultingText.substring(decimalIndex + 1);
                 if (decimals.length() > 3) {
-                    return ""; // Bloquear la entrada si excedería 2 decimales
+                    return "";
                 }
 
                 return source;
