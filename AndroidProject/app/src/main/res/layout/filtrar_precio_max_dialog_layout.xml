@@ -50,14 +50,13 @@
 
     <EditText
         android:id="@+id/etPrecioMax"
-        android:layout_width="79dp"
-        android:layout_height="45dp"
+        android:layout_width="60dp"
+        android:layout_height="50dp"
         android:autofillHints="username"
         android:ems="10"
         android:inputType="numberDecimal"
         android:textSize="16sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/tvPrecioMax"
-        app:layout_constraintEnd_toEndOf="@+id/spinnerCombustible"
         app:layout_constraintStart_toStartOf="@+id/spinnerCombustible" />
 
     <Button

@@ -311,6 +311,7 @@ public class MainView extends AppCompatActivity implements IMainContract.View {
         etPrecioMax.setFilters(new InputFilter[]{new InputFilter() {
             DecimalFormatSymbols decimalFormatSymbols = new DecimalFormatSymbols();
 
+            //Evita que se puedan introducir mas de 3 decimales
             @Override
             public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
                 String resultingText = dest.subSequence(0, dstart) +
