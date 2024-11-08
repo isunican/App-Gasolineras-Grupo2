@@ -15,6 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Gasolineras"
         tools:targetApi="31">
+        <!-- Bloqueado a vertical -->
         <activity
             android:name=".activities.info.InfoView"
             android:screenOrientation="portrait"
