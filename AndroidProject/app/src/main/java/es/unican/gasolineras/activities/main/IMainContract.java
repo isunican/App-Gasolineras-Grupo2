@@ -4,8 +4,8 @@ import java.util.List;
 
 import es.unican.gasolineras.model.Gasolinera;
 import es.unican.gasolineras.model.PuntoInteres;
+import es.unican.gasolineras.model.TipoCombustible;
 import es.unican.gasolineras.repository.IGasolinerasRepository;
-import es.unican.gasolineras.repository.IPuntosInteresDAO;
 
 /**
  * The Presenter-View contract for the Main activity.
@@ -40,9 +40,22 @@ public interface IMainContract {
         public void onMenuInfoClicked();
 
         /**
-         *
+         * The presenter is informed that the Filtrar item in the menu has been clicked
          */
         public void onMenuAnhadirPuntoInteresClicked();
+
+        /**
+         * Ordena las gasolineras en proximidad con el punto de interes seleccionado.
+         * @param p punto de interes deseado
+         */
+        public void ordenarGasolinerasCercanasPtoInteres(PuntoInteres p);
+
+        /**
+         * Filtra las gasolineras por el precio maximo y por el tipo de combustible deseados.
+         * @param precioMax precio maximo para filtrar
+         * @param combustible tipo de combustible por el que filtrar
+         */
+        public void filtraGasolinerasPorPrecioMaximo(double precioMax, TipoCombustible combustible);
     }
 
     /**
@@ -112,14 +125,33 @@ public interface IMainContract {
 
         /**
          *  La vista manda una peticion al presenter para que muestre el
-         *  popup de filtrar.
+         *  popup de ordenar.
          */
-        public void showPopUpFiltrar();
+        public void showPopUpOrdenar();
 
         /**
-         * Informa al presenter que el boton de ordenar ha sido clickado.
+         * Informa al presenter que el boton de filtrar ha sido clickado.
+         * @param p punto de interes como referencia
          */
         public void onOrdenarClicked(PuntoInteres p);
+
+        /**
+         * Le manda una peticion al presenter para que muestre el popup
+         * de anhadir un punto de interes.
+         */
         public void showAnhadirPuntoInteresActivity();
+
+        /**
+         * Informa al presenter que el boton de filtrar ha sido pulsado.
+         * @param precioMax precio maximo puesto por el usuario
+         * @param combustible combustible seleccionado por el usuario
+         */
+        public void onFiltrarClicked(double precioMax, TipoCombustible combustible);
+
+        /**
+         *  La vista manda una peticion al presenter para que muestre el
+         *  popup de filtrar.
+         */
+        public void showPopUpFiltar();
     }
 }
