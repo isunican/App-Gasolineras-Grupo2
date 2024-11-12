@@ -117,6 +117,10 @@ public class MainView extends AppCompatActivity implements IMainContract.View {
             presenter.onMenuFiltrarClicked();
             return true;
         }
+        if (itemId == R.id.menuQuitarFiltrosYOrdenaciones) {
+            presenter.onMenuQuitarFiltrosYOrdenacionesClicked();
+            return true;
+        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -292,6 +296,25 @@ public class MainView extends AppCompatActivity implements IMainContract.View {
     @Override
     public void onFiltrarClicked(double precioMax, TipoCombustible combustible) {
         presenter.filtraGasolinerasPorPrecioMaximo(precioMax, combustible);
+    }
+
+
+
+    /**
+     * @see IMainContract.View#showPopUpQuitarFiltrosYOrdenaciones()
+     */
+    @Override
+    public void showPopUpQuitarFiltrosYOrdenaciones() {
+        new AlertDialog.Builder(this)
+                .setTitle("Quitar filtros y ordenaciones")
+                .setMessage("¿Estás seguro de que quieres quitar todos los filtros y ordenaciones?")
+                .setPositiveButton("Sí", (dialog, which) -> {
+                    // Llamar al presenter para quitar filtros y ordenaciones
+                    presenter.quitarFiltrosYOrdenaciones();
+                    dialog.dismiss();
+                })
+                .setNegativeButton("No", (dialog, which) -> dialog.dismiss())
+                .show();
     }
 
     /**

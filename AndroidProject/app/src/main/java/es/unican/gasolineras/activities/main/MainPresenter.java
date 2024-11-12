@@ -77,6 +77,12 @@ public class MainPresenter implements IMainContract.Presenter {
         view.showPopUpFiltar();
     }
 
+    /**
+     * Muestra el popup de quitar filtros y ordenaciones.
+     */
+    public void onMenuQuitarFiltrosYOrdenacionesClicked() {
+        view.showPopUpQuitarFiltrosYOrdenaciones();
+    }
 
 
     private void load() {
@@ -136,6 +142,25 @@ public class MainPresenter implements IMainContract.Presenter {
 
         // Actualizar la lista modificada y mostrar
         gasolinerasMod = gasolinerasFiltradas;
+        view.showStations(gasolinerasMod);
+    }
+
+    /**
+     * Quita todos los filtros y ordenaciones aplicados a la lista de gasolineras,
+     * restaurando la lista original y actualizando la vista.
+     */
+    public void quitarFiltrosYOrdenaciones() {
+        // Restablecer la lista a la original
+        gasolinerasMod = new ArrayList<>(gasolineras);
+
+        // Restablecer las banderas de ordenación y filtrado
+        estaOrdenada = false;
+        estaFiltrada = false;
+
+        // Restablecer el punto de interés de ordenación
+        puntoInteresOrdenActual = null;
+
+        // Actualizar la vista con la lista original
         view.showStations(gasolinerasMod);
     }
 }
