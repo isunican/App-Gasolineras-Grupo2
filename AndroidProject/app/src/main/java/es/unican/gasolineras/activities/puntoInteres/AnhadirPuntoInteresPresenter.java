@@ -37,10 +37,21 @@ public class AnhadirPuntoInteresPresenter implements IAnhadirPuntoInteresContrac
             return;
         }
 
+
         try {
             // Convertir las coordenadas a tipo double
             double latitud = Double.parseDouble(latitudStr);
             double longitud = Double.parseDouble(longitudStr);
+
+            // Verificar que los datos están en rango válido
+            if (latitud <= 90.00 || latitud >= -90.00) {
+                vista.mostrarMensaje("La latitud está fuera de los límites permitidos. No se ha guardado el punto");
+                return;
+            }
+            if (longitud <= 180.00 || longitud >= -180.00) {
+                vista.mostrarMensaje("La longitud está fuera de los límites permitidos. No se ha guardado el punto");
+                return;
+            }
 
             // Crear un nuevo punto de interés
             PuntoInteres nuevoPunto = new PuntoInteres(nombre, latitud, longitud);
