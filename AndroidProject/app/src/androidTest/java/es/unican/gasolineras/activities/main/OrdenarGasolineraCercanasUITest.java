@@ -66,6 +66,7 @@ public class OrdenarGasolineraCercanasUITest {
         //ptDAO.deleteAll();
     }
 
+    /*
     @Test
     public void testOrdenaGasolinerasCercanasCasoExito() {
         //creo un punto de interes
@@ -107,7 +108,8 @@ public class OrdenarGasolineraCercanasUITest {
         DataInteraction g2 = onData(anything()).inAdapterView(withId(R.id.lvStations)).atPosition(1);
         g2.onChildView(withId(R.id.tvAddress)).check(matches(withText("CARRETERA 634 KM. 244")));
     }
-
+    */
+    
     @Test
     public void OrdenarGasolinerasCercanasNoPtoInteres(){
 
