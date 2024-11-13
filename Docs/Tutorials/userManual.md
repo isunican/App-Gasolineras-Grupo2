@@ -107,7 +107,7 @@ El usuario puede cancelar el proceso en cualquier momento pulsando el botón **C
 <img src="IMG/imgQuitarFiltros1.png" alt="Paso 1" width="300">
 
 
-2. El usuario selecciona **ACEPTAR** para aplicar o **CANCELAR** para retroceder sin cambios.
+2. El usuario selecciona **Si** para aplicar o **No** para retroceder sin cambios.
 
 <img src="IMG/imgQuitarFiltros2.png" alt="Paso 3" width="300">
 
