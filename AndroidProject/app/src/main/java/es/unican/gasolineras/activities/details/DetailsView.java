@@ -1,12 +1,21 @@
 package es.unican.gasolineras.activities.details;
 
+import static es.unican.gasolineras.common.Utils.ajustarAlturaListView;
+import static es.unican.gasolineras.common.Utils.rellenaListaCombustibles;
+import static es.unican.gasolineras.common.Utils.setListViewHeightBasedOnItems;
+import static es.unican.gasolineras.model.TipoCombustible.*;
+
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -16,8 +25,16 @@ import androidx.core.view.WindowInsetsCompat;
 
 import org.parceler.Parcels;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
+
 import es.unican.gasolineras.R;
 import es.unican.gasolineras.model.Gasolinera;
+import es.unican.gasolineras.model.GasolineraCombustible;
 
 /**
  * View that shows the details of one gas station. Since this view does not have business logic,
@@ -52,9 +69,8 @@ public class DetailsView extends AppCompatActivity {
         TextView tvMunicipio = findViewById(R.id.tvMunicipio);
         TextView tvDireccion = findViewById(R.id.tvDireccion);
         TextView tvHorario = findViewById(R.id.tvHorario);
-        TextView tvPrecioSumario = findViewById(R.id.tvPrecioSumario);
-        TextView tvGasoleoA = findViewById(R.id.tvGasoleoA);
-        TextView tvGasolina95 = findViewById(R.id.tvGasolina95);
+        ListView list = findViewById(R.id.lvCombustibles);
+
 
         // Get Gas Station from the intent that triggered this activity
         Gasolinera gasolinera = Parcels.unwrap(getIntent().getExtras().getParcelable(INTENT_STATION));
@@ -70,28 +86,12 @@ public class DetailsView extends AppCompatActivity {
         tvDireccion.setText(gasolinera.getDireccion());
         tvHorario.setText(gasolinera.getHorario());
 
-        double precioSumario = precioSumario(gasolinera);
+        //Set Lista Combustibles
+        List<GasolineraCombustible> combustibles = new ArrayList<>();
 
-        // Mostrar sumario si esta disponible
-        if (precioSumario > 0) {
-            tvPrecioSumario.setText(String.format("%.2f", precioSumario) + "€");
-        } else {
-            tvPrecioSumario.setText("-");
-        }
-
-        // Mostrar diésel si está disponible
-        if (gasolinera.getGasoleoA() > 0) {
-            tvGasoleoA.setText(String.format("%.2f", gasolinera.getGasoleoA()) + "€");
-        } else {
-            tvGasoleoA.setText("-");
-        }
-
-        // Mostrar gasolina si está disponible
-        if (gasolinera.getGasolina95E5() > 0) {
-            tvGasolina95.setText(String.format("%.2f", gasolinera.getGasolina95E5()) + "€");
-        } else {
-            tvGasolina95.setText("-");
-        }
+        CombustibleArrayAdapter adapter = new CombustibleArrayAdapter(this, rellenaListaCombustibles(combustibles, gasolinera));
+        list.setAdapter(adapter);
+        setListViewHeightBasedOnItems(list);
     }
 
     /**
@@ -107,13 +107,5 @@ public class DetailsView extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    /**
-     * @param gasolinera gasolinera sobre la que calcular el sumario
-     * @return media ponderada de los precios
-     */
-    public double precioSumario(Gasolinera gasolinera) {
-        return (gasolinera.getGasoleoA() + gasolinera.getGasolina95E5() * 2) / 3;
     }
 }
