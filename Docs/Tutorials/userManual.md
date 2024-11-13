@@ -100,6 +100,16 @@ El usuario puede cancelar el proceso en cualquier momento pulsando el botón **C
 
 <img src="IMG/imagenHorarioGasolinera.png" alt="Paso 3" width="300">
 
+## 1. Quitar filtros y ordenaciones
+
+1. El usuario pulsa el icono de quitar filtros y ordenaciones (icono de "X") de la barra superior.
+
+<img src="IMG/imgQuitarFiltros1.png" alt="Paso 1" width="300">
+
+
+2. El usuario selecciona **ACEPTAR** para aplicar o **CANCELAR** para retroceder sin cambios.
+
+<img src="IMG/imgQuitarFiltros2.png" alt="Paso 3" width="300">
 
 
 
