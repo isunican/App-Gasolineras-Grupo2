@@ -308,12 +308,12 @@ public class MainView extends AppCompatActivity implements IMainContract.View {
         new AlertDialog.Builder(this)
                 .setTitle("Quitar filtros y ordenaciones")
                 .setMessage("¿Estás seguro de que quieres quitar todos los filtros y ordenaciones?")
-                .setPositiveButton("Sí", (dialog, which) -> {
+                .setPositiveButton("ACEPTAR", (dialog, which) -> {
                     // Llamar al presenter para quitar filtros y ordenaciones
                     presenter.quitarFiltrosYOrdenaciones();
                     dialog.dismiss();
                 })
-                .setNegativeButton("No", (dialog, which) -> dialog.dismiss())
+                .setNegativeButton("CANCELAR", (dialog, which) -> dialog.dismiss())
                 .show();
     }
 

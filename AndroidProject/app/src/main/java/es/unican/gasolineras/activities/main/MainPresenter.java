@@ -1,5 +1,7 @@
 package es.unican.gasolineras.activities.main;
 
+import android.widget.Toast;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -148,19 +150,24 @@ public class MainPresenter implements IMainContract.Presenter {
     /**
      * Quita todos los filtros y ordenaciones aplicados a la lista de gasolineras,
      * restaurando la lista original y actualizando la vista.
+     * Si no se ha podido eliminar el filtro, muestra un mensaje al usuario.
      */
     public void quitarFiltrosYOrdenaciones() {
+        boolean seHanQuitadoFiltros = false; // Para controlar si se han quitado filtros
+
         // Restablecer la lista a la original
-        gasolinerasMod = new ArrayList<>(gasolineras);
+        if (estaFiltrada || estaOrdenada) { // Solo si hay filtros o ordenaciones aplicadas
+            gasolinerasMod = new ArrayList<>(gasolineras);
+            estaOrdenada = false;
+            estaFiltrada = false;
+            puntoInteresOrdenActual = null;
+            view.showStations(gasolinerasMod);
+            seHanQuitadoFiltros = true; // Se han quitado los filtros
+        }
 
-        // Restablecer las banderas de ordenación y filtrado
-        estaOrdenada = false;
-        estaFiltrada = false;
-
-        // Restablecer el punto de interés de ordenación
-        puntoInteresOrdenActual = null;
-
-        // Actualizar la vista con la lista original
-        view.showStations(gasolinerasMod);
+        // Mostrar mensaje al usuario
+        if (!seHanQuitadoFiltros) {
+            view.showLoadError();
+        }
     }
 }
