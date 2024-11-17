@@ -3,12 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="128dp">
+    android:layout_height="128dp"
+    android:clickable="false">
 
     <TextView
         android:id="@+id/tvInfoError"
         android:layout_width="230dp"
         android:layout_height="78dp"
+        android:clickable="false"
         android:gravity="center"
         android:textAlignment="center"
         android:textStyle="bold"

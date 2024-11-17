@@ -136,7 +136,7 @@ public class MainPresenter implements IMainContract.Presenter {
 
         // Si la lista esta vacia se le agrega el elemento informativo
         if (gasolinerasFiltradas.isEmpty()) {
-
+            view.showElementoInformativo();
         } else {
             // Actualizar la lista modificada y mostrar
             gasolinerasMod = gasolinerasFiltradas;

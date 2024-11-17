@@ -155,6 +155,13 @@ public class MainView extends AppCompatActivity implements IMainContract.View {
         list.setAdapter(adapter);
     }
 
+    @Override
+    public void showElementoInformativo() {
+        ListView list = findViewById(R.id.lvStations);
+        ElementoInformativoArrayAdapter adapter = new ElementoInformativoArrayAdapter(this);
+        list.setAdapter(adapter);
+    }
+
     /**
      * @see IMainContract.View#showLoadCorrect(int)
      * @param stations
