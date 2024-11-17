@@ -64,7 +64,7 @@
         app:layout_constraintStart_toEndOf="@+id/tv95" />
 
     <TextView
-        android:id="@+id/tvDieselA"
+        android:id="@+id/tvInfoError"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="2dp"

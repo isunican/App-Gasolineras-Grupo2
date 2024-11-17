@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="128dp">
+
+    <TextView
+        android:id="@+id/tvInfoError"
+        android:layout_width="230dp"
+        android:layout_height="78dp"
+        android:gravity="center"
+        android:textAlignment="center"
+        android:textStyle="bold"
+        android:typeface="normal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="El precio es demasiado restrictivo. No hay gasolineras que lo cumplan." />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
