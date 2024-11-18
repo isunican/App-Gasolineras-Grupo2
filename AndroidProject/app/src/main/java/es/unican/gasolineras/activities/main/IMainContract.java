@@ -56,6 +56,16 @@ public interface IMainContract {
          * @param combustible tipo de combustible por el que filtrar
          */
         public void filtraGasolinerasPorPrecioMaximo(double precioMax, TipoCombustible combustible);
+
+        /**
+         * Muestra el popup de quitar filtros y ordenaciones.
+         */
+        public void onMenuQuitarFiltrosYOrdenacionesClicked();
+
+        /**
+         * Quita los filtros y ordenaciones aplicados a la lista de gasolineras.
+         */
+        public void quitarFiltrosYOrdenaciones();
     }
 
     /**
@@ -140,6 +150,12 @@ public interface IMainContract {
          * de anhadir un punto de interes.
          */
         public void showAnhadirPuntoInteresActivity();
+
+        /**
+         *  La vista manda una peticion al presenter para que muestre el menu de
+         *  confirmacion para quitar filtros y ordenaciones.
+         */
+        public void showPopUpQuitarFiltrosYOrdenaciones();
 
         /**
          * Informa al presenter que el boton de filtrar ha sido pulsado.
