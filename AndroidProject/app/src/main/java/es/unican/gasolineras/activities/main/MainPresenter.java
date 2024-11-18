@@ -46,6 +46,10 @@ public class MainPresenter implements IMainContract.Presenter {
      */
     @Override
     public void onStationClicked(Gasolinera station) {
+        if (station == null)
+        {
+            return;
+        }
         view.showStationDetails(station);
     }
 

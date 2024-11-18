@@ -45,8 +45,12 @@ public class ElementoInformativoArrayAdapter extends BaseAdapter {
         // texto
         {
             TextView tv = convertView.findViewById(R.id.tvInfoError);
-            tv.setText("El precio es demasiado restrictivo. No hay gasolineras que lo cumplan.");
+            tv.setText("No hay gasolineras que cumplan el filtro");
         }
+
+        // Deshabilitar clics en esta vista
+        convertView.setClickable(false);
+        convertView.setFocusable(false);
 
         return convertView;
     }

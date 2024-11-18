@@ -8,8 +8,8 @@
 
     <TextView
         android:id="@+id/tvInfoError"
-        android:layout_width="230dp"
-        android:layout_height="78dp"
+        android:layout_width="305dp"
+        android:layout_height="60dp"
         android:clickable="false"
         android:gravity="center"
         android:textAlignment="center"
@@ -20,7 +20,7 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="El precio es demasiado restrictivo. No hay gasolineras que lo cumplan." />
+        tools:text="No hay gasolineras que cumplan el filtro" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
