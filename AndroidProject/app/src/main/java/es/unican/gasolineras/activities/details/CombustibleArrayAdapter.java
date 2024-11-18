@@ -48,19 +48,15 @@ public class CombustibleArrayAdapter extends BaseAdapter {
                     .inflate(R.layout.activity_precio_combustible_list_item, parent, false);
         }
 
-            //nombre
-            {
-                TextView tv = convertView.findViewById(R.id.tvNombreCombustible);
-                tv.setText(String.valueOf(combustibles.get(position).getCombustible()));
-            }
+        // Configurar nombre
+        TextView tvNombre = convertView.findViewById(R.id.tvNombreCombustible);
+        tvNombre.setText(String.valueOf(combustibles.get(position).getCombustible()));
 
-            //precio
-            {
-                TextView tv = convertView.findViewById(R.id.tvPrecioCombustible);
-                tv.setText(String.valueOf(combustibles.get(position).getPrecio()));
-            }
-
+        // Configurar precio
+        TextView tvPrecio = convertView.findViewById(R.id.tvPrecioCombustible);
+        tvPrecio.setText(String.valueOf(combustibles.get(position).getPrecio()));
 
         return convertView;
     }
+
 }

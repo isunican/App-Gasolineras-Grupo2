@@ -8,6 +8,7 @@ import static es.unican.gasolineras.model.TipoCombustible.GASOLEO_PREMIUM;
 import static es.unican.gasolineras.model.TipoCombustible.GASOLINA_95_E10;
 import static es.unican.gasolineras.model.TipoCombustible.GASOLINA_95_E5;
 import static es.unican.gasolineras.model.TipoCombustible.GASOLINA_95_E5_PREMIUM;
+import static es.unican.gasolineras.model.TipoCombustible.GASOLINA_98_E10;
 import static es.unican.gasolineras.model.TipoCombustible.GASOLINA_98_E5;
 import static es.unican.gasolineras.model.TipoCombustible.GLP;
 import static es.unican.gasolineras.model.TipoCombustible.GNC;
@@ -61,85 +62,77 @@ public class Utils {
         return gasolineras;
     }
 
+    /**
+     * Rellena una lista de los combustibles disponibles y su precio de la gasolinera
+     * @param combustibles lista a rellenar
+     * @param gasolinera gasolionera de obtener los combustibles
+     * @return
+     */
     public static List<GasolineraCombustible> rellenaListaCombustibles(List<GasolineraCombustible> combustibles, Gasolinera gasolinera) {
-        combustibles.add(new GasolineraCombustible(BIODIESEL, gasolinera.getBiodiesel()));
-        combustibles.add(new GasolineraCombustible(BIOETANOL, gasolinera.getBioetanol()));
-        combustibles.add(new GasolineraCombustible(GNC, gasolinera.getGnc()));
-        combustibles.add(new GasolineraCombustible(GNL, gasolinera.getGnl()));
-        combustibles.add(new GasolineraCombustible(GLP, gasolinera.getGlp()));
-        combustibles.add(new GasolineraCombustible(GASOLEO_A, gasolinera.getGasoleoA()));
-        combustibles.add(new GasolineraCombustible(GASOLEO_B, gasolinera.getGasoleoB()));
-        combustibles.add(new GasolineraCombustible(GASOLEO_PREMIUM, gasolinera.getGasoleoPremium()));
-        combustibles.add(new GasolineraCombustible(GASOLINA_95_E10, gasolinera.getGasolina95E10()));
-        combustibles.add(new GasolineraCombustible(GASOLINA_95_E5, gasolinera.getGasolina95E5()));
-        combustibles.add(new GasolineraCombustible(GASOLINA_95_E5_PREMIUM, gasolinera.getGasolina95E5Premium()));
-        combustibles.add(new GasolineraCombustible(GASOLINA_98_E5, gasolinera.getGasolina98E10()));
-        combustibles.add(new GasolineraCombustible(GASOLINA_98_E5, gasolinera.getGasolina98E5()));
-        combustibles.add(new GasolineraCombustible(HIDROGENO, gasolinera.getHidrogeno()));
+        if (gasolinera.getBiodiesel() != 0) {
+            combustibles.add(new GasolineraCombustible(BIODIESEL, gasolinera.getBiodiesel()));
+        }
+        if (gasolinera.getBioetanol() != 0) {
+            combustibles.add(new GasolineraCombustible(BIOETANOL, gasolinera.getBioetanol()));
+        }
+        if (gasolinera.getGnc() != 0) {
+            combustibles.add(new GasolineraCombustible(GNC, gasolinera.getGnc()));
+        }
+        if (gasolinera.getGnl() != 0) {
+            combustibles.add(new GasolineraCombustible(GNL, gasolinera.getGnl()));
+        }
+        if (gasolinera.getGlp() != 0) {
+            combustibles.add(new GasolineraCombustible(GLP, gasolinera.getGlp()));
+        }
+        if (gasolinera.getGasoleoA() != 0) {
+            combustibles.add(new GasolineraCombustible(GASOLEO_A, gasolinera.getGasoleoA()));
+        }
+        if (gasolinera.getGasoleoB() != 0) {
+            combustibles.add(new GasolineraCombustible(GASOLEO_B, gasolinera.getGasoleoB()));
+        }
+        if (gasolinera.getGasoleoPremium() != 0) {
+            combustibles.add(new GasolineraCombustible(GASOLEO_PREMIUM, gasolinera.getGasoleoPremium()));
+        }
+        if (gasolinera.getGasolina95E10() != 0) {
+            combustibles.add(new GasolineraCombustible(GASOLINA_95_E10, gasolinera.getGasolina95E10()));
+        }
+        if (gasolinera.getGasolina95E5() != 0) {
+            combustibles.add(new GasolineraCombustible(GASOLINA_95_E5, gasolinera.getGasolina95E5()));
+        }
+        if (gasolinera.getGasolina95E5Premium() != 0) {
+            combustibles.add(new GasolineraCombustible(GASOLINA_95_E5_PREMIUM, gasolinera.getGasolina95E5Premium()));
+        }
+        if (gasolinera.getGasolina98E10() != 0) {
+            combustibles.add(new GasolineraCombustible(GASOLINA_98_E10, gasolinera.getGasolina98E10()));
+        }
+        if (gasolinera.getGasolina98E5() != 0) {
+            combustibles.add(new GasolineraCombustible(GASOLINA_98_E5, gasolinera.getGasolina98E5()));
+        }
+        if (gasolinera.getHidrogeno() != 0) {
+            combustibles.add(new GasolineraCombustible(HIDROGENO, gasolinera.getHidrogeno()));
+        }
 
         return combustibles;
     }
 
-    public static boolean setListViewHeightBasedOnItems(ListView listView) {
+    /**
+     * establece la altura a la listView segun cuantos elementos tenga en ella de modo que no se
+     * pueda scrollear
+     * @param listView
+     */
+    public static void setListViewHeightBasedOnItemCount(ListView listView) {
+        // Altura de cada elemento en píxeles
+        int itemHeight = (int) (64 * listView.getContext().getResources().getDisplayMetrics().density);
 
-        ListAdapter listAdapter = listView.getAdapter();
-        if (listAdapter != null) {
+        // Altura total de la lista
+        int totalHeight = itemHeight * listView.getAdapter().getCount();
 
-            int numberOfItems = listAdapter.getCount();
-
-            // Get total height of all items.
-            int totalItemsHeight = 0;
-            for (int itemPos = 0; itemPos < numberOfItems; itemPos++) {
-                View item = listAdapter.getView(itemPos, null, listView);
-                float px = 500 * (listView.getResources().getDisplayMetrics().density);
-                item.measure(View.MeasureSpec.makeMeasureSpec((int) px, View.MeasureSpec.AT_MOST), View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
-                totalItemsHeight += item.getMeasuredHeight();
-            }
-
-            // Get total height of all item dividers.
-            int totalDividersHeight = listView.getDividerHeight() *
-                    (numberOfItems - 1);
-            // Get padding
-            int totalPadding = listView.getPaddingTop() + listView.getPaddingBottom();
-
-            // Set list height.
-            ViewGroup.LayoutParams params = listView.getLayoutParams();
-            params.height = totalItemsHeight + totalDividersHeight + totalPadding;
-            listView.setLayoutParams(params);
-            listView.requestLayout();
-            //setDynamicHeight(listView);
-            return true;
-
-        } else {
-            return false;
-        }
-    }
-
-    public static void ajustarAlturaListView(ListView listView) {
-        ListAdapter listAdapter = listView.getAdapter();
-        if (listAdapter == null) {
-            return; // No hay adaptador, no se puede ajustar la altura
-        }
-
-        int alturaTotal = 0;
-        int itemsCount = listAdapter.getCount();
-
-        for (int i = 0; i < itemsCount; i++) {
-            View item = listAdapter.getView(i, null, listView);
-            item.measure(
-                    View.MeasureSpec.makeMeasureSpec(listView.getWidth(), View.MeasureSpec.EXACTLY),
-                    View.MeasureSpec.UNSPECIFIED
-            );
-            alturaTotal += item.getMeasuredHeight();
-        }
-
-        // Añadir la altura de los divisores entre elementos
-        alturaTotal += listView.getDividerHeight() * (itemsCount - 1);
-
-        // Ajustar la altura del ListView
+        // Ajustar la altura de la ListView
         ViewGroup.LayoutParams params = listView.getLayoutParams();
-        params.height = alturaTotal;
+        params.height = totalHeight + (listView.getDividerHeight() * (listView.getAdapter().getCount() - 1));
         listView.setLayoutParams(params);
         listView.requestLayout();
     }
+
+
 }

@@ -1,8 +1,7 @@
 package es.unican.gasolineras.activities.details;
 
-import static es.unican.gasolineras.common.Utils.ajustarAlturaListView;
 import static es.unican.gasolineras.common.Utils.rellenaListaCombustibles;
-import static es.unican.gasolineras.common.Utils.setListViewHeightBasedOnItems;
+import static es.unican.gasolineras.common.Utils.setListViewHeightBasedOnItemCount;
 import static es.unican.gasolineras.model.TipoCombustible.*;
 
 import android.annotation.SuppressLint;
@@ -91,7 +90,7 @@ public class DetailsView extends AppCompatActivity {
 
         CombustibleArrayAdapter adapter = new CombustibleArrayAdapter(this, rellenaListaCombustibles(combustibles, gasolinera));
         list.setAdapter(adapter);
-        setListViewHeightBasedOnItems(list);
+        setListViewHeightBasedOnItemCount(list);
     }
 
     /**
