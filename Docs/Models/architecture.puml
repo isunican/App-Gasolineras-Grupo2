@@ -28,6 +28,7 @@ interface IMainContract#View {
     + showAnhadirPuntoInteresActivity()
     + onFiltrarClicked(double precioMax, TipoCombustible combustible)
     + showPopUpFiltar()
+    + showElementoInformativo()
 }
 
 interface IMainContract#Presenter {
