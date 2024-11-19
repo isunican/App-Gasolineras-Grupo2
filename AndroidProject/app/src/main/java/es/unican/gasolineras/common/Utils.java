@@ -31,6 +31,7 @@ import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import es.unican.gasolineras.model.Gasolinera;
@@ -64,11 +65,12 @@ public class Utils {
 
     /**
      * Rellena una lista de los combustibles disponibles y su precio de la gasolinera
-     * @param combustibles lista a rellenar
      * @param gasolinera gasolionera de obtener los combustibles
      * @return
      */
-    public static List<GasolineraCombustible> rellenaListaCombustibles(List<GasolineraCombustible> combustibles, Gasolinera gasolinera) {
+    public static List<GasolineraCombustible> rellenaListaCombustibles(Gasolinera gasolinera) {
+        List<GasolineraCombustible> combustibles = new ArrayList<>();
+
         if (gasolinera.getBiodiesel() != 0) {
             combustibles.add(new GasolineraCombustible(BIODIESEL, gasolinera.getBiodiesel()));
         }
