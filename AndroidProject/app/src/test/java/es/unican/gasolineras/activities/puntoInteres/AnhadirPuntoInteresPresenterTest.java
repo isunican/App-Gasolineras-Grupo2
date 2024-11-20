@@ -68,7 +68,7 @@ public class AnhadirPuntoInteresPresenterTest {
 
         // Caso no valido (Ya existe el punto de interes con ese nombre)
         presenter.onGuardarPuntoInteresClicked(nombreStr, "43.4733", "-3.80111");
-        verify(vistaMock).mostrarMensaje("Ya existe un punto de interés con ese nombre");
+        verify(vistaMock).mostrarMensaje("Error: Punto interés existente");
 
         // Caso no válido (No se introducen datos)
         presenter.onGuardarPuntoInteresClicked("","","");
