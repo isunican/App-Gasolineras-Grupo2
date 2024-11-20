@@ -1,9 +1,5 @@
 package es.unican.gasolineras.activities.main;
 
-import static androidx.core.app.ActivityCompat.invalidateOptionsMenu;
-
-import android.widget.Toast;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -132,7 +128,7 @@ public class MainPresenter implements IMainContract.Presenter {
      * @param precioMax el precio máximo del combustible
      * @param combustible el tipo de combustible
      */
-    public void filtraGasolinerasPorPrecioMaximo(double precioMax, TipoCombustible combustible) {
+    public void onFiltraGasolinerasPorPrecioMaximo(double precioMax, TipoCombustible combustible) {
         estaFiltrada = true;
 
         List<Gasolinera> gasolinerasFiltradas = new ArrayList<>();
@@ -158,7 +154,7 @@ public class MainPresenter implements IMainContract.Presenter {
      * restaurando la lista original y actualizando la vista.
      * Si no se ha podido eliminar el filtro, muestra un mensaje al usuario.
      */
-    public void quitarFiltrosYOrdenaciones() {
+    public void onQuitarFiltrosYOrdenaciones() {
         boolean seHanQuitadoFiltros = false; // Para controlar si se han quitado filtros
 
         // Restablecer la lista a la original
@@ -175,5 +171,13 @@ public class MainPresenter implements IMainContract.Presenter {
         if (!seHanQuitadoFiltros) {
             view.showLoadError();
         }
+    }
+
+    public boolean estaFiltrada() {
+        return estaFiltrada;
+    }
+
+    public boolean estaOrdenada() {
+        return estaOrdenada;
     }
 }

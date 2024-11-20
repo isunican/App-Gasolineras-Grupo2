@@ -304,7 +304,7 @@ public class MainView extends AppCompatActivity implements IMainContract.View {
      */
     @Override
     public void onFiltrarClicked(double precioMax, TipoCombustible combustible) {
-        presenter.filtraGasolinerasPorPrecioMaximo(precioMax, combustible);
+        presenter.onFiltraGasolinerasPorPrecioMaximo(precioMax, combustible);
         invalidateOptionsMenu();
     }
 
@@ -320,7 +320,7 @@ public class MainView extends AppCompatActivity implements IMainContract.View {
                 .setMessage("¿Estás seguro de que quieres quitar todos los filtros y ordenaciones?")
                 .setPositiveButton("ACEPTAR", (dialog, which) -> {
                     // Llamar al presenter para quitar filtros y ordenaciones
-                    presenter.quitarFiltrosYOrdenaciones();
+                    presenter.onQuitarFiltrosYOrdenaciones();
                     dialog.dismiss();
                     invalidateOptionsMenu();
                 })
