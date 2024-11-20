@@ -1,9 +1,5 @@
 package es.unican.gasolineras.activities.main;
 
-import static androidx.core.app.ActivityCompat.invalidateOptionsMenu;
-
-import android.widget.Toast;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -175,5 +171,13 @@ public class MainPresenter implements IMainContract.Presenter {
         if (!seHanQuitadoFiltros) {
             view.showLoadError();
         }
+    }
+
+    public boolean estaFiltrada() {
+        return estaFiltrada;
+    }
+
+    public boolean estaOrdenada() {
+        return estaOrdenada;
     }
 }
