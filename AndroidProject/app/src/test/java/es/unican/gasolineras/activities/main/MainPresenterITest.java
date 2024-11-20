@@ -162,7 +162,7 @@ public class MainPresenterITest {
 
         // Inicializo y aplico filtros de precio y distancia
         sut.init(mockVista);
-        sut.onFiltraGasolinerasPorPrecioMaximo(precioMaximo, TipoCombustible.GASOLEO_A);
+        sut.filtraGasolinerasPorPrecioMaximo(precioMaximo, TipoCombustible.GASOLEO_A);
         sut.ordenarGasolinerasCercanasPtoInteres(universidad);
 
         // Verifico que se muestre la lista filtrada y ordenada
@@ -188,7 +188,7 @@ public class MainPresenterITest {
         ArgumentCaptor<List<Gasolinera>> captor = ArgumentCaptor.forClass(List.class);
 
         sut.init(mockVista);
-        sut.onFiltraGasolinerasPorPrecioMaximo(precioMaximo, TipoCombustible.GASOLINA_98_E5);
+        sut.filtraGasolinerasPorPrecioMaximo(precioMaximo, TipoCombustible.GASOLINA_98_E5);
         sut.ordenarGasolinerasCercanasPtoInteres(universidad);
 
         verify(mockVista, times(3)).showStations(captor.capture());
@@ -215,7 +215,7 @@ public class MainPresenterITest {
         ArgumentCaptor<List<Gasolinera>> captor = ArgumentCaptor.forClass(List.class);
 
         sut.init(mockVista);
-        sut.onFiltraGasolinerasPorPrecioMaximo(precioMaximo, TipoCombustible.GASOLINA_98_E5);
+        sut.filtraGasolinerasPorPrecioMaximo(precioMaximo, TipoCombustible.GASOLINA_98_E5);
         sut.ordenarGasolinerasCercanasPtoInteres(universidad);
 
         verify(mockVista, times(3)).showStations(captor.capture());
@@ -241,7 +241,7 @@ public class MainPresenterITest {
         ArgumentCaptor<List<Gasolinera>> captor = ArgumentCaptor.forClass(List.class);
 
         sut.init(mockVista);
-        sut.onFiltraGasolinerasPorPrecioMaximo(precioMaximo, TipoCombustible.GASOLEO_A);
+        sut.filtraGasolinerasPorPrecioMaximo(precioMaximo, TipoCombustible.GASOLEO_A);
         sut.ordenarGasolinerasCercanasPtoInteres(universidad);
 
         verify(mockVista, times(3)).showStations(captor.capture());
@@ -265,7 +265,7 @@ public class MainPresenterITest {
         ArgumentCaptor<List<Gasolinera>> captor = ArgumentCaptor.forClass(List.class);
 
         sut.init(mockVista);
-        sut.onFiltraGasolinerasPorPrecioMaximo(precioMaximo, TipoCombustible.GASOLEO_A);
+        sut.filtraGasolinerasPorPrecioMaximo(precioMaximo, TipoCombustible.GASOLEO_A);
         sut.ordenarGasolinerasCercanasPtoInteres(universidad);
 
         verify(mockVista, times(3)).showStations(captor.capture());

@@ -128,7 +128,7 @@ public class MainPresenter implements IMainContract.Presenter {
      * @param precioMax el precio máximo del combustible
      * @param combustible el tipo de combustible
      */
-    public void onFiltraGasolinerasPorPrecioMaximo(double precioMax, TipoCombustible combustible) {
+    public void filtraGasolinerasPorPrecioMaximo(double precioMax, TipoCombustible combustible) {
         estaFiltrada = true;
 
         List<Gasolinera> gasolinerasFiltradas = new ArrayList<>();
@@ -154,7 +154,7 @@ public class MainPresenter implements IMainContract.Presenter {
      * restaurando la lista original y actualizando la vista.
      * Si no se ha podido eliminar el filtro, muestra un mensaje al usuario.
      */
-    public void onQuitarFiltrosYOrdenaciones() {
+    public void quitarFiltrosYOrdenaciones() {
         boolean seHanQuitadoFiltros = false; // Para controlar si se han quitado filtros
 
         // Restablecer la lista a la original
