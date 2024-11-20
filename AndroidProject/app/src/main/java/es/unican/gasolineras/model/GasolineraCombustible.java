@@ -28,4 +28,10 @@ public class GasolineraCombustible {
         return Double.compare(that.precio, precio) == 0 &&
                 Objects.equals(combustible, that.combustible);
     }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(combustible, precio);
+    }
+
 }
