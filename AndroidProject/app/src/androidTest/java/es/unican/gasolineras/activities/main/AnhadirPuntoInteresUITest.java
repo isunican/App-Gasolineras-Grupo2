@@ -100,7 +100,7 @@ public class AnhadirPuntoInteresUITest {
         Espresso.closeSoftKeyboard();
 
         onView(withId(R.id.buttonGuardar)).perform(click());
-        onView(withText("Ya existe un punto de interés con ese nombre")).inRoot(RootMatchers.withDecorView(not(decorView))).check(matches(isDisplayed()));
+        onView(withText("Error: Punto interés existente")).inRoot(RootMatchers.withDecorView(not(decorView))).check(matches(isDisplayed()));
 
         onView(withId(R.id.buttonCancelar)).perform(click());
 
