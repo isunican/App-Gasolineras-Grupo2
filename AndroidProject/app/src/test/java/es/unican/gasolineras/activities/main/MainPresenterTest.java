@@ -1,7 +1,9 @@
 package es.unican.gasolineras.activities.main;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -31,21 +33,7 @@ public class MainPresenterTest {
     private Gasolinera cercana;
     private Gasolinera lejana;
     private Gasolinera auxCercana;
-    
-    @Mock
-    private static IGasolinerasRepository mockGasolineras2;
 
-    @Mock
-    private static IMainContract.View mockVista2;
-
-    private static MainPresenter sut2;
-
-    private Gasolinera gasolinera1;
-    private Gasolinera gasolinera2;
-    private Gasolinera gasolinera3;
-    private Gasolinera gasolinera4;
-
-    private List<Gasolinera> listaGasolineras2;
 
     @Mock
     private static IPuntosInteresDAO mockPuntoInteres;
@@ -66,9 +54,35 @@ public class MainPresenterTest {
     private PuntoInteres universidad;
 
     private List<Gasolinera> listaGasolineras;
-    
+
+    @Mock
+    private static IGasolinerasRepository mockGasolineras2;
+
+    @Mock
+    private static IMainContract.View mockVista2;
+
+    private static MainPresenter sut2;
+
+    private Gasolinera gasolinera1;
+    private Gasolinera gasolinera2;
+    private Gasolinera gasolinera3;
+    private Gasolinera gasolinera4;
+
+    private List<Gasolinera> listaGasolineras2;
+
+    @Mock
+    private static IGasolinerasRepository mockGasolineras3;
+
+    @Mock
+    private static IMainContract.View mockVista3;
+
+    private static MainPresenter sut3;
+
+    private List<Gasolinera> listaGasolineras3;
+
+
     @Before
-    public void inicializa(){
+    public void inicializa() {
 
         // Inicializo los mocks
         MockitoAnnotations.openMocks(this);
@@ -141,7 +155,7 @@ public class MainPresenterTest {
         gasolineraNeutra.setLatitud(43.406608665447474);
         gasolineraNeutra.setLongitud(-4.0);
 
-        gasolineraMuylejana= new Gasolinera();
+        gasolineraMuylejana = new Gasolinera();
         gasolineraMuylejana.setId("GasolineraJuan");
         gasolineraMuylejana.setDireccion("America");
         gasolineraMuylejana.setLatitud(0.0);
@@ -150,12 +164,14 @@ public class MainPresenterTest {
 
         when(mockPuntoInteres.loadByName("Universidad")).thenReturn(universidad);
 
+
         sut = new MainPresenter();
         sut2 = new MainPresenter();
+        sut3 = new MainPresenter();
     }
 
     @Test
-    public void testComparadorDistancia(){
+    public void testComparadorDistancia() {
 
         //caso que la primera gasolinera esta mas cerca
         assertEquals(comparadorDistancia.compare(cercana, lejana), -1);
@@ -169,7 +185,7 @@ public class MainPresenterTest {
 
 
     @Test
-    public void testFiltraGasolinerasPorPrecioMaximoLimiteBajo() {
+    public void testOnFiltraGasolinerasPorPrecioMaximoLimiteBajo() {
         double precioMaximo = 1.06;
 
         doAnswer(invocation -> {
@@ -183,7 +199,7 @@ public class MainPresenterTest {
         ArgumentCaptor<List<Gasolinera>> captor = ArgumentCaptor.forClass(List.class);
 
         sut2.init(mockVista2);
-        sut2.filtraGasolinerasPorPrecioMaximo(precioMaximo, TipoCombustible.GASOLEO_A);
+        sut2.onFiltraGasolinerasPorPrecioMaximo(precioMaximo, TipoCombustible.GASOLEO_A);
 
         verify(mockVista2, times(2)).showStations(captor.capture());
 
@@ -193,7 +209,7 @@ public class MainPresenterTest {
     }
 
     @Test
-    public void testFiltraGasolinerasPorPrecioMaximoLimiteAlto() {
+    public void testOnFiltraGasolinerasPorPrecioMaximoLimiteAlto() {
         double precioMaximo = 1.26;
 
         doAnswer(invocation -> {
@@ -207,7 +223,7 @@ public class MainPresenterTest {
         ArgumentCaptor<List<Gasolinera>> captor = ArgumentCaptor.forClass(List.class);
 
         sut2.init(mockVista2);
-        sut2.filtraGasolinerasPorPrecioMaximo(precioMaximo, TipoCombustible.GASOLINA_98_E5);
+        sut2.onFiltraGasolinerasPorPrecioMaximo(precioMaximo, TipoCombustible.GASOLINA_98_E5);
 
         verify(mockVista2, times(2)).showStations(captor.capture());
 
@@ -219,7 +235,7 @@ public class MainPresenterTest {
     }
 
     @Test
-    public void testFiltraGasolinerasPorPrecioMaximoLimiteIgual() {
+    public void testOnFiltraGasolinerasPorPrecioMaximoLimiteIgual() {
         double precioMaximo = 1.203;
 
         doAnswer(invocation -> {
@@ -233,7 +249,7 @@ public class MainPresenterTest {
         ArgumentCaptor<List<Gasolinera>> captor = ArgumentCaptor.forClass(List.class);
 
         sut2.init(mockVista2);
-        sut2.filtraGasolinerasPorPrecioMaximo(precioMaximo, TipoCombustible.GASOLINA_98_E5);
+        sut2.onFiltraGasolinerasPorPrecioMaximo(precioMaximo, TipoCombustible.GASOLINA_98_E5);
 
         verify(mockVista2, times(2)).showStations(captor.capture());
 
@@ -244,7 +260,7 @@ public class MainPresenterTest {
     }
 
     @Test
-    public void testFiltraGasolinerasPorPrecioMaximoSinCombustible() {
+    public void testOnFiltraGasolinerasPorPrecioMaximoSinCombustible() {
         double precioMaximo = 1.5;
 
         doAnswer(invocation -> {
@@ -258,7 +274,7 @@ public class MainPresenterTest {
         ArgumentCaptor<List<Gasolinera>> captor = ArgumentCaptor.forClass(List.class);
 
         sut2.init(mockVista2);
-        sut2.filtraGasolinerasPorPrecioMaximo(precioMaximo, TipoCombustible.HIDROGENO);
+        sut2.onFiltraGasolinerasPorPrecioMaximo(precioMaximo, TipoCombustible.HIDROGENO);
 
         verify(mockVista2, times(2)).showStations(captor.capture());
 
@@ -283,7 +299,7 @@ public class MainPresenterTest {
         ArgumentCaptor<List<Gasolinera>> captor = ArgumentCaptor.forClass(List.class);
 
         sut2.init(mockVista2);
-        sut2.filtraGasolinerasPorPrecioMaximo(precioMaximo, TipoCombustible.GASOLINA_98_E5);
+        sut2.onFiltraGasolinerasPorPrecioMaximo(precioMaximo, TipoCombustible.GASOLINA_98_E5);
 
         verify(mockVista2, times(2)).showStations(captor.capture());
 
@@ -306,7 +322,7 @@ public class MainPresenterTest {
         ArgumentCaptor<List<Gasolinera>> captor = ArgumentCaptor.forClass(List.class);
 
         sut2.init(mockVista2);
-        sut2.filtraGasolinerasPorPrecioMaximo(precioMaximo, TipoCombustible.GASOLINA_98_E5);
+        sut2.onFiltraGasolinerasPorPrecioMaximo(precioMaximo, TipoCombustible.GASOLINA_98_E5);
 
         verify(mockVista2, times(2)).showStations(captor.capture());
 
@@ -320,7 +336,7 @@ public class MainPresenterTest {
 
 
     @Test
-    public void testOrdenaGasolinerasMasCercanas2Gasos(){
+    public void testOrdenaGasolinerasMasCercanas2Gasos() {
 
         //creo la lista de gasolineras que voy a mockear
         listaGasolineras = new ArrayList<>();
@@ -397,5 +413,135 @@ public class MainPresenterTest {
         assertEquals(gasolineraNeutra, listaCapturada.get(1));
         assertEquals(gasolineraLejana, listaCapturada.get(2));
         assertEquals(gasolineraMuylejana, listaCapturada.get(3));
+    }
+
+    @Test
+    public void testOnQuitarFiltrosYOrdenacionesClicked_ListaFiltradaYOrdenada() {
+        listaGasolineras3 = new ArrayList<>();
+        listaGasolineras3.add(gasolineraLejana);
+        listaGasolineras3.add(gasolineraCercana);
+        listaGasolineras3.add(gasolineraMuylejana);
+        listaGasolineras3.add(gasolineraNeutra);
+
+        doAnswer(invocation -> {
+            ICallBack callBack = invocation.getArgument(0);
+            callBack.onSuccess(listaGasolineras3);
+            return null;
+        }).when(mockGasolineras3).requestGasolineras(any(ICallBack.class), any(String.class));
+
+        when(mockVista3.getGasolinerasRepository()).thenReturn(mockGasolineras3);
+        sut3.init(mockVista3);
+
+        sut3.ordenarGasolinerasCercanasPtoInteres(universidad);
+        sut3.onFiltraGasolinerasPorPrecioMaximo(1.5, TipoCombustible.GASOLEO_A);
+        sut3.onQuitarFiltrosYOrdenaciones();
+
+
+        assertFalse(sut3.estaFiltrada());
+        assertFalse(sut3.estaOrdenada());
+
+        ArgumentCaptor<List<Gasolinera>> captor = ArgumentCaptor.forClass(List.class);
+        verify(mockVista3, times(4)).showStations(captor.capture());
+        List<Gasolinera> listaCapturada = captor.getValue();
+        assertEquals(gasolineraLejana, listaCapturada.get(0));
+        assertEquals(gasolineraCercana, listaCapturada.get(1));
+        assertEquals(gasolineraMuylejana, listaCapturada.get(2));
+        assertEquals(gasolineraNeutra, listaCapturada.get(3));
+    }
+
+    @Test
+    public void testOnQuitarFiltrosYOrdenacionesClicked_ListaSinFiltrarYOrdenada() {
+        listaGasolineras3 = new ArrayList<>();
+        listaGasolineras3.add(gasolineraLejana);
+        listaGasolineras3.add(gasolineraCercana);
+        listaGasolineras3.add(gasolineraMuylejana);
+        listaGasolineras3.add(gasolineraNeutra);
+
+        doAnswer(invocation -> {
+            ICallBack callBack = invocation.getArgument(0);
+            callBack.onSuccess(listaGasolineras3);
+            return null;
+        }).when(mockGasolineras3).requestGasolineras(any(ICallBack.class), any(String.class));
+
+        when(mockVista3.getGasolinerasRepository()).thenReturn(mockGasolineras3);
+        sut3.init(mockVista3);
+
+        sut3.ordenarGasolinerasCercanasPtoInteres(universidad);
+        sut3.onQuitarFiltrosYOrdenaciones();
+
+        assertFalse(sut3.estaFiltrada());
+        assertFalse(sut3.estaOrdenada());
+
+        ArgumentCaptor<List<Gasolinera>> captor = ArgumentCaptor.forClass(List.class);
+        verify(mockVista3, times(3)).showStations(captor.capture());
+        List<Gasolinera> listaCapturada = captor.getValue();
+        assertEquals(gasolineraLejana, listaCapturada.get(0));
+        assertEquals(gasolineraCercana, listaCapturada.get(1));
+        assertEquals(gasolineraMuylejana, listaCapturada.get(2));
+        assertEquals(gasolineraNeutra, listaCapturada.get(3));
+    }
+
+    @Test
+    public void testOnQuitarFiltrosYOrdenacionesClicked_ListaFiltradaYSinOrdenar() {
+        listaGasolineras3 = new ArrayList<>();
+        listaGasolineras3.add(gasolineraLejana);
+        listaGasolineras3.add(gasolineraCercana);
+        listaGasolineras3.add(gasolineraMuylejana);
+        listaGasolineras3.add(gasolineraNeutra);
+
+        doAnswer(invocation -> {
+            ICallBack callBack = invocation.getArgument(0);
+            callBack.onSuccess(listaGasolineras3);
+            return null;
+        }).when(mockGasolineras3).requestGasolineras(any(ICallBack.class), any(String.class));
+
+        when(mockVista3.getGasolinerasRepository()).thenReturn(mockGasolineras3);
+        sut3.init(mockVista3);
+
+        sut3.onFiltraGasolinerasPorPrecioMaximo(1.5, TipoCombustible.GASOLEO_A);
+        sut3.onQuitarFiltrosYOrdenaciones();
+
+        assertFalse(sut3.estaFiltrada());
+        assertFalse(sut3.estaOrdenada());
+
+        ArgumentCaptor<List<Gasolinera>> captor = ArgumentCaptor.forClass(List.class);
+        verify(mockVista3, times(3)).showStations(captor.capture());
+        List<Gasolinera> listaCapturada = captor.getValue();
+        assertEquals(gasolineraLejana, listaCapturada.get(0));
+        assertEquals(gasolineraCercana, listaCapturada.get(1));
+        assertEquals(gasolineraMuylejana, listaCapturada.get(2));
+        assertEquals(gasolineraNeutra, listaCapturada.get(3));
+    }
+
+    @Test
+    public void testOnQuitarFiltrosYOrdenacionesClicked_ListaSinFiltrarYSinOrdenar() {
+        listaGasolineras3 = new ArrayList<>();
+        listaGasolineras3.add(gasolineraLejana);
+        listaGasolineras3.add(gasolineraCercana);
+        listaGasolineras3.add(gasolineraMuylejana);
+        listaGasolineras3.add(gasolineraNeutra);
+
+        doAnswer(invocation -> {
+            ICallBack callBack = invocation.getArgument(0);
+            callBack.onSuccess(listaGasolineras3);
+            return null;
+        }).when(mockGasolineras3).requestGasolineras(any(ICallBack.class), any(String.class));
+
+        when(mockVista3.getGasolinerasRepository()).thenReturn(mockGasolineras3);
+        sut3.init(mockVista3);
+
+        sut3.onQuitarFiltrosYOrdenaciones();
+
+
+        assertFalse(sut3.estaFiltrada());
+        assertFalse(sut3.estaOrdenada());
+
+        ArgumentCaptor<List<Gasolinera>> captor = ArgumentCaptor.forClass(List.class);
+        verify(mockVista3, times(1)).showStations(captor.capture());
+        List<Gasolinera> listaCapturada = captor.getValue();
+        assertEquals(gasolineraLejana, listaCapturada.get(0));
+        assertEquals(gasolineraCercana, listaCapturada.get(1));
+        assertEquals(gasolineraMuylejana, listaCapturada.get(2));
+        assertEquals(gasolineraNeutra, listaCapturada.get(3));
     }
 }

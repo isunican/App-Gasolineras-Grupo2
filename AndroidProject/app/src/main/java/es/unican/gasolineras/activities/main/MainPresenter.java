@@ -40,6 +40,10 @@ public class MainPresenter implements IMainContract.Presenter {
         load();
     }
 
+    public boolean hayFiltrosOOrdenacionesAplicadas() {
+        return estaOrdenada || estaFiltrada;
+    }
+
     /**
      * @see IMainContract.Presenter#onStationClicked(Gasolinera)
      * @param station the station that has been clicked
@@ -77,6 +81,12 @@ public class MainPresenter implements IMainContract.Presenter {
         view.showPopUpFiltar();
     }
 
+    /**
+     * Muestra el popup de quitar filtros y ordenaciones.
+     */
+    public void onMenuQuitarFiltrosYOrdenacionesClicked() {
+        view.showPopUpQuitarFiltrosYOrdenaciones();
+    }
 
 
     private void load() {
@@ -118,7 +128,7 @@ public class MainPresenter implements IMainContract.Presenter {
      * @param precioMax el precio máximo del combustible
      * @param combustible el tipo de combustible
      */
-    public void filtraGasolinerasPorPrecioMaximo(double precioMax, TipoCombustible combustible) {
+    public void onFiltraGasolinerasPorPrecioMaximo(double precioMax, TipoCombustible combustible) {
         estaFiltrada = true;
 
         List<Gasolinera> gasolinerasFiltradas = new ArrayList<>();
@@ -137,5 +147,37 @@ public class MainPresenter implements IMainContract.Presenter {
         // Actualizar la lista modificada y mostrar
         gasolinerasMod = gasolinerasFiltradas;
         view.showStations(gasolinerasMod);
+    }
+
+    /**
+     * Quita todos los filtros y ordenaciones aplicados a la lista de gasolineras,
+     * restaurando la lista original y actualizando la vista.
+     * Si no se ha podido eliminar el filtro, muestra un mensaje al usuario.
+     */
+    public void onQuitarFiltrosYOrdenaciones() {
+        boolean seHanQuitadoFiltros = false; // Para controlar si se han quitado filtros
+
+        // Restablecer la lista a la original
+        if (estaFiltrada || estaOrdenada) { // Solo si hay filtros o ordenaciones aplicadas
+            gasolinerasMod = new ArrayList<>(gasolineras);
+            estaOrdenada = false;
+            estaFiltrada = false;
+            puntoInteresOrdenActual = null;
+            view.showStations(gasolinerasMod);
+            seHanQuitadoFiltros = true; // Se han quitado los filtros
+        }
+
+        // Mostrar mensaje al usuario
+        if (!seHanQuitadoFiltros) {
+            view.showLoadError();
+        }
+    }
+
+    public boolean estaFiltrada() {
+        return estaFiltrada;
+    }
+
+    public boolean estaOrdenada() {
+        return estaOrdenada;
     }
 }

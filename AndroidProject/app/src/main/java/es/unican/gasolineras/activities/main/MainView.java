@@ -92,6 +92,14 @@ public class MainView extends AppCompatActivity implements IMainContract.View {
         return true;
     }
 
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        MenuItem itemQuitarFiltros = menu.findItem(R.id.menuQuitarFiltrosYOrdenaciones);
+        // Muestra el botón solo si hay filtros o se ha aplicado alguna ordenación
+        itemQuitarFiltros.setVisible(presenter.hayFiltrosOOrdenacionesAplicadas());
+        return super.onPrepareOptionsMenu(menu);
+    }
+
     /**
      * This is called when an item in the action bar menu is selected.
      * @param item The menu item that was selected.
@@ -115,6 +123,10 @@ public class MainView extends AppCompatActivity implements IMainContract.View {
         }
         if (itemId == R.id.menuFiltrar) {
             presenter.onMenuFiltrarClicked();
+            return true;
+        }
+        if (itemId == R.id.menuQuitarFiltrosYOrdenaciones) {
+            presenter.onMenuQuitarFiltrosYOrdenacionesClicked();
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -273,6 +285,7 @@ public class MainView extends AppCompatActivity implements IMainContract.View {
     @Override
     public void onOrdenarClicked(PuntoInteres p) {
         presenter.ordenarGasolinerasCercanasPtoInteres(p);
+        invalidateOptionsMenu();
     }
 
     /**
@@ -291,7 +304,28 @@ public class MainView extends AppCompatActivity implements IMainContract.View {
      */
     @Override
     public void onFiltrarClicked(double precioMax, TipoCombustible combustible) {
-        presenter.filtraGasolinerasPorPrecioMaximo(precioMax, combustible);
+        presenter.onFiltraGasolinerasPorPrecioMaximo(precioMax, combustible);
+        invalidateOptionsMenu();
+    }
+
+
+
+    /**
+     * @see IMainContract.View#showPopUpQuitarFiltrosYOrdenaciones()
+     */
+    @Override
+    public void showPopUpQuitarFiltrosYOrdenaciones() {
+        new AlertDialog.Builder(this)
+                .setTitle("Quitar filtros y ordenaciones")
+                .setMessage("¿Estás seguro de que quieres quitar todos los filtros y ordenaciones?")
+                .setPositiveButton("ACEPTAR", (dialog, which) -> {
+                    // Llamar al presenter para quitar filtros y ordenaciones
+                    presenter.onQuitarFiltrosYOrdenaciones();
+                    dialog.dismiss();
+                    invalidateOptionsMenu();
+                })
+                .setNegativeButton("CANCELAR", (dialog, which) -> dialog.dismiss())
+                .show();
     }
 
     /**
