@@ -65,6 +65,10 @@ public class MainPresenterTest {
 
     private PuntoInteres universidad;
 
+    // Para el test del harvesine
+    private PuntoInteres punto0;
+    private Gasolinera gasolinera0;
+
     private List<Gasolinera> listaGasolineras;
     
     @Before
@@ -72,6 +76,10 @@ public class MainPresenterTest {
 
         // Inicializo los mocks
         MockitoAnnotations.openMocks(this);
+
+        // objetos para el harvesine
+        gasolinera0 = new Gasolinera();
+        punto0 = new PuntoInteres();
 
         //creo gasolineras necesarias para DistanciaComparatorTest
 
@@ -397,5 +405,30 @@ public class MainPresenterTest {
         assertEquals(gasolineraNeutra, listaCapturada.get(1));
         assertEquals(gasolineraLejana, listaCapturada.get(2));
         assertEquals(gasolineraMuylejana, listaCapturada.get(3));
+    }
+
+    @Test
+    public void tetsHarvesine() {
+
+        // Exito
+        gasolinera0.setLatitud(43.263);
+        gasolinera0.setLongitud(-2.935);
+        punto0.setLatitud(43.322);
+        punto0.setLongitud(-2.986);
+        assertEquals(7.7509861642708024, comparadorDistancia.harvesine(gasolinera0, punto0), 0.1);
+
+        // Fuera de rango latitud
+        gasolinera0.setLatitud(-1000);
+        gasolinera0.setLongitud(0);
+        punto0.setLatitud(0);
+        punto0.setLongitud(0);
+        assertEquals(8895.594131564694, comparadorDistancia.harvesine(gasolinera0, punto0), 0.01);
+
+        // Fuera de rango longitud
+        gasolinera0.setLatitud(0);
+        gasolinera0.setLongitud(0);
+        punto0.setLatitud(0);
+        punto0.setLongitud(1000);
+        assertEquals(8895.594131564694, comparadorDistancia.harvesine(gasolinera0, punto0), 0.001);
     }
 }
