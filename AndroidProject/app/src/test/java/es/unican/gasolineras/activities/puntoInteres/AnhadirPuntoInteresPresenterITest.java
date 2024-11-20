@@ -2,6 +2,8 @@ package es.unican.gasolineras.activities.puntoInteres;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
 import android.content.Context;
 
@@ -25,9 +27,12 @@ import es.unican.gasolineras.repository.IPuntosInteresDAO;
 @RunWith(RobolectricTestRunner.class)
 public class AnhadirPuntoInteresPresenterITest {
 
+    private IAnhadirPuntoInteresContract.View vistaMock;
     private AnhadirPuntoInteresPresenter presenter;
     private AppDatabase database;
+
     Context context = ApplicationProvider.getApplicationContext();
+
     private PuntoInteres p;
 
     private IPuntosInteresDAO dao;
@@ -45,13 +50,11 @@ public class AnhadirPuntoInteresPresenterITest {
 
         // Obtener la DAO
         dao = database.puntosInteresDao();
-
-        // Crear la vista
-        IAnhadirPuntoInteresContract.View vista = new AnhadirPuntoInteresView() {
-        };
-
+        
+        vistaMock = mock(IAnhadirPuntoInteresContract.View.class);
+        
         // Crear el presenter
-        presenter = new AnhadirPuntoInteresPresenter(vista);
+        presenter = new AnhadirPuntoInteresPresenter(vistaMock);
 
         p = new PuntoInteres(nombreStr, latitud, longitud);
 
@@ -70,23 +73,23 @@ public class AnhadirPuntoInteresPresenterITest {
         PuntoInteres puntoCapturado = dao.loadByName(nombreStr);
         assertNotNull(puntoCapturado);
         assertEquals(puntoCapturado,p);
-        assertEquals("Punto de interés guardado", "");
+        verify(vistaMock).mostrarMensaje("Punto de interés guardado");
 
         // Caso no válido (Ya existe el punto de interés con ese nombre)
         presenter.onGuardarPuntoInteresClicked(nombreStr, "43.4733", "-3.80111");
-        assertEquals("Ya existe un punto de interés con ese nombre", "");
+        verify(vistaMock).mostrarMensaje("Ya existe un punto de interés con ese nombre");
 
         // Caso no válido (No se introducen datos)
         presenter.onGuardarPuntoInteresClicked("", "", "");
-        assertEquals("Por favor, llene todos los campos", "");
+        verify(vistaMock).mostrarMensaje("Por favor, llene todos los campos");
 
         // Caso no válido (Latitud incorrecta)
         presenter.onGuardarPuntoInteresClicked("Punto2", "-91", "0");
-        assertEquals("La latitud está fuera de los límites permitidos. No se ha guardado el punto", "");
+        verify(vistaMock).mostrarMensaje("La latitud está fuera de los límites permitidos. No se ha guardado el punto");
 
         // Caso no válido (Longitud incorrecta)
         presenter.onGuardarPuntoInteresClicked("Punto3", "0", "181");
-        assertEquals("La longitud está fuera de los límites permitidos. No se ha guardado el punto", "");
+        verify(vistaMock).mostrarMensaje("La longitud está fuera de los límites permitidos. No se ha guardado el punto");
 
         // Eliminar el punto de interés insertado
         dao.delete(puntoCapturado);
