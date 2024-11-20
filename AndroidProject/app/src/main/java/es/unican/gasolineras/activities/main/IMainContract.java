@@ -55,7 +55,7 @@ public interface IMainContract {
          * @param precioMax precio maximo para filtrar
          * @param combustible tipo de combustible por el que filtrar
          */
-        public void onFiltraGasolinerasPorPrecioMaximo(double precioMax, TipoCombustible combustible);
+        public void filtraGasolinerasPorPrecioMaximo(double precioMax, TipoCombustible combustible);
 
         /**
          * Muestra el popup de quitar filtros y ordenaciones.
@@ -65,7 +65,7 @@ public interface IMainContract {
         /**
          * Quita los filtros y ordenaciones aplicados a la lista de gasolineras.
          */
-        public void onQuitarFiltrosYOrdenaciones();
+        public void quitarFiltrosYOrdenaciones();
     }
 
     /**
