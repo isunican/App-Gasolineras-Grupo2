@@ -11,9 +11,12 @@ import org.mockito.MockitoAnnotations;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import dagger.hilt.android.testing.BindValue;
+import es.unican.gasolineras.R;
 import es.unican.gasolineras.model.Gasolinera;
 import es.unican.gasolineras.model.PuntoInteres;
 import es.unican.gasolineras.model.TipoCombustible;
@@ -24,6 +27,12 @@ import es.unican.gasolineras.repository.IPuntosInteresDAO;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static es.unican.gasolineras.utils.MockRepositories.getTestRepository;
+import static es.unican.gasolineras.utils.MockRepositories.getTestRepositoryList;
+
+import android.content.Context;
+
+import androidx.test.platform.app.InstrumentationRegistry;
 
 public class MainPresenterITest {
 
@@ -46,7 +55,7 @@ public class MainPresenterITest {
     private Gasolinera gasolinera3;
     private Gasolinera gasolinera4;
 
-    private List<Gasolinera> listaGasolineras;
+    private List<Gasolinera> listaGasolineras = new ArrayList<>();
 
     @Mock
     private static IPuntosInteresDAO mockPuntoInteres;
@@ -58,6 +67,12 @@ public class MainPresenterITest {
 
     private PuntoInteres universidad;
 
+    @Mock
+    private IMainContract.View mockView;
+
+    private IGasolinerasRepository mockRepository;;
+
+    private MainPresenter presenter;
 
     @Before
     public void inicializa(){
@@ -114,6 +129,8 @@ public class MainPresenterITest {
         // Añado las gasolineras a la lista
         listaGasolineras = Arrays.asList(gasolinera1, gasolinera2, gasolinera3, gasolinera4);
 
+        mockRepository =  getTestRepositoryList(listaGasolineras);
+
         //creo las gasolineras para OrdenarGasolinerasCercanasTest
         gasolineraCercana = new Gasolinera();
         gasolineraCercana.setId("GasolineraPaco");
@@ -143,6 +160,7 @@ public class MainPresenterITest {
         when(mockPuntoInteres.loadByName("Universidad")).thenReturn(universidad);
         
         sut = new MainPresenter();
+        presenter = new MainPresenter();
     }
 
     @Test
@@ -276,5 +294,21 @@ public class MainPresenterITest {
         assertEquals(gasolinera2, gasolinerasFiltradas.get(1));
         assertEquals(gasolinera3, gasolinerasFiltradas.get(2));
         assertEquals(gasolinera4, gasolinerasFiltradas.get(3));
+    }
+
+    @Test
+    public void testInit() {
+        // Configura mocks
+        when(mockView.getGasolinerasRepository()).thenReturn(mockRepository);
+
+        // Asocia la vista y ejecuta init
+        presenter.init(mockView);
+
+        // Verifica que los metodos de la vista fue llamado
+        verify(mockView).init();
+        verify(mockView).getGasolinerasRepository();
+        verify(mockView).showStations(listaGasolineras);
+        verify(mockView).showLoadCorrect(4);
+        verify(mockView).getPuntosInteresDAO();
     }
 }
