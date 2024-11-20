@@ -88,7 +88,7 @@ public class DetailsView extends AppCompatActivity {
         //Set Lista Combustibles
         List<GasolineraCombustible> combustibles = new ArrayList<>();
 
-        CombustibleArrayAdapter adapter = new CombustibleArrayAdapter(this, rellenaListaCombustibles(combustibles, gasolinera));
+        CombustibleArrayAdapter adapter = new CombustibleArrayAdapter(this, rellenaListaCombustibles(gasolinera));
         list.setAdapter(adapter);
         setListViewHeightBasedOnItemCount(list);
     }
