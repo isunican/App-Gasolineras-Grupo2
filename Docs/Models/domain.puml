@@ -43,6 +43,11 @@ class PuntoInteres {
     - double longitud
 }
 
+class GasolineraCombustible {
+    - TipoCombustible combustible
+    - double precio
+}
+
 class IDCCAAs {
     + String id {static}
 }
