@@ -62,6 +62,7 @@ public class AnhadirPuntoInteresPresenterTest {
     
     @After
     public void tearDown() {
+        // Borrar bd creada
         if (db != null && db.isOpen()) {
             db.close();
         }
