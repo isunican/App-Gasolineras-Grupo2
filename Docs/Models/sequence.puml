@@ -1,5 +1,5 @@
-@startuml
-
+@startuml secuencia
+ 
 hide footbox
 skinparam ParticipantPadding 20
 

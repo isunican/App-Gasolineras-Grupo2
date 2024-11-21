@@ -122,7 +122,7 @@ public class GasolinerasArrayAdapter extends BaseAdapter {
             String label = context.getResources().getString(R.string.dieselAlabel);
             tvLabel.setText(String.format("%s:", label));
 
-            TextView tv = convertView.findViewById(R.id.tvDieselA);
+            TextView tv = convertView.findViewById(R.id.tvInfoError);
             tv.setText(String.valueOf(gasolinera.getGasoleoA()));
         }
 

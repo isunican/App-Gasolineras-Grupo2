@@ -169,5 +169,11 @@ public interface IMainContract {
          *  popup de filtrar.
          */
         public void showPopUpFiltar();
+
+        /**
+         *  La vista manda una peticion al presenter para que muestre un
+         *  elemento informativo
+         */
+        public void showElementoInformativo();
     }
 }
