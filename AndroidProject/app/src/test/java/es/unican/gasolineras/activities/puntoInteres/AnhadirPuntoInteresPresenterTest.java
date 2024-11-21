@@ -1,6 +1,7 @@
 package es.unican.gasolineras.activities.puntoInteres;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -9,9 +10,11 @@ import android.content.Context;
 
 import androidx.test.core.app.ApplicationProvider;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.robolectric.RobolectricTestRunner;
 
 import es.unican.gasolineras.model.PuntoInteres;
@@ -26,7 +29,9 @@ public class AnhadirPuntoInteresPresenterTest {
 
     Context context = ApplicationProvider.getApplicationContext();
 
+    @Mock
     private IAnhadirPuntoInteresContract.View vistaMock;
+
     private IPuntosInteresDAO puntosInteresDao;
     private AnhadirPuntoInteresPresenter presenter;
 
@@ -53,6 +58,13 @@ public class AnhadirPuntoInteresPresenterTest {
         p = new PuntoInteres(nombreStr, latitud, longitud);
 
         presenter = new AnhadirPuntoInteresPresenter(vistaMock);
+    }
+    
+    @After
+    public void tearDown() {
+        if (db != null && db.isOpen()) {
+            db.close();
+        }
     }
 
     @Test
