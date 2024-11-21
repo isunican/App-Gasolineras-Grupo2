@@ -106,7 +106,7 @@ public class AnhadirPuntoInteresView extends AppCompatActivity implements IAnhad
     }
 
     /**
-     * Cierra la actividad después de guardar el punto de interés.
+     * Cierra la actividad después de guardar el punto de interes.
      */
     @Override
     public void cerrarVista() {
