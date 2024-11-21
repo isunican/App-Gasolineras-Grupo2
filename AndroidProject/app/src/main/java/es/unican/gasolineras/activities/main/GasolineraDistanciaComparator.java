@@ -27,6 +27,12 @@ public class GasolineraDistanciaComparator implements Comparator<Gasolinera> {
         return Double.compare(distancia1, distancia2);
     }
 
+    /**
+     * Retorna la distancia real entre un punto de interes y una gasolinera.
+     * @param g Gasolinera de referencia
+     * @param p punto de interes de referencia
+     * @return la distancia en km
+     */
     public double harvesine(Gasolinera g, PuntoInteres p){
 
         //radio tierra

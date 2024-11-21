@@ -37,10 +37,21 @@ public class AnhadirPuntoInteresPresenter implements IAnhadirPuntoInteresContrac
             return;
         }
 
+
         try {
             // Convertir las coordenadas a tipo double
             double latitud = Double.parseDouble(latitudStr);
             double longitud = Double.parseDouble(longitudStr);
+
+            // Verificar que los datos están en rango válido
+            if (latitud >= 90.00 || latitud <= -90.00) {
+                vista.mostrarMensaje("Error: Latitud fuera de limites");
+                return;
+            }
+            if (longitud >= 180.00 || longitud <= -180.00) {
+                vista.mostrarMensaje("Error: Longitud fuera de limites");
+                return;
+            }
 
             // Crear un nuevo punto de interés
             PuntoInteres nuevoPunto = new PuntoInteres(nombre, latitud, longitud);
@@ -52,11 +63,11 @@ public class AnhadirPuntoInteresPresenter implements IAnhadirPuntoInteresContrac
             vista.cerrarVista(); // Cerrar la vista después de guardar
 
         } catch (NumberFormatException e) {
-            vista.mostrarMensaje("Por favor, ingresa valores numéricos válidos para latitud y longitud");
+            vista.mostrarMensaje("Error: Campos con formato erroneo");
         } catch (SQLiteConstraintException e) {
-            vista.mostrarMensaje("Ya existe un punto de interés con ese nombre");
+            vista.mostrarMensaje("Error: Punto interés existente");
         } catch (SQLiteException e) {
-            vista.mostrarMensaje("Ha ocurrido un error en la base de datos");
+            vista.mostrarMensaje("Error en la base de datos");
         }
     }
 }

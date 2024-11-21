@@ -101,6 +101,19 @@ El usuario puede cancelar el proceso en cualquier momento pulsando el botón **C
 <img src="IMG/imagenHorarioGasolinera.png" alt="Paso 3" width="300">
 
 
+## Mostrar los Precios de los Combustibles
+
+1. Seleccionas la Gasolinera que quieras comprobar sus Precios
+
+
+<img src="IMG/imagenClickarGasolinera.png" alt="Paso 3" width="300">
+
+2. En la parte de abajo de los detalles de la Gasolinera aparecen los Precios de cada Combustible
+
+<img src="IMG/imagenMuestraPreciosCombustibles.png" alt="Paso 3" width="300">
+
+
+
 
 
 

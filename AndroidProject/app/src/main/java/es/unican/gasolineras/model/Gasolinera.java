@@ -4,6 +4,8 @@ import com.google.gson.annotations.SerializedName;
 
 import org.parceler.Parcel;
 
+import java.util.Objects;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -48,4 +50,17 @@ public class Gasolinera {
 
     @SerializedName("Latitud")                      protected double latitud;
     @SerializedName("Longitud (WGS84)")             protected double longitud;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Gasolinera that = (Gasolinera) o;
+        return Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }
