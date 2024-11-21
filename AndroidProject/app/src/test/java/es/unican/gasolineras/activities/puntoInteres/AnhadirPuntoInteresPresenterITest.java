@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import android.content.Context;
 
@@ -27,71 +28,76 @@ import es.unican.gasolineras.repository.IPuntosInteresDAO;
 @RunWith(RobolectricTestRunner.class)
 public class AnhadirPuntoInteresPresenterITest {
 
-    private IAnhadirPuntoInteresContract.View vistaMock;
-    private AnhadirPuntoInteresPresenter presenter;
-    private AppDatabase database;
+    AppDatabase db;
 
     Context context = ApplicationProvider.getApplicationContext();
 
-    private PuntoInteres p;
+    private IAnhadirPuntoInteresContract.View vistaMock;
+    private IPuntosInteresDAO puntosInteresDao;
+    private AnhadirPuntoInteresPresenter presenter;
 
-    private IPuntosInteresDAO dao;
-    private final String nombreStr = "casa";
-    private final String latitudStr = "43.462274";
-    private final String longitudStr = "-3.809740";
+    String nombreStr = "casa";
+    String latitudStr = "43.462274";
+    String longitudStr = "-3.809740";
 
     double latitud = Double.parseDouble(latitudStr);
     double longitud = Double.parseDouble(longitudStr);
 
+    PuntoInteres p;
+
     @Before
     public void setUp() {
-        // Inicializar la base de datos en memoria
-        database = DbFunctions.generaBaseDatosPuntosInteres(context);
 
-        // Obtener la DAO
-        dao = database.puntosInteresDao();
-        
         vistaMock = mock(IAnhadirPuntoInteresContract.View.class);
-        
-        // Crear el presenter
-        presenter = new AnhadirPuntoInteresPresenter(vistaMock);
+
+        db = DbFunctions.generaBaseDatosPuntosInteres(context);
+        puntosInteresDao = db.puntosInteresDao();
+        //puntosInteresDao.delete(any(PuntoInteres.class));
+
+        when(vistaMock.getPuntosInteresDAO()).thenReturn(puntosInteresDao);
 
         p = new PuntoInteres(nombreStr, latitud, longitud);
+
+        presenter = new AnhadirPuntoInteresPresenter(vistaMock);
 
     }
 
     @After
     public void tearDown() {
         // Cerrar la base de datos
-        database.close();
+        db.close();
     }
 
     @Test
     public void TestOnGuardarPuntoInteresClicked() {
-        // Caso válido
+        // Caso valido
         presenter.onGuardarPuntoInteresClicked(nombreStr, latitudStr, longitudStr);
-        PuntoInteres puntoCapturado = dao.loadByName(nombreStr);
-        assertNotNull(puntoCapturado);
-        assertEquals(puntoCapturado,p);
+        PuntoInteres puntoCapturado = puntosInteresDao.loadByName(nombreStr);
+        assertEquals(nombreStr, puntoCapturado.getNombre());
+        assertEquals(latitud, puntoCapturado.getLatitud(), 0.0);
+        assertEquals(longitud, puntoCapturado.getLongitud(), 0.0);
         verify(vistaMock).mostrarMensaje("Punto de interés guardado");
 
-        // Caso no válido (Ya existe el punto de interés con ese nombre)
+        // Caso no valido (Ya existe el punto de interes con ese nombre)
         presenter.onGuardarPuntoInteresClicked(nombreStr, "43.4733", "-3.80111");
-        verify(vistaMock).mostrarMensaje("Ya existe un punto de interés con ese nombre");
+        verify(vistaMock).mostrarMensaje("Error: Punto interés existente");
 
         // Caso no válido (No se introducen datos)
-        presenter.onGuardarPuntoInteresClicked("", "", "");
+        presenter.onGuardarPuntoInteresClicked("","","");
         verify(vistaMock).mostrarMensaje("Por favor, llene todos los campos");
 
         // Caso no válido (Latitud incorrecta)
-        presenter.onGuardarPuntoInteresClicked("Punto2", "-91", "0");
-        verify(vistaMock).mostrarMensaje("La latitud está fuera de los límites permitidos. No se ha guardado el punto");
+        presenter.onGuardarPuntoInteresClicked("Punto1","-91","0");
+        verify(vistaMock).mostrarMensaje("Error: Latitud fuera de limites");
 
         // Caso no válido (Longitud incorrecta)
-        presenter.onGuardarPuntoInteresClicked("Punto3", "0", "181");
-        verify(vistaMock).mostrarMensaje("La longitud está fuera de los límites permitidos. No se ha guardado el punto");
+        presenter.onGuardarPuntoInteresClicked("Punto1","0","181");
+        verify(vistaMock).mostrarMensaje("Error: Longitud fuera de limites");
 
-        // Eliminar el punto de interés insertado
-        dao.delete(puntoCapturado);
+        /* Caso no valido (Error acceso a BBDD)
+        presenter.onGuardarPuntoInteresClicked("pabellon", "43.47578", "-3.76644");
+        verify(vistaMock).mostrarMensaje("Ha ocurrido un error en la base de datos");*/
+
+        puntosInteresDao.delete(puntoCapturado);
     }
 }

@@ -76,11 +76,11 @@ public class AnhadirPuntoInteresPresenterTest {
 
         // Caso no válido (Latitud incorrecta)
         presenter.onGuardarPuntoInteresClicked("Punto1","-91","0");
-        verify(vistaMock).mostrarMensaje("La latitud está fuera de los límites permitidos. No se ha guardado el punto");
+        verify(vistaMock).mostrarMensaje("Error: Latitud fuera de limites");
 
         // Caso no válido (Longitud incorrecta)
         presenter.onGuardarPuntoInteresClicked("Punto1","0","181");
-        verify(vistaMock).mostrarMensaje("La latitud está fuera de los límites permitidos. No se ha guardado el punto");
+        verify(vistaMock).mostrarMensaje("Error: Longitud fuera de limites");
 
         /* Caso no valido (Error acceso a BBDD)
         presenter.onGuardarPuntoInteresClicked("pabellon", "43.47578", "-3.76644");
