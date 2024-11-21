@@ -33,7 +33,21 @@ public class MainPresenterTest {
     private Gasolinera cercana;
     private Gasolinera lejana;
     private Gasolinera auxCercana;
+    
+    @Mock
+    private static IGasolinerasRepository mockGasolineras2;
 
+    @Mock
+    private static IMainContract.View mockVista2;
+
+    private static MainPresenter sut2;
+
+    private Gasolinera gasolinera1;
+    private Gasolinera gasolinera2;
+    private Gasolinera gasolinera3;
+    private Gasolinera gasolinera4;
+
+    private List<Gasolinera> listaGasolineras2;
 
     @Mock
     private static IPuntosInteresDAO mockPuntoInteres;
@@ -53,8 +67,13 @@ public class MainPresenterTest {
 
     private PuntoInteres universidad;
 
+    // Para el test del harvesine
+    private PuntoInteres punto0;
+    private Gasolinera gasolinera0;
+
     private List<Gasolinera> listaGasolineras;
 
+    /*
     @Mock
     private static IGasolinerasRepository mockGasolineras2;
 
@@ -68,7 +87,7 @@ public class MainPresenterTest {
     private Gasolinera gasolinera3;
     private Gasolinera gasolinera4;
 
-    private List<Gasolinera> listaGasolineras2;
+    private List<Gasolinera> listaGasolineras2;*/
 
     @Mock
     private static IGasolinerasRepository mockGasolineras3;
@@ -86,6 +105,10 @@ public class MainPresenterTest {
 
         // Inicializo los mocks
         MockitoAnnotations.openMocks(this);
+
+        // objetos para el harvesine
+        gasolinera0 = new Gasolinera();
+        punto0 = new PuntoInteres();
 
         //creo gasolineras necesarias para DistanciaComparatorTest
 
@@ -155,7 +178,7 @@ public class MainPresenterTest {
         gasolineraNeutra.setLatitud(43.406608665447474);
         gasolineraNeutra.setLongitud(-4.0);
 
-        gasolineraMuylejana = new Gasolinera();
+        gasolineraMuylejana= new Gasolinera();
         gasolineraMuylejana.setId("GasolineraJuan");
         gasolineraMuylejana.setDireccion("America");
         gasolineraMuylejana.setLatitud(0.0);
@@ -164,14 +187,13 @@ public class MainPresenterTest {
 
         when(mockPuntoInteres.loadByName("Universidad")).thenReturn(universidad);
 
-
         sut = new MainPresenter();
         sut2 = new MainPresenter();
         sut3 = new MainPresenter();
     }
 
     @Test
-    public void testComparadorDistancia() {
+    public void testComparadorDistancia(){
 
         //caso que la primera gasolinera esta mas cerca
         assertEquals(comparadorDistancia.compare(cercana, lejana), -1);
@@ -336,7 +358,7 @@ public class MainPresenterTest {
 
 
     @Test
-    public void testOrdenaGasolinerasMasCercanas2Gasos() {
+    public void testOrdenaGasolinerasMasCercanas2Gasos(){
 
         //creo la lista de gasolineras que voy a mockear
         listaGasolineras = new ArrayList<>();
@@ -413,6 +435,31 @@ public class MainPresenterTest {
         assertEquals(gasolineraNeutra, listaCapturada.get(1));
         assertEquals(gasolineraLejana, listaCapturada.get(2));
         assertEquals(gasolineraMuylejana, listaCapturada.get(3));
+    }
+
+    @Test
+    public void tetsHarvesine() {
+
+        // Exito
+        gasolinera0.setLatitud(43.263);
+        gasolinera0.setLongitud(-2.935);
+        punto0.setLatitud(43.322);
+        punto0.setLongitud(-2.986);
+        assertEquals(7.7509861642708024, comparadorDistancia.harvesine(gasolinera0, punto0), 0.1);
+
+        // Fuera de rango latitud
+        gasolinera0.setLatitud(-1000);
+        gasolinera0.setLongitud(0);
+        punto0.setLatitud(0);
+        punto0.setLongitud(0);
+        assertEquals(8895.594131564694, comparadorDistancia.harvesine(gasolinera0, punto0), 0.01);
+
+        // Fuera de rango longitud
+        gasolinera0.setLatitud(0);
+        gasolinera0.setLongitud(0);
+        punto0.setLatitud(0);
+        punto0.setLongitud(1000);
+        assertEquals(8895.594131564694, comparadorDistancia.harvesine(gasolinera0, punto0), 0.001);
     }
 
     @Test

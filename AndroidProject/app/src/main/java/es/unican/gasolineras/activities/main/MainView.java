@@ -326,8 +326,8 @@ public class MainView extends AppCompatActivity implements IMainContract.View {
     @Override
     public void showPopUpQuitarFiltrosYOrdenaciones() {
         new AlertDialog.Builder(this)
-                .setTitle("Quitar filtros y ordenaciones")
-                .setMessage("¿Estás seguro de que quieres quitar todos los filtros y ordenaciones?")
+                .setTitle("Confirmación")
+                .setMessage("¿Eliminar filtros y ordenación?")
                 .setPositiveButton("ACEPTAR", (dialog, which) -> {
                     // Llamar al presenter para quitar filtros y ordenaciones
                     presenter.quitarFiltrosYOrdenaciones();

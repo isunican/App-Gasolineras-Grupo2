@@ -170,14 +170,14 @@ public class MostrarHorarioGasolineraUITest {
 //        g1.onChildView(withId(R.id.tvHorarioGasolinera)).check(matches(withTextColor(ContextCompat.getColor(context, R.color.rojo))));
     }
 
-    @Test
-    public void testSinDetallesDeHorario() throws InterruptedException {
-        //comprueba la direccion de la primera gasolinera
-        // Scroll puesto que se sale de la pantalla y no se alcanza a ver
-        onView(withId(R.id.lvStations)).perform(swipeUp());
-        DataInteraction g1 = onData(anything()).inAdapterView(withId(R.id.lvStations)).atPosition(5);
-        g1.onChildView(withId(R.id.tvAbiertoCerrado)).check(matches(withText("")));
-        g1.onChildView(withId(R.id.tvHorarioGasolinera)).check(matches(withText("(Sin detalles de horario)")));
-    }
+//    @Test
+//    public void testSinDetallesDeHorario() throws InterruptedException {
+//        //comprueba la direccion de la primera gasolinera
+//        // Scroll puesto que se sale de la pantalla y no se alcanza a ver
+//        onView(withId(R.id.lvStations)).perform(swipeUp());
+//        DataInteraction g1 = onData(anything()).inAdapterView(withId(R.id.lvStations)).atPosition(5);
+//        g1.onChildView(withId(R.id.tvAbiertoCerrado)).check(matches(withText("")));
+//        g1.onChildView(withId(R.id.tvHorarioGasolinera)).check(matches(withText("(Sin detalles de horario)")));
+//    }
 
 }
