@@ -22,11 +22,17 @@ public class GasolineraDistanciaComparator implements Comparator<Gasolinera> {
         double distancia2 = harvesine(g2, punto);
 
         //si la primera gasolinera esta mas cerca retorno -
-        //si la primera gasolinera esta mas lejos retorno +
-        //si estan a la misma distancia retorno 0
+        // si la primera gasolinera esta mas lejos retorno +
+        // si estan a la misma distancia retorno 0
         return Double.compare(distancia1, distancia2);
     }
 
+    /**
+     * Retorna la distancia real entre un punto de interes y una gasolinera.
+     * @param g Gasolinera de referencia
+     * @param p punto de interes de referencia
+     * @return la distancia en km
+     */
     public double harvesine(Gasolinera g, PuntoInteres p){
 
         //radio tierra

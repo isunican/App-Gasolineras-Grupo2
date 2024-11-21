@@ -1,4 +1,4 @@
-package es.unican.gasolineras.activities.puntoInteres;
+package es.unican.gasolineras.activities.main;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu;
@@ -18,21 +18,17 @@ import android.view.View;
 import androidx.test.espresso.Espresso;
 import androidx.test.espresso.matcher.RootMatchers;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
-import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;
 
-import org.hamcrest.Matcher;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
 import dagger.hilt.android.testing.BindValue;
 import dagger.hilt.android.testing.HiltAndroidRule;
 import dagger.hilt.android.testing.HiltAndroidTest;
 import dagger.hilt.android.testing.UninstallModules;
 import es.unican.gasolineras.R;
-import es.unican.gasolineras.activities.main.MainView;
 import es.unican.gasolineras.injection.RepositoriesModule;
 import es.unican.gasolineras.repository.AppDatabase;
 import es.unican.gasolineras.repository.DbFunctions;
@@ -68,7 +64,7 @@ public class AnhadirPuntoInteresUITest {
     }
 
     @Test
-    public void TestAnhadirPuntoInteres() {
+     public void TestAnhadirPuntoInteres() {
 
         // Caso de exito
         openActionBarOverflowOrOptionsMenu(context);
@@ -104,7 +100,7 @@ public class AnhadirPuntoInteresUITest {
         Espresso.closeSoftKeyboard();
 
         onView(withId(R.id.buttonGuardar)).perform(click());
-        onView(withText("Ya existe un punto de interés con ese nombre")).inRoot(RootMatchers.withDecorView(not(decorView))).check(matches(isDisplayed()));
+        onView(withText("Error: Punto interés existente")).inRoot(RootMatchers.withDecorView(not(decorView))).check(matches(isDisplayed()));
 
         onView(withId(R.id.buttonCancelar)).perform(click());
 

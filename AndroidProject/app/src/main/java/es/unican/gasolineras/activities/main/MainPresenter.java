@@ -50,6 +50,10 @@ public class MainPresenter implements IMainContract.Presenter {
      */
     @Override
     public void onStationClicked(Gasolinera station) {
+        if (station == null)
+        {
+            return;
+        }
         view.showStationDetails(station);
     }
 
@@ -144,9 +148,14 @@ public class MainPresenter implements IMainContract.Presenter {
             gasolinerasFiltradas.sort(new GasolineraDistanciaComparator(puntoInteresOrdenActual));
         }
 
-        // Actualizar la lista modificada y mostrar
-        gasolinerasMod = gasolinerasFiltradas;
-        view.showStations(gasolinerasMod);
+        // Si la lista esta vacia se le agrega el elemento informativo
+        if (gasolinerasFiltradas.isEmpty()) {
+            view.showElementoInformativo();
+        } else {
+            // Actualizar la lista modificada y mostrar
+            gasolinerasMod = gasolinerasFiltradas;
+            view.showStations(gasolinerasMod);
+        }
     }
 
     /**
