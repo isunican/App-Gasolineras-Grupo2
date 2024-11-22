@@ -1,38 +1,30 @@
 package es.unican.gasolineras.activities.main;
 
 
+import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doAnswer;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static es.unican.gasolineras.utils.MockRepositories.getTestRepositoryList;
 
 import org.junit.Before;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import dagger.hilt.android.testing.BindValue;
-import es.unican.gasolineras.R;
 import es.unican.gasolineras.model.Gasolinera;
 import es.unican.gasolineras.model.PuntoInteres;
 import es.unican.gasolineras.model.TipoCombustible;
 import es.unican.gasolineras.repository.ICallBack;
 import es.unican.gasolineras.repository.IGasolinerasRepository;
 import es.unican.gasolineras.repository.IPuntosInteresDAO;
-
-import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static es.unican.gasolineras.utils.MockRepositories.getTestRepository;
-import static es.unican.gasolineras.utils.MockRepositories.getTestRepositoryList;
-
-import android.content.Context;
-
-import androidx.test.platform.app.InstrumentationRegistry;
 
 public class MainPresenterITest {
 

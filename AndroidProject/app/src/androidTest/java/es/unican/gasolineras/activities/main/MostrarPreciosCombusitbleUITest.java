@@ -3,26 +3,16 @@ package es.unican.gasolineras.activities.main;
 import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
-import static androidx.test.espresso.action.ViewActions.scrollCompletelyTo;
 import static androidx.test.espresso.action.ViewActions.scrollTo;
-import static androidx.test.espresso.action.ViewActions.swipeDown;
 import static androidx.test.espresso.action.ViewActions.swipeUp;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.hasChildCount;
-import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
-import static net.bytebuddy.matcher.ElementMatchers.is;
 import static org.hamcrest.CoreMatchers.anything;
-import static org.hamcrest.CoreMatchers.instanceOf;
-import static org.hamcrest.Matchers.hasToString;
-import static java.lang.Thread.sleep;
-import static java.util.EnumSet.allOf;
 import static es.unican.gasolineras.utils.MockRepositories.getTestRepository;
 
-import android.app.Activity;
 import android.content.Context;
-import android.widget.ListView;
 
 import androidx.test.espresso.DataInteraction;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
@@ -38,7 +28,6 @@ import dagger.hilt.android.testing.HiltAndroidTest;
 import dagger.hilt.android.testing.UninstallModules;
 import es.unican.gasolineras.R;
 import es.unican.gasolineras.injection.RepositoriesModule;
-import es.unican.gasolineras.model.GasolineraCombustible;
 import es.unican.gasolineras.repository.IGasolinerasRepository;
 
 @UninstallModules(RepositoriesModule.class)

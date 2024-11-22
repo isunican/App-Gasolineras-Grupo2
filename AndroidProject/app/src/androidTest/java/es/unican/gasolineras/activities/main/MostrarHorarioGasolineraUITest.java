@@ -1,13 +1,9 @@
 package es.unican.gasolineras.activities.main;
 
 import static androidx.test.espresso.Espresso.onData;
-import static androidx.test.espresso.Espresso.onView;
-import static androidx.test.espresso.action.ViewActions.swipeUp;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
-
-
 import static org.hamcrest.CoreMatchers.anything;
 import static es.unican.gasolineras.common.UtilsHorario.obtenerDiaActual;
 import static es.unican.gasolineras.common.UtilsHorario.procesaHorario;
