@@ -1,4 +1,4 @@
-@startuml
+@startuml domain
 
 hide empty members
 
@@ -41,6 +41,11 @@ class PuntoInteres {
     - String nombre
     - double latitud
     - double longitud
+}
+
+class GasolineraCombustible {
+    - TipoCombustible combustible
+    - double precio
 }
 
 class IDCCAAs {

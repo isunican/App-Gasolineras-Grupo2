@@ -40,12 +40,20 @@ public class MainPresenter implements IMainContract.Presenter {
         load();
     }
 
+    public boolean hayFiltrosOOrdenacionesAplicadas() {
+        return estaOrdenada || estaFiltrada;
+    }
+
     /**
      * @see IMainContract.Presenter#onStationClicked(Gasolinera)
      * @param station the station that has been clicked
      */
     @Override
     public void onStationClicked(Gasolinera station) {
+        if (station == null)
+        {
+            return;
+        }
         view.showStationDetails(station);
     }
 
@@ -77,6 +85,12 @@ public class MainPresenter implements IMainContract.Presenter {
         view.showPopUpFiltar();
     }
 
+    /**
+     * Muestra el popup de quitar filtros y ordenaciones.
+     */
+    public void onMenuQuitarFiltrosYOrdenacionesClicked() {
+        view.showPopUpQuitarFiltrosYOrdenaciones();
+    }
 
 
     private void load() {
@@ -134,8 +148,45 @@ public class MainPresenter implements IMainContract.Presenter {
             gasolinerasFiltradas.sort(new GasolineraDistanciaComparator(puntoInteresOrdenActual));
         }
 
-        // Actualizar la lista modificada y mostrar
-        gasolinerasMod = gasolinerasFiltradas;
-        view.showStations(gasolinerasMod);
+        // Si la lista esta vacia se le agrega el elemento informativo
+        if (gasolinerasFiltradas.isEmpty()) {
+            view.showElementoInformativo();
+        } else {
+            // Actualizar la lista modificada y mostrar
+            gasolinerasMod = gasolinerasFiltradas;
+            view.showStations(gasolinerasMod);
+        }
+    }
+
+    /**
+     * Quita todos los filtros y ordenaciones aplicados a la lista de gasolineras,
+     * restaurando la lista original y actualizando la vista.
+     * Si no se ha podido eliminar el filtro, muestra un mensaje al usuario.
+     */
+    public void quitarFiltrosYOrdenaciones() {
+        boolean seHanQuitadoFiltros = false; // Para controlar si se han quitado filtros
+
+        // Restablecer la lista a la original
+        if (estaFiltrada || estaOrdenada) { // Solo si hay filtros o ordenaciones aplicadas
+            gasolinerasMod = new ArrayList<>(gasolineras);
+            estaOrdenada = false;
+            estaFiltrada = false;
+            puntoInteresOrdenActual = null;
+            view.showStations(gasolinerasMod);
+            seHanQuitadoFiltros = true; // Se han quitado los filtros
+        }
+
+        // Mostrar mensaje al usuario
+        if (!seHanQuitadoFiltros) {
+            view.showLoadError();
+        }
+    }
+
+    public boolean estaFiltrada() {
+        return estaFiltrada;
+    }
+
+    public boolean estaOrdenada() {
+        return estaOrdenada;
     }
 }

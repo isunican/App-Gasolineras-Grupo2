@@ -33,6 +33,8 @@ interface IMainContract#View {
     + showAnhadirPuntoInteresActivity()
     + onFiltrarClicked(double precioMax, TipoCombustible combustible)
     + showPopUpFiltar()
+    + showElementoInformativo()
+    + showPopUpQuitarFiltrosYOrdenaciones()
 }
 
 interface IMainContract#Presenter {
@@ -42,6 +44,8 @@ interface IMainContract#Presenter {
     + onMenuAnhadirPuntoInteresClicked()
     + ordenarGasolinerasCercanasPtoInteres(PuntoInteres p)
     + filtraGasolinerasPorPrecioMaximo(double precioMax, TipoCombustible combustible)
+    + onMenuQuitarFiltrosYOrdenacionesClicked()
+    + quitarFiltrosYOrdenaciones()
 }
 
 interface IGasolinerasRepository {

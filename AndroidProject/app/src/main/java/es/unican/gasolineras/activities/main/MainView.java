@@ -31,8 +31,8 @@ import javax.inject.Inject;
 
 import dagger.hilt.android.AndroidEntryPoint;
 import es.unican.gasolineras.R;
-import es.unican.gasolineras.activities.info.InfoView;
 import es.unican.gasolineras.activities.details.DetailsView;
+import es.unican.gasolineras.activities.info.InfoView;
 import es.unican.gasolineras.activities.puntoInteres.AnhadirPuntoInteresView;
 import es.unican.gasolineras.model.Gasolinera;
 import es.unican.gasolineras.model.PuntoInteres;
@@ -52,11 +52,7 @@ public class MainView extends AppCompatActivity implements IMainContract.View {
     private MainPresenter presenter;
 
     /** La base de datos de los puntos de interes */
-    private AppDatabase db;
     private IPuntosInteresDAO puntosInteresDAO;
-
-    /** Atributo de la lista de Puntos de Interes */
-    private List<PuntoInteres> puntosInteres;
 
     /** The repository to access the data. This is automatically injected by Hilt in this class */
     @Inject
@@ -92,6 +88,14 @@ public class MainView extends AppCompatActivity implements IMainContract.View {
         return true;
     }
 
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        MenuItem itemQuitarFiltros = menu.findItem(R.id.menuQuitarFiltrosYOrdenaciones);
+        // Muestra el botón solo si hay filtros o se ha aplicado alguna ordenación
+        itemQuitarFiltros.setVisible(presenter.hayFiltrosOOrdenacionesAplicadas());
+        return super.onPrepareOptionsMenu(menu);
+    }
+
     /**
      * This is called when an item in the action bar menu is selected.
      * @param item The menu item that was selected.
@@ -115,6 +119,10 @@ public class MainView extends AppCompatActivity implements IMainContract.View {
         }
         if (itemId == R.id.menuFiltrar) {
             presenter.onMenuFiltrarClicked();
+            return true;
+        }
+        if (itemId == R.id.menuQuitarFiltrosYOrdenaciones) {
+            presenter.onMenuQuitarFiltrosYOrdenacionesClicked();
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -152,6 +160,16 @@ public class MainView extends AppCompatActivity implements IMainContract.View {
     public void showStations(List<Gasolinera> stations) {
         ListView list = findViewById(R.id.lvStations);
         GasolinerasArrayAdapter adapter = new GasolinerasArrayAdapter(this, stations);
+        list.setAdapter(adapter);
+    }
+
+    /**
+     * @see IMainContract.View#showElementoInformativo()
+     */
+    @Override
+    public void showElementoInformativo() {
+        ListView list = findViewById(R.id.lvStations);
+        ElementoInformativoArrayAdapter adapter = new ElementoInformativoArrayAdapter(this);
         list.setAdapter(adapter);
     }
 
@@ -197,7 +215,7 @@ public class MainView extends AppCompatActivity implements IMainContract.View {
      */
     @Override
     public void getPuntosInteresDAO() {
-        db = DbFunctions.generaBaseDatosPuntosInteres(getApplicationContext());
+        AppDatabase db = DbFunctions.generaBaseDatosPuntosInteres(getApplicationContext());
         puntosInteresDAO = db.puntosInteresDao();
     }
 
@@ -217,11 +235,11 @@ public class MainView extends AppCompatActivity implements IMainContract.View {
         View btnCancelar = dialogView.findViewById(R.id.btnCancelar);
 
         // Obtengo la lista de puntos de interés
-        puntosInteres = puntosInteresDAO.getAll();
+        List<PuntoInteres> puntosInteres = puntosInteresDAO.getAll();
 
         if (puntosInteres.isEmpty()) {
             // Si la lista está vacía, mostrar el mensaje y deshabilitar el botón "Ordenar"
-            ((View) tvListaVacia).setVisibility(View.VISIBLE);
+            (tvListaVacia).setVisibility(View.VISIBLE);
             btnOrdenar.setEnabled(false);  // Deshabilitar el botón "Ordenar"
         } else {
             // Si la lista no está vacía, ocultar el mensaje y habilitar el botón "Ordenar"
@@ -246,9 +264,9 @@ public class MainView extends AppCompatActivity implements IMainContract.View {
         dialog.show();
 
         // Listener para el botón "Cancelar"
-        btnCancelar.setOnClickListener(v -> {
-            dialog.dismiss();
-        });
+        btnCancelar.setOnClickListener(v ->
+            dialog.dismiss()
+        );
 
         // Listener para el botón "Ordenar"
         btnOrdenar.setOnClickListener(v -> {
@@ -273,6 +291,7 @@ public class MainView extends AppCompatActivity implements IMainContract.View {
     @Override
     public void onOrdenarClicked(PuntoInteres p) {
         presenter.ordenarGasolinerasCercanasPtoInteres(p);
+        invalidateOptionsMenu();
     }
 
     /**
@@ -292,6 +311,27 @@ public class MainView extends AppCompatActivity implements IMainContract.View {
     @Override
     public void onFiltrarClicked(double precioMax, TipoCombustible combustible) {
         presenter.filtraGasolinerasPorPrecioMaximo(precioMax, combustible);
+        invalidateOptionsMenu();
+    }
+
+
+
+    /**
+     * @see IMainContract.View#showPopUpQuitarFiltrosYOrdenaciones()
+     */
+    @Override
+    public void showPopUpQuitarFiltrosYOrdenaciones() {
+        new AlertDialog.Builder(this)
+                .setTitle("Confirmación")
+                .setMessage("¿Eliminar filtros y ordenación?")
+                .setPositiveButton("ACEPTAR", (dialog, which) -> {
+                    // Llamar al presenter para quitar filtros y ordenaciones
+                    presenter.quitarFiltrosYOrdenaciones();
+                    dialog.dismiss();
+                    invalidateOptionsMenu();
+                })
+                .setNegativeButton("CANCELAR", (dialog, which) -> dialog.dismiss())
+                .show();
     }
 
     /**

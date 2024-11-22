@@ -7,6 +7,18 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 
 public class UtilsHorario {
+
+    /**
+     * Constructor privado para evitar instanciacion
+     */
+    private UtilsHorario () {
+
+    }
+
+    public static final String SIN_DETALLES_DE_HORARIO = "Sin detalles de horario";
+    public static final String TODO_EL_DIA = "Todo el día";
+    public static final String HH_MM = "HH:mm";
+
     /**
      * Metodo que retorna el horario del dia de hoy de la gasolinera.
      *
@@ -17,7 +29,7 @@ public class UtilsHorario {
      */
     public static String procesaHorario(String horario, String dia) {
         if (horario.equals("")) {
-            return "Sin detalles de horario";
+            return SIN_DETALLES_DE_HORARIO;
         }
 
         // Divide el horario en secciones
@@ -41,7 +53,7 @@ public class UtilsHorario {
                 if (diaEstaEnRango(dia, inicio, fin)) return rango;
             }
         }
-        return "Todo el día";
+        return TODO_EL_DIA;
     }
 
     /**
@@ -107,10 +119,10 @@ public class UtilsHorario {
         if ("24H".equals(horarios)) {
             return true; // Siempre abierta
         }
-        if ("Todo el día".equals(horarios)) {
+        if (TODO_EL_DIA.equals(horarios)) {
             return false;
         }
-        if ("Sin detalles de horario".equals(horarios)) {
+        if (SIN_DETALLES_DE_HORARIO.equals(horarios)) {
             return false;
         }
         // Divide los días para manejar rangos como "L-X" y días individuales como "D"
@@ -136,12 +148,12 @@ public class UtilsHorario {
      *         false si no esta dentro del rango.
      */
     public static boolean horaEnRango(String rango, LocalTime horaActual) {
-        if ((rango.equals("Sin detalles de horario"))&&(rango.equals("Todo el día")))
+        if ((rango.equals(SIN_DETALLES_DE_HORARIO))&&(rango.equals(TODO_EL_DIA)))
         {
             return false;
         }
         // Formateador para interpretar el formato HH:mm
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(HH_MM);
 
         // Separar el rango en hora de inicio y hora de fin
         String[] horas = rango.split("-");
@@ -170,7 +182,7 @@ public class UtilsHorario {
         LocalDateTime cincoHorasDespues = ahora.plus(5, ChronoUnit.HOURS);
 
         // Formatear las horas en el formato HH:mm
-        DateTimeFormatter formatoHora = DateTimeFormatter.ofPattern("HH:mm");
+        DateTimeFormatter formatoHora = DateTimeFormatter.ofPattern(HH_MM);
         String horaInicio = cincoHorasAntes.format(formatoHora);
         String horaFin = cincoHorasDespues.format(formatoHora);
 
@@ -194,7 +206,7 @@ public class UtilsHorario {
         LocalDateTime finIntervalo2 = ahora.plus(10, ChronoUnit.HOURS);
 
         // Formatear las horas en el formato HH:mm
-        DateTimeFormatter formatoHora = DateTimeFormatter.ofPattern("HH:mm");
+        DateTimeFormatter formatoHora = DateTimeFormatter.ofPattern(HH_MM);
         String horaInicio1 = inicioIntervalo1.format(formatoHora);
         String horaFin1 = finIntervalo1.format(formatoHora);
 
@@ -206,8 +218,8 @@ public class UtilsHorario {
     }
 
     /**
-     * Metodo que nos retorna un horario cerrado todo el dia.
-     * @return horario cerrado todo el dia.
+     * Metodo que nos retorna un horario cerrado tod0 el dia.
+     * @return horario cerrado tod0 el dia.
      */
     public static String obtenerHorarioCerradoTodoElDia() {
         // Obtener la fecha actual y el día de la semana actual
@@ -238,7 +250,7 @@ public class UtilsHorario {
         LocalDateTime finIntervalo2 = ahora.plus(9, ChronoUnit.HOURS);
 
         // Formatear las horas en el formato HH:mm
-        DateTimeFormatter formatoHora = DateTimeFormatter.ofPattern("HH:mm");
+        DateTimeFormatter formatoHora = DateTimeFormatter.ofPattern(HH_MM);
         String horaInicio1 = inicioIntervalo1.format(formatoHora);
         String horaFin1 = finIntervalo1.format(formatoHora);
 
