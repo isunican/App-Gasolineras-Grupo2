@@ -96,7 +96,6 @@ public class FiltrarPorPrecioMaximoUITest {
         //clicka en filtrar
         onView(withId(R.id.menuFiltrar)).perform(click());
         //comprueba mensaje de error
-        // onView(withText("Por favor, introduce un precio máximo.")).inRoot(RootMatchers.withDecorView(not(decorView))).check(matches(isDisplayed()));
         assertTrue(true);
     }
 
@@ -113,7 +112,6 @@ public class FiltrarPorPrecioMaximoUITest {
         onView(withId(R.id.etPrecioMax)).perform(typeText("Uno punto cuatro"));
 
         //comprueba mensaje de error
-        // onView(withText("Por favor, introduce un número válido para el precio máximo.")).inRoot(RootMatchers.withDecorView(not(decorView))).check(matches(isDisplayed()));
         assertTrue(true);
     }
 
@@ -130,42 +128,43 @@ public class FiltrarPorPrecioMaximoUITest {
         onView(withId(R.id.etPrecioMax)).perform(typeText("-1.4"));
 
         //comprueba mensaje de error
-        // onView(withText("Por favor, el precio máximo debe ser positivo.")).inRoot(RootMatchers.withDecorView(not(decorView))).check(matches(isDisplayed()));
         assertTrue(true);
     }
 
-//    @Test
-//    public void testPersistenciaDeDatosFiltradosAlReiniciar() throws InterruptedException {
-//        //clicka en filtrar
-//        onView(withId(R.id.menuFiltrar)).perform(click());
-//
-//        //clicka en el selector de combustible
-//        onView(withId(R.id.spinnerCombustible)).perform(click());
-//
-//        //elige la opcion gasoleo A
-//        onData(allOf(is(instanceOf(TipoCombustible.class)),
-//                is(GASOLEO_A))).inRoot(isPlatformPopup()).perform(click());
-//
-//        //clicka en el campo de precio máximo
-//        onView(withId(R.id.etPrecioMax)).perform(click());
-//
-//        //escribe 1.4 en el campo de precio máximo
-//        onView(withId(R.id.etPrecioMax)).perform(typeText("1.4"));
-//
-//        //clicka el botón filtrar
-//        onView(withId(R.id.btnFiltrar)).perform(click());
-//
-//        // Cierra y reinicia la actividad (simula reiniciar la app)
-//        activityRule.getScenario().recreate();
-//
-//        //clicka en filtrar de nuevo
-//        onView(withId(R.id.menuFiltrar)).perform(click());
-//
-//        //verifica que el filtro persiste
-//        onView(withId(R.id.etPrecioMax)).check(matches(withText("1.4")));
-//        onView(withId(R.id.spinnerCombustible)).check(matches(withSpinnerText("Gasoleo A")));
-//        assertTrue(true);
-//    }
+    /*
+    @Test
+    public void testPersistenciaDeDatosFiltradosAlReiniciar() throws InterruptedException {
+        //clicka en filtrar
+        onView(withId(R.id.menuFiltrar)).perform(click());
+
+        //clicka en el selector de combustible
+        onView(withId(R.id.spinnerCombustible)).perform(click());
+
+        //elige la opcion gasoleo A
+        onData(allOf(is(instanceOf(TipoCombustible.class)),
+                is(GASOLEO_A))).inRoot(isPlatformPopup()).perform(click());
+
+        //clicka en el campo de precio máximo
+        onView(withId(R.id.etPrecioMax)).perform(click());
+
+        //escribe 1.4 en el campo de precio máximo
+        onView(withId(R.id.etPrecioMax)).perform(typeText("1.4"));
+
+        //clicka el botón filtrar
+        onView(withId(R.id.btnFiltrar)).perform(click());
+
+        // Cierra y reinicia la actividad (simula reiniciar la app)
+        activityRule.getScenario().recreate();
+
+        //clicka en filtrar de nuevo
+        onView(withId(R.id.menuFiltrar)).perform(click());
+
+        //verifica que el filtro persiste
+        onView(withId(R.id.etPrecioMax)).check(matches(withText("1.4")));
+        onView(withId(R.id.spinnerCombustible)).check(matches(withSpinnerText("Gasoleo A")));
+        assertTrue(true);
+    }
+     */
 
     @Test
     public void testCancelacionDelFiltro()  {

@@ -27,9 +27,6 @@ import es.unican.gasolineras.repository.IGasolinerasRepository;
 import es.unican.gasolineras.repository.IPuntosInteresDAO;
 
 public class MainPresenterITest {
-
-    private GasolineraDistanciaComparator comparadorDistancia;
-
     private Gasolinera cercana;
     private Gasolinera lejana;
     private Gasolinera auxCercana;

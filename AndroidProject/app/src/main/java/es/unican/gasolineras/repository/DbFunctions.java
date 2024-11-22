@@ -5,6 +5,13 @@ import android.content.Context;
 import androidx.room.Room;
 
 public class DbFunctions {
+
+    /**
+     * Constructor privado
+     */
+    private DbFunctions() {
+    }
+
     // Base de datos de los puntos de interes
     private static AppDatabase db;
 

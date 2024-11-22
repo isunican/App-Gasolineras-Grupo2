@@ -8,6 +8,13 @@ import java.time.temporal.ChronoUnit;
 
 public class UtilsHorario {
 
+    /**
+     * Constructor privado para evitar instanciacion
+     */
+    private UtilsHorario () {
+
+    }
+
     public static final String SIN_DETALLES_DE_HORARIO = "Sin detalles de horario";
     public static final String TODO_EL_DIA = "Todo el día";
     public static final String HH_MM = "HH:mm";

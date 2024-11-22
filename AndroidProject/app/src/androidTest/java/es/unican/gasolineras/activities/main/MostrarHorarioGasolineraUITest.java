@@ -1,6 +1,8 @@
 package es.unican.gasolineras.activities.main;
 
 import static androidx.test.espresso.Espresso.onData;
+import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.action.ViewActions.swipeUp;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
@@ -127,7 +129,6 @@ public class MostrarHorarioGasolineraUITest {
         DataInteraction g1 = onData(anything()).inAdapterView(withId(R.id.lvStations)).atPosition(0);
         g1.onChildView(withId(R.id.tvAbiertoCerrado)).check(matches(withText("Abierto")));
         g1.onChildView(withId(R.id.tvHorarioGasolinera)).check(matches(withText("(24H)")));
-//        g1.onChildView(withId(R.id.tvHorarioGasolinera)).check(matches(withTextColor(ContextCompat.getColor(context, R.color.verde))));
     }
 
     @Test
@@ -136,7 +137,6 @@ public class MostrarHorarioGasolineraUITest {
         DataInteraction g1 = onData(anything()).inAdapterView(withId(R.id.lvStations)).atPosition(1);
         g1.onChildView(withId(R.id.tvAbiertoCerrado)).check(matches(withText("Abierto")));
         g1.onChildView(withId(R.id.tvHorarioGasolinera)).check(matches(withText("(" + procesaHorario(UtilsHorario.obtenerHorarioAbiertoSimple(), obtenerDiaActual(LocalDateTime.now().getDayOfWeek())) + ")")));
-//        g1.onChildView(withId(R.id.tvHorarioGasolinera)).check(matches(withTextColor(ContextCompat.getColor(context, R.color.verde))));
     }
 
     @Test
@@ -145,7 +145,6 @@ public class MostrarHorarioGasolineraUITest {
         DataInteraction g1 = onData(anything()).inAdapterView(withId(R.id.lvStations)).atPosition(2);
         g1.onChildView(withId(R.id.tvAbiertoCerrado)).check(matches(withText("Abierto")));
         g1.onChildView(withId(R.id.tvHorarioGasolinera)).check(matches(withText("(" + procesaHorario(UtilsHorario.obtenerHorarioAbiertoIntervalo(), obtenerDiaActual(LocalDateTime.now().getDayOfWeek())) + ")")));
-//        g1.onChildView(withId(R.id.tvHorarioGasolinera)).check(matches(withTextColor(ContextCompat.getColor(context, R.color.verde))));
     }
 
     @Test
@@ -154,26 +153,26 @@ public class MostrarHorarioGasolineraUITest {
         DataInteraction g1 = onData(anything()).inAdapterView(withId(R.id.lvStations)).atPosition(3);
         g1.onChildView(withId(R.id.tvAbiertoCerrado)).check(matches(withText("Cerrado")));
         g1.onChildView(withId(R.id.tvHorarioGasolinera)).check(matches(withText("(Todo el día)")));
-//        g1.onChildView(withId(R.id.tvHorarioGasolinera)).check(matches(withTextColor(ContextCompat.getColor(context, R.color.rojo))));
     }
 
-//    @Test
-//    public void testCerradaParcial() {
-//        //comprueba la direccion de la primera gasolinera
-//        DataInteraction g1 = onData(anything()).inAdapterView(withId(R.id.lvStations)).atPosition(4);
-//        g1.onChildView(withId(R.id.tvAbiertoCerrado)).check(matches(withText("Cerrado")));
-//        g1.onChildView(withId(R.id.tvHorarioGasolinera)).check(matches(withText("(" + procesaHorario(UtilsHorario.obtenerHorarioCerradoIntervalo(), obtenerDiaActual(LocalDateTime.now().getDayOfWeek())) + ")")));
-////        g1.onChildView(withId(R.id.tvHorarioGasolinera)).check(matches(withTextColor(ContextCompat.getColor(context, R.color.rojo))));
-//    }
+    /*
+    @Test
+    public void testCerradaParcial() {
+        //comprueba la direccion de la primera gasolinera
+        DataInteraction g1 = onData(anything()).inAdapterView(withId(R.id.lvStations)).atPosition(4);
+        g1.onChildView(withId(R.id.tvAbiertoCerrado)).check(matches(withText("Cerrado")));
+        g1.onChildView(withId(R.id.tvHorarioGasolinera)).check(matches(withText("(" + procesaHorario(UtilsHorario.obtenerHorarioCerradoIntervalo(), obtenerDiaActual(LocalDateTime.now().getDayOfWeek())) + ")")));
+    }
 
-//    @Test
-//    public void testSinDetallesDeHorario() throws InterruptedException {
-//        //comprueba la direccion de la primera gasolinera
-//        // Scroll puesto que se sale de la pantalla y no se alcanza a ver
-//        onView(withId(R.id.lvStations)).perform(swipeUp());
-//        DataInteraction g1 = onData(anything()).inAdapterView(withId(R.id.lvStations)).atPosition(5);
-//        g1.onChildView(withId(R.id.tvAbiertoCerrado)).check(matches(withText("")));
-//        g1.onChildView(withId(R.id.tvHorarioGasolinera)).check(matches(withText("(Sin detalles de horario)")));
-//    }
+    @Test
+    public void testSinDetallesDeHorario() throws InterruptedException {
+        //comprueba la direccion de la primera gasolinera
+        // Scroll puesto que se sale de la pantalla y no se alcanza a ver
+        onView(withId(R.id.lvStations)).perform(swipeUp());
+        DataInteraction g1 = onData(anything()).inAdapterView(withId(R.id.lvStations)).atPosition(5);
+        g1.onChildView(withId(R.id.tvAbiertoCerrado)).check(matches(withText("")));
+        g1.onChildView(withId(R.id.tvHorarioGasolinera)).check(matches(withText("(Sin detalles de horario)")));
+    }
+     */
 
 }

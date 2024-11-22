@@ -20,6 +20,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class GasolinerasService {
 
+    /**
+     * Constructor privado
+     */
+    private GasolinerasService() {}
+
     /** Open Charge Map API base URL*/
     final static String BASE_URL = "https://sedeaplicaciones.minetur.gob.es/ServiciosRESTCarburantes/PreciosCarburantes/";
 
