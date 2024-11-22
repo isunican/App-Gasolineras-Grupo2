@@ -52,11 +52,7 @@ public class MainView extends AppCompatActivity implements IMainContract.View {
     private MainPresenter presenter;
 
     /** La base de datos de los puntos de interes */
-    private AppDatabase db;
     private IPuntosInteresDAO puntosInteresDAO;
-
-    /** Atributo de la lista de Puntos de Interes */
-    private List<PuntoInteres> puntosInteres;
 
     /** The repository to access the data. This is automatically injected by Hilt in this class */
     @Inject
@@ -219,7 +215,7 @@ public class MainView extends AppCompatActivity implements IMainContract.View {
      */
     @Override
     public void getPuntosInteresDAO() {
-        db = DbFunctions.generaBaseDatosPuntosInteres(getApplicationContext());
+        AppDatabase db = DbFunctions.generaBaseDatosPuntosInteres(getApplicationContext());
         puntosInteresDAO = db.puntosInteresDao();
     }
 
@@ -239,11 +235,11 @@ public class MainView extends AppCompatActivity implements IMainContract.View {
         View btnCancelar = dialogView.findViewById(R.id.btnCancelar);
 
         // Obtengo la lista de puntos de interés
-        puntosInteres = puntosInteresDAO.getAll();
+        List<PuntoInteres> puntosInteres = puntosInteresDAO.getAll();
 
         if (puntosInteres.isEmpty()) {
             // Si la lista está vacía, mostrar el mensaje y deshabilitar el botón "Ordenar"
-            ((View) tvListaVacia).setVisibility(View.VISIBLE);
+            (tvListaVacia).setVisibility(View.VISIBLE);
             btnOrdenar.setEnabled(false);  // Deshabilitar el botón "Ordenar"
         } else {
             // Si la lista no está vacía, ocultar el mensaje y habilitar el botón "Ordenar"
@@ -268,9 +264,9 @@ public class MainView extends AppCompatActivity implements IMainContract.View {
         dialog.show();
 
         // Listener para el botón "Cancelar"
-        btnCancelar.setOnClickListener(v -> {
-            dialog.dismiss();
-        });
+        btnCancelar.setOnClickListener(v ->
+            dialog.dismiss()
+        );
 
         // Listener para el botón "Ordenar"
         btnOrdenar.setOnClickListener(v -> {

@@ -2,14 +2,9 @@ package es.unican.gasolineras.common;
 
 import static es.unican.gasolineras.common.UtilsHorario.gasolineraAbierta;
 import static es.unican.gasolineras.common.UtilsHorario.procesaHorario;
-
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
-
 import java.time.LocalTime;
-
-import es.unican.gasolineras.activities.main.GasolinerasArrayAdapter;
 
 public class UtilsHorarioTest {
 

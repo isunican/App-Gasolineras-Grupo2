@@ -218,8 +218,8 @@ public class UtilsHorario {
     }
 
     /**
-     * Metodo que nos retorna un horario cerrado todo el dia.
-     * @return horario cerrado todo el dia.
+     * Metodo que nos retorna un horario cerrado tod0 el dia.
+     * @return horario cerrado tod0 el dia.
      */
     public static String obtenerHorarioCerradoTodoElDia() {
         // Obtener la fecha actual y el día de la semana actual

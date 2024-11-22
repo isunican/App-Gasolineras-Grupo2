@@ -15,12 +15,12 @@ public interface IPuntosInteresDAO {
     List<PuntoInteres> getAll();
 
     // Buscar por id
-    @Query("SELECT * FROM PuntoInteres WHERE idPuntoInteres IN (:PuntoInteresId)")
-    PuntoInteres loadById(int PuntoInteresId);
+    @Query("SELECT * FROM PuntoInteres WHERE idPuntoInteres IN (:puntoInteresId)")
+    PuntoInteres loadById(int puntoInteresId);
 
     // Buscar por nombre
-    @Query("SELECT * FROM PuntoInteres WHERE nombre IN (:NombrePuntoInteres)")
-    PuntoInteres loadByName(String NombrePuntoInteres);
+    @Query("SELECT * FROM PuntoInteres WHERE nombre IN (:nombrePuntoInteres)")
+    PuntoInteres loadByName(String nombrePuntoInteres);
 
     // Buscar por latitud y longitud exactas
     @Query("SELECT * FROM PuntoInteres WHERE latitud = :lat AND longitud = :lon")
