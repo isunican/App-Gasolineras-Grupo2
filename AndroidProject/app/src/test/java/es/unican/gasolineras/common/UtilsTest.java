@@ -112,8 +112,8 @@ public class UtilsTest {
 
         //Compruebo que la lista tiene todos los elementos
         Assert.assertEquals("La lista no contiene todos los combustibles.",
-                listaCombustiblesParaRellenar.size(),
-                14);
+                14,
+                listaCombustiblesParaRellenar.size());
 
         // Verificar elementos uno por uno
         for (int i = 0; i < listaCompleta.size(); i++) {
@@ -135,8 +135,8 @@ public class UtilsTest {
 
         //Compruebo que la lista tiene todos los elementos
         Assert.assertEquals("La lista no contiene todos los combustibles.",
-                listaCombustiblesParaRellenar.size(),
-                6);
+                6,
+                listaCombustiblesParaRellenar.size());
 
         // Verificar elementos uno por uno
         for (int i = 0; i < listaParcial.size(); i++) {
@@ -158,8 +158,8 @@ public class UtilsTest {
 
         //Compruebo que la lista tiene todos los elementos
         Assert.assertEquals("La lista contiene algun combustible.",
-                listaCombustiblesParaRellenar.size(),
-                0);
+                0,
+                listaCombustiblesParaRellenar.size());
 
         // Verificar elementos uno por uno
         for (int i = 0; i < listaVacia.size(); i++) {

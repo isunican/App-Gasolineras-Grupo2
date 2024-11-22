@@ -195,13 +195,13 @@ public class MainPresenterTest {
     public void testComparadorDistancia(){
 
         //caso que la primera gasolinera esta mas cerca
-        assertEquals(comparadorDistancia.compare(cercana, lejana), -1);
+        assertEquals(-1, comparadorDistancia.compare(cercana, lejana));
 
         //caso que la primera gasolinera esta mas lejos
-        assertEquals(comparadorDistancia.compare(lejana, cercana), 1);
+        assertEquals(1, comparadorDistancia.compare(lejana, cercana));
 
         //caso que esten a la misma distancia
-        assertEquals(comparadorDistancia.compare(cercana, auxCercana), 0);
+        assertEquals(0, comparadorDistancia.compare(cercana, auxCercana));
     }
 
 

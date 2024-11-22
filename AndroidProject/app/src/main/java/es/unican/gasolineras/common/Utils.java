@@ -40,6 +40,13 @@ import es.unican.gasolineras.model.GasolinerasResponse;
 public class Utils {
 
     /**
+     * Constructor privado para evitar instanciación
+     */
+    private Utils () {
+
+    }
+
+    /**
      * Parses a list of gas stations from a json resource file.
      * The json must contain a serialized GasolinerasResponse object.
      * It uses GSON to parse the json file
