@@ -4,8 +4,8 @@ import dagger.Module;
 import dagger.Provides;
 import dagger.hilt.InstallIn;
 import dagger.hilt.android.components.ActivityComponent;
-import es.unican.gasolineras.repository.IGasolinerasRepository;
 import es.unican.gasolineras.repository.GasolinerasRepository;
+import es.unican.gasolineras.repository.IGasolinerasRepository;
 
 /**
  * This class is the provider of @link{IGasolinerasRepository} implementations

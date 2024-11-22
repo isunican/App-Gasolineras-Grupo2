@@ -1,6 +1,5 @@
 package es.unican.gasolineras.activities.main;
 
-import java.util.Collections;
 import java.util.Comparator;
 
 import es.unican.gasolineras.model.Gasolinera;

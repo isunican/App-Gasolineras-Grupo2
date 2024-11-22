@@ -15,9 +15,6 @@ public class UtilsHorarioTest {
 
     private GasolinerasArrayAdapter adapter;
 
-    @Before
-    public void setUp() throws Exception {
-    }
 
     @Test
     public void procesaHorarioTest() {

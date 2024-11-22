@@ -236,8 +236,8 @@ public class MainPresenterITest {
         assertEquals(gasolinera2, gasolinerasFiltradas.get(1));
     }
 
-    @Test
-    public void testFiltraYOrdenaGasolinerasPorPrecioMaximoYDistanciaSinResultados() {
+//    @Test
+//    public void testFiltraYOrdenaGasolinerasPorPrecioMaximoYDistanciaSinResultados() {
 //        double precioMaximo = 0.5;
 //
 //        doAnswer(invocation -> {
@@ -258,7 +258,7 @@ public class MainPresenterITest {
 //
 //        List<Gasolinera> gasolinerasFiltradas = captor.getValue();
 //        assertEquals(0, gasolinerasFiltradas.size());
-    }
+//    }
 
     @Test
     public void testFiltraYOrdenaGasolinerasPorPrecioMaximoMuyAlto() {
