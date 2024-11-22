@@ -2,8 +2,8 @@ package es.unican.gasolineras.repository;
 
 import es.unican.gasolineras.model.GasolinerasResponse;
 import retrofit2.Call;
-import retrofit2.http.Path;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 
 /**
  * Gasolineras <a href="https://sedeaplicaciones.minetur.gob.es/ServiciosRESTCarburantes/PreciosCarburantes/help">API</a>

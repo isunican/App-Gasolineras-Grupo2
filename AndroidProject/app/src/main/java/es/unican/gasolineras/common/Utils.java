@@ -17,9 +17,7 @@ import static es.unican.gasolineras.model.TipoCombustible.HIDROGENO;
 import static es.unican.gasolineras.repository.GasolinerasService.deserializer;
 
 import android.content.Context;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import com.google.gson.GsonBuilder;
@@ -29,8 +27,6 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.reflect.Type;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 

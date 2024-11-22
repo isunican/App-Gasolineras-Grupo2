@@ -1,9 +1,5 @@
 package es.unican.gasolineras.model;
 
-import static java.sql.Types.NULL;
-
-import org.w3c.dom.NamedNodeMap;
-
 public enum TipoCombustible {
     BIODIESEL,
     BIOETANOL,

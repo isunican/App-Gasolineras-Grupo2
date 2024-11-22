@@ -2,38 +2,22 @@ package es.unican.gasolineras.activities.details;
 
 import static es.unican.gasolineras.common.Utils.rellenaListaCombustibles;
 import static es.unican.gasolineras.common.Utils.setListViewHeightBasedOnItemCount;
-import static es.unican.gasolineras.model.TipoCombustible.*;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import androidx.activity.EdgeToEdge;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import org.parceler.Parcels;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
-
 import es.unican.gasolineras.R;
 import es.unican.gasolineras.model.Gasolinera;
-import es.unican.gasolineras.model.GasolineraCombustible;
 
 /**
  * View that shows the details of one gas station. Since this view does not have business logic,

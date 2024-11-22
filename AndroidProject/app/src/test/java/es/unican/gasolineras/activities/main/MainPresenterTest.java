@@ -305,8 +305,8 @@ public class MainPresenterTest {
         assertEquals(gasolinera4, gasolinerasFiltradas.get(1));
     }
 
-    @Test
-    public void testFiltraGasolinerasPrecioMuyBajo() {
+//    @Test
+//    public void testFiltraGasolinerasPrecioMuyBajo() {
 //        double precioMaximo = 0.001;
 //
 //        doAnswer(invocation -> {
@@ -326,7 +326,7 @@ public class MainPresenterTest {
 //
 //        List<Gasolinera> gasolinerasFiltradas = captor.getValue();
 //        assertEquals(0, gasolinerasFiltradas.size());
-    }
+//    }
 
     @Test
     public void testFiltraGasolinerasPrecioMuyAlto() {
@@ -461,8 +461,8 @@ public class MainPresenterTest {
         assertEquals(8895.594131564694, comparadorDistancia.harvesine(gasolinera0, punto0), 0.001);
     }
 
-    @Test
-    public void testQuitarFiltrosYOrdenacionesClicked_ListaFiltradaYOrdenada() {
+//    @Test
+//    public void testQuitarFiltrosYOrdenacionesClicked_ListaFiltradaYOrdenada() {
 //        listaGasolineras3 = new ArrayList<>();
 //        listaGasolineras3.add(gasolineraLejana);
 //        listaGasolineras3.add(gasolineraCercana);
@@ -487,13 +487,13 @@ public class MainPresenterTest {
 //        assertFalse(sut3.estaOrdenada());
 //
 //        ArgumentCaptor<List<Gasolinera>> captor = ArgumentCaptor.forClass(List.class);
-////        verify(mockVista3, times(4)).showStations(captor.capture());
+//        verify(mockVista3, times(4)).showStations(captor.capture());
 //        List<Gasolinera> listaCapturada = captor.getValue();
 //        assertEquals(gasolineraLejana, listaCapturada.get(0));
 //        assertEquals(gasolineraCercana, listaCapturada.get(1));
 //        assertEquals(gasolineraMuylejana, listaCapturada.get(2));
 //        assertEquals(gasolineraNeutra, listaCapturada.get(3));
-    }
+//    }
 
     @Test
     public void testQuitarFiltrosYOrdenacionesClicked_ListaSinFiltrarYOrdenada() {
@@ -527,8 +527,8 @@ public class MainPresenterTest {
         assertEquals(gasolineraNeutra, listaCapturada.get(3));
     }
 
-    @Test
-    public void testQuitarFiltrosYOrdenacionesClicked_ListaFiltradaYSinOrdenar() {
+//    @Test
+//    public void testQuitarFiltrosYOrdenacionesClicked_ListaFiltradaYSinOrdenar() {
 //        listaGasolineras3 = new ArrayList<>();
 //        listaGasolineras3.add(gasolineraLejana);
 //        listaGasolineras3.add(gasolineraCercana);
@@ -557,7 +557,7 @@ public class MainPresenterTest {
 //        assertEquals(gasolineraCercana, listaCapturada.get(1));
 //        assertEquals(gasolineraMuylejana, listaCapturada.get(2));
 //        assertEquals(gasolineraNeutra, listaCapturada.get(3));
-    }
+//    }
 
     @Test
     public void testQuitarFiltrosYOrdenacionesClicked_ListaSinFiltrarYSinOrdenar() {
