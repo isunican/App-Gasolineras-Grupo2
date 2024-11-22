@@ -9,7 +9,7 @@ import java.time.temporal.ChronoUnit;
 public class UtilsHorario {
 
     public static final String SIN_DETALLES_DE_HORARIO = "Sin detalles de horario";
-    public static final String TODO_EL_DÍA = "Todo el día";
+    public static final String TODO_EL_DIA = "Todo el día";
     public static final String HH_MM = "HH:mm";
 
     /**
@@ -46,7 +46,7 @@ public class UtilsHorario {
                 if (diaEstaEnRango(dia, inicio, fin)) return rango;
             }
         }
-        return TODO_EL_DÍA;
+        return TODO_EL_DIA;
     }
 
     /**
@@ -112,7 +112,7 @@ public class UtilsHorario {
         if ("24H".equals(horarios)) {
             return true; // Siempre abierta
         }
-        if (TODO_EL_DÍA.equals(horarios)) {
+        if (TODO_EL_DIA.equals(horarios)) {
             return false;
         }
         if (SIN_DETALLES_DE_HORARIO.equals(horarios)) {
@@ -141,7 +141,7 @@ public class UtilsHorario {
      *         false si no esta dentro del rango.
      */
     public static boolean horaEnRango(String rango, LocalTime horaActual) {
-        if ((rango.equals(SIN_DETALLES_DE_HORARIO))&&(rango.equals(TODO_EL_DÍA)))
+        if ((rango.equals(SIN_DETALLES_DE_HORARIO))&&(rango.equals(TODO_EL_DIA)))
         {
             return false;
         }
