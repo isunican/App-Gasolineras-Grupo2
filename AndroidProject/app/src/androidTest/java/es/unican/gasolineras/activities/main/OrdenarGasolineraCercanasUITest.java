@@ -50,7 +50,7 @@ public class OrdenarGasolineraCercanasUITest {
     public void inicializa(){
         //estado inicial base de datos Ptos Interes vacia
         AppDatabase db = DbFunctions.generaBaseDatosPuntosInteres(getApplicationContext());
-        IPuntosInteresDAO ptDAO = db.puntosInteresDao();
+        //IPuntosInteresDAO ptDAO = db.puntosInteresDao();
         //ptDAO.deleteAll();
     }
 

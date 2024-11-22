@@ -22,8 +22,9 @@ import es.unican.gasolineras.repository.IPuntosInteresDAO;
  */
 public class AnhadirPuntoInteresView extends AppCompatActivity implements IAnhadirPuntoInteresContract.View {
 
-    private EditText etNombre, etLatitud, etLongitud;
-    private Button btnGuardar, btnCancelar;
+    private EditText etNombre;
+    private EditText etLatitud;
+    private EditText etLongitud;
     private AnhadirPuntoInteresPresenter presentador;
 
     /**
@@ -42,8 +43,8 @@ public class AnhadirPuntoInteresView extends AppCompatActivity implements IAnhad
         etNombre = findViewById(R.id.etNombre);
         etLatitud = findViewById(R.id.etLatitud);
         etLongitud = findViewById(R.id.etLongitud);
-        btnGuardar = findViewById(R.id.buttonGuardar);
-        btnCancelar = findViewById(R.id.buttonCancelar);
+        Button btnGuardar = findViewById(R.id.buttonGuardar);
+        Button btnCancelar = findViewById(R.id.buttonCancelar);
 
         // Inicializar el Presentador
         presentador = new AnhadirPuntoInteresPresenter(this);

@@ -40,7 +40,7 @@ public class UtilsTest {
 
 
     @Before
-    public void inicializa() throws Exception {
+    public void inicializa() {
 
         //Datos para el primer caso.
         gasolinera1 = new Gasolinera();

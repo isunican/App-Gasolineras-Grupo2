@@ -35,7 +35,7 @@ public class GasolineraDistanciaComparator implements Comparator<Gasolinera> {
     public double harvesine(Gasolinera g, PuntoInteres p){
 
         //radio tierra
-        double R = 6371;
+        double RADIO = 6371;
 
         //calculo las distancias
         double dLat = Math.toRadians(p.latitud - g.getLatitud());
@@ -44,7 +44,7 @@ public class GasolineraDistanciaComparator implements Comparator<Gasolinera> {
                 Math.cos(Math.toRadians(g.getLatitud())) * Math.cos(Math.toRadians(p.latitud)) *
                         Math.sin(dLon / 2) * Math.sin(dLon / 2);
         double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-        return R * c;
+        return RADIO * c;
     }
 
 

@@ -62,7 +62,7 @@ public class MainPresenterITest {
     @Mock
     private IMainContract.View mockView;
 
-    private IGasolinerasRepository mockRepository;;
+    private IGasolinerasRepository mockRepository;
 
     private MainPresenter presenter;
 
