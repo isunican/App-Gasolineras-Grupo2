@@ -461,39 +461,39 @@ public class MainPresenterTest {
         assertEquals(8895.594131564694, comparadorDistancia.harvesine(gasolinera0, punto0), 0.001);
     }
 
-//    @Test
-//    public void testQuitarFiltrosYOrdenacionesClicked_ListaFiltradaYOrdenada() {
-//        listaGasolineras3 = new ArrayList<>();
-//        listaGasolineras3.add(gasolineraLejana);
-//        listaGasolineras3.add(gasolineraCercana);
-//        listaGasolineras3.add(gasolineraMuylejana);
-//        listaGasolineras3.add(gasolineraNeutra);
-//
-//        doAnswer(invocation -> {
-//            ICallBack callBack = invocation.getArgument(0);
-//            callBack.onSuccess(listaGasolineras3);
-//            return null;
-//        }).when(mockGasolineras3).requestGasolineras(any(ICallBack.class), any(String.class));
-//
-//        when(mockVista3.getGasolinerasRepository()).thenReturn(mockGasolineras3);
-//        sut3.init(mockVista3);
-//
-//        sut3.ordenarGasolinerasCercanasPtoInteres(universidad);
-//        sut3.filtraGasolinerasPorPrecioMaximo(1.5, TipoCombustible.GASOLEO_A);
-//        sut3.quitarFiltrosYOrdenaciones();
-//
-//
-//        assertFalse(sut3.estaFiltrada());
-//        assertFalse(sut3.estaOrdenada());
-//
-//        ArgumentCaptor<List<Gasolinera>> captor = ArgumentCaptor.forClass(List.class);
-//        verify(mockVista3, times(4)).showStations(captor.capture());
-//        List<Gasolinera> listaCapturada = captor.getValue();
-//        assertEquals(gasolineraLejana, listaCapturada.get(0));
-//        assertEquals(gasolineraCercana, listaCapturada.get(1));
-//        assertEquals(gasolineraMuylejana, listaCapturada.get(2));
-//        assertEquals(gasolineraNeutra, listaCapturada.get(3));
-//    }
+    @Test
+    public void testQuitarFiltrosYOrdenacionesClicked_ListaFiltradaYOrdenada() {
+        listaGasolineras3 = new ArrayList<>();
+        listaGasolineras3.add(gasolineraLejana);
+        listaGasolineras3.add(gasolineraCercana);
+        listaGasolineras3.add(gasolineraMuylejana);
+        listaGasolineras3.add(gasolineraNeutra);
+
+        doAnswer(invocation -> {
+            ICallBack callBack = invocation.getArgument(0);
+            callBack.onSuccess(listaGasolineras3);
+            return null;
+        }).when(mockGasolineras3).requestGasolineras(any(ICallBack.class), any(String.class));
+
+        when(mockVista3.getGasolinerasRepository()).thenReturn(mockGasolineras3);
+        sut3.init(mockVista3);
+
+        sut3.ordenarGasolinerasCercanasPtoInteres(universidad);
+        sut3.filtraGasolinerasPorPrecioMaximo(1.5, TipoCombustible.GASOLEO_A);
+        sut3.quitarFiltrosYOrdenaciones();
+
+
+        assertFalse(sut3.estaFiltrada());
+        assertFalse(sut3.estaOrdenada());
+
+        ArgumentCaptor<List<Gasolinera>> captor = ArgumentCaptor.forClass(List.class);
+        verify(mockVista3, times(3)).showStations(captor.capture());
+        List<Gasolinera> listaCapturada = captor.getValue();
+        assertEquals(gasolineraLejana, listaCapturada.get(0));
+        assertEquals(gasolineraCercana, listaCapturada.get(1));
+        assertEquals(gasolineraMuylejana, listaCapturada.get(2));
+        assertEquals(gasolineraNeutra, listaCapturada.get(3));
+    }
 
     @Test
     public void testQuitarFiltrosYOrdenacionesClicked_ListaSinFiltrarYOrdenada() {
@@ -527,37 +527,37 @@ public class MainPresenterTest {
         assertEquals(gasolineraNeutra, listaCapturada.get(3));
     }
 
-//    @Test
-//    public void testQuitarFiltrosYOrdenacionesClicked_ListaFiltradaYSinOrdenar() {
-//        listaGasolineras3 = new ArrayList<>();
-//        listaGasolineras3.add(gasolineraLejana);
-//        listaGasolineras3.add(gasolineraCercana);
-//        listaGasolineras3.add(gasolineraMuylejana);
-//        listaGasolineras3.add(gasolineraNeutra);
-//
-//        doAnswer(invocation -> {
-//            ICallBack callBack = invocation.getArgument(0);
-//            callBack.onSuccess(listaGasolineras3);
-//            return null;
-//        }).when(mockGasolineras3).requestGasolineras(any(ICallBack.class), any(String.class));
-//
-//        when(mockVista3.getGasolinerasRepository()).thenReturn(mockGasolineras3);
-//        sut3.init(mockVista3);
-//
-//        sut3.filtraGasolinerasPorPrecioMaximo(1.5, TipoCombustible.GASOLEO_A);
-//        sut3.quitarFiltrosYOrdenaciones();
-//
-//        assertFalse(sut3.estaFiltrada());
-//        assertFalse(sut3.estaOrdenada());
-//
-//        ArgumentCaptor<List<Gasolinera>> captor = ArgumentCaptor.forClass(List.class);
-//        verify(mockVista3, times(3)).showStations(captor.capture());
-//        List<Gasolinera> listaCapturada = captor.getValue();
-//        assertEquals(gasolineraLejana, listaCapturada.get(0));
-//        assertEquals(gasolineraCercana, listaCapturada.get(1));
-//        assertEquals(gasolineraMuylejana, listaCapturada.get(2));
-//        assertEquals(gasolineraNeutra, listaCapturada.get(3));
-//    }
+    @Test
+    public void testQuitarFiltrosYOrdenacionesClicked_ListaFiltradaYSinOrdenar() {
+        listaGasolineras3 = new ArrayList<>();
+        listaGasolineras3.add(gasolineraLejana);
+        listaGasolineras3.add(gasolineraCercana);
+        listaGasolineras3.add(gasolineraMuylejana);
+        listaGasolineras3.add(gasolineraNeutra);
+
+        doAnswer(invocation -> {
+            ICallBack callBack = invocation.getArgument(0);
+            callBack.onSuccess(listaGasolineras3);
+            return null;
+        }).when(mockGasolineras3).requestGasolineras(any(ICallBack.class), any(String.class));
+
+        when(mockVista3.getGasolinerasRepository()).thenReturn(mockGasolineras3);
+        sut3.init(mockVista3);
+
+        sut3.filtraGasolinerasPorPrecioMaximo(1.5, TipoCombustible.GASOLEO_A);
+        sut3.quitarFiltrosYOrdenaciones();
+
+        assertFalse(sut3.estaFiltrada());
+        assertFalse(sut3.estaOrdenada());
+
+        ArgumentCaptor<List<Gasolinera>> captor = ArgumentCaptor.forClass(List.class);
+        verify(mockVista3, times(2)).showStations(captor.capture());
+        List<Gasolinera> listaCapturada = captor.getValue();
+        assertEquals(gasolineraLejana, listaCapturada.get(0));
+        assertEquals(gasolineraCercana, listaCapturada.get(1));
+        assertEquals(gasolineraMuylejana, listaCapturada.get(2));
+        assertEquals(gasolineraNeutra, listaCapturada.get(3));
+    }
 
     @Test
     public void testQuitarFiltrosYOrdenacionesClicked_ListaSinFiltrarYSinOrdenar() {

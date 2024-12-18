@@ -102,6 +102,7 @@ dependencies {
     testImplementation libs.espresso.core
     testImplementation libs.ext.junit
     testImplementation project(':app')
+    testImplementation libs.junit.jupiter
     androidTestImplementation libs.ext.junit
     androidTestImplementation libs.espresso.core
 
